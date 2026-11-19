@@ -1,0 +1,61 @@
+                        printed details with
+                        the ZAU’s duplicate
+                        copies of LC and OP
+                        for verification; If
+                        details of both
+                        documents are
+                        authenticate/
+                        identical with no
+                        erasures or sign that
+                        it was tampered;
+                        Affix QC seal and
+                        inscribe Official
+                        Receipt number
+                        (this will be the
+                        official seal number)
+                        to LC;
+
+                        3.3.8b.
+                        Record seal number
+                        on the duplicate
+                        copy of LC (for ZAU
+                        file)
+
+                        3.3.8c.
+                        Return LC with QC                           Releasing
+                        seal to DBO (* If                             Staff
+                        tampered, verify with
+                        ZAU record and
+                        return LC and OR to
+                        DBO for further
+                        verification on the
+                        authenticity of the
+                        documents.)
+
+4. Receive physical     4.1.
+file with the copy of   Segregate duplicate            20 minutes   Releasing
+NOA (after 3.3.1        copy of NOA for                               Staff
+action)                 ZAU file.
+
+                        4.2.
+                        Transmit physical
+                        file with NOA to
+                        DBO. (DBO
+                        acknowledged
+                        physical file was
+                        received by signing
+                        at ZAU log book and
+                        duplicate copy of
+                        NOA)
+
+                        4.3.
+                        Tag at portal system
+                        that physical file with
+                        NOA was
+                        transmitted to DBO.
+
+
+
+
+                                                  19
+

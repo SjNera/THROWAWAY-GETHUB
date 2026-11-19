@@ -1,0 +1,65 @@
+2nd-4th Quarter
+1. Log-in to                       1. Get an         Depends on the      Within the day   Assessment
+qceservices.quezoncity.            applicant in      ff:                     of the          Officer
+gov.ph                             queue.            -line of business    application      Taxes and
+1.1Once logged in; click “Pay      1.1Compute        -Gross Sales        (during office   Fees Division
+Business Tax”. You will be         the total tax     -Area of                hours)
+redirected to Business Tax         due based on      establishment
+Payment Page                       the selected
+1.2 Click “Proceed with            payment term
+Business Tax Assessment”           (e.g. quarterly
+1.4 Input all the necessary        or semi-
+details and your preferred         annual) of the
+payment term (e.g. quarterly or    taxpayer then
+semi-annual)                       submit for
+Then, click “Continue”             approval
+1.2Success prompt will be          1.2 Approve
+displayed together with your       the tax
+Tracking Number and get an         assessment
+email notification upon
+submission of application.
+2.Wait for the approved tax bill
+via email
+
+2nd-4th Kwarter
+1. Mag-log in sa                   Kumuha na         Nakadepende          Sa loob ng       Opisyal na
+qceservices.quezoncity.gov.ph.     aplikante sa      sa mga                 araw ng       Taga-Assess -
+1.1 Pagkatapos mag-log in,         queue.            sumusunod:           aplikasyon      Kagawaran ng
+pindutin ang "Bayaran ang          1.1                                    (sa oras ng     Buwis at Mga
+Buwis sa Negosyo". Ikaw ay         Kalkulahin        -Uri ng negosyo        opisina)         Bayarin
+ililipat sa pahina ng              ang               -Kabuuang
+pagbabayad ng buwis sa             kabuuang          benta
+negosyo.                           buwis na          -Lawak ng
+1.2 Pindutin ang “Proceed with     dapat             establisyemento
+Business Tax Assessment".          bayaran
+1.4 Ipasok ang lahat ng            batay sa
+kinakailangang detalye at ang      napiling
+iyong nais na termino ng           termino ng
+pagbabayad (halimbawa,             pagbabayad
+quarterly o semi-annual).          (halimbawa,
+Pagkatapos, pindutin ang           quarterly o
+"Magpatuloy".                      semi-annual)
+1.5 Ang mensahe ng tagumpay        ng taxpayer
+ay ipapakita kasama ang iyong      at isumite
+Tracking Number at                 para sa
+makakatanggap ka ng isang          aprobasyon.
+notipikasyon sa iyong email        1.2
+pagkatapos magsumite ng            Aprobahan
+aplikasyon.                        ang tax
+2.Maghintay sa aprobadong          assessment.
+tax bill sa pamamagitan ng
+email.
+                                            Total                        Within the day
+                                                                             of the
+                                                                          application
+                                                                         (during office
+                                                                             hours)
+
+                                        Kabuuan                           Sa loob ng
+                                                                            araw ng
+                                                                          aplikasyon
+                                                                          (sa oras ng
+                                                                            opisina)
+
+                                               16
+

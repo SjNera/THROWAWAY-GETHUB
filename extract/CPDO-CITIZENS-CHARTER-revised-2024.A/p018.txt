@@ -1,0 +1,62 @@
+3.3.4.
+Approve application            15 minutes   ZAU-OIC
+in the data system
+and sign stamped
+architectural plans;
+
+3.3.5a.
+Return files to
+Encoding Clerk for
+printing of LC and
+OP.
+
+3.3.6.
+Print of LC and OP             5 minutes    Encoding
+with duplicate                                clerk
+copies.
+
+3.3.6a.
+Log applicant’s
+control number to
+data system;
+
+3.3.6b.
+Forward physical file
+to Releasing Staff.
+
+3.3.7.
+Transmit Physical              20 minutes   Releasing
+file to DBO:                                  Staff
+
+3.3.7a.
+Segregate duplicate
+copies of LC and OP
+for ZAU file.
+
+3.3.7b.
+Transmit physical
+file with LC and OP
+to DBO.
+(DBO acknowledged
+physical file was
+received thru signing
+at ZAU log book)
+
+3.3.7c.
+Tag at portal system
+that physical file with
+LC and OP was
+transmitted to DBO.
+
+  DBO Procedure
+
+
+3.3.8.
+Receive LC and                 5 minutes    Receiving
+Official Receipt from                         Staff
+DBO.
+
+3.3.8a.
+Check and compare
+                          18
+

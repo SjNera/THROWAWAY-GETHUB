@@ -1,0 +1,53 @@
+3.3.b.2.
+Affix initials on the        5 minutes     PDO IV
+stamped
+architectural plans.
+
+3.3.b.3.
+Transmit                     5 minutes    Encoding
+documents                                  Clerk
+(physical file) to
+ZAU-OIC for final
+approval.
+
+3.4.
+Review/Approval:
+Review/approve               20 minutes   ZAU-OIC
+evaluation
+report/LC, in the
+system.
+
+3.4.1.
+Return LC with the
+physical file to
+Encoding Clerk.
+
+3.5.
+Receive and record           20 minutes   Encoding
+the documents. Print                       Clerk
+of LC and OP with
+eSignature of ZAU-
+OIC and PDO IV.
+
+3.5.1.
+Transmit LC and OP           5 minutes
+to Releasing Clerk.
+
+3.6
+Transmitting
+Physical File:
+
+3.6.1.
+Receive and record           5 minutes    Releasing
+the documents;                              Staff
+
+3.6.2.
+Transmit the                 20 minutes
+physical file to DBO
+with LC and OP.
+
+
+
+
+                        24
+

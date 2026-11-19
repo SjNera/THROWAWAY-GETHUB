@@ -1,0 +1,42 @@
+ISSUANCE OF NEW BUSINESS PERMIT
+                                                                                           PROCESSING      PERSON
+ CLIENT STEPS                   AGENCY ACTION                     FEES TO BE PAID
+                                                                                              TIME       RESPONSIBLE
+
+1. Fill-out and    1.1. Receives and evaluates the                      None                30 mins.       Evaluator
+   submits the     submitted documents                                                                  Business Permits
+   required                                                                                                 Division
+   documents via                                                                                             (BPLD)
+   QC e-Services
+                   1.2. Approve business location                       None                30 mins.        Zoning
+                   (if documents are complete, the location                                             Administration
+                   of business shall be evaluated by Zoning                                             Unit Evaluator
+                   Administration Unit)
+
+                   1.3. Generate Tax Bill and is uploaded to            None                30 mins.          Staff
+                   client’s application (Simultaneously,                                                Business Permits
+                   application is evaluated by other                                                        Division
+                   ancillary verification)                                                                   (BPLD)
+
+
+
+                   Receive payment and issue official            System-generated.           Client     City Treasurer’s
+                   receipt                                       The computation is        dependent         Office
+                                                               based on the declared
+                   Refer to the City Treasurer’s Office          capitalization. (See
+                   Citizen’s Charter                           Article 8, Section 19 (M)
+                   bit.ly/QCCTOCitizensCharter                   of the QC Revenue
+                                                                        Code.)
+
+                   1.4. Final Review of application by BPD              None                30 mins.       BPD Chief
+                   Chief
+
+
+                   1.5. Approves business permit application            None                30 mins.      BPLD Head
+                   by Head approval (Applicant receives e-
+                   copy of business permit)
+
+                   Deliver business permit and other                    None                                MISRAD
+                   ancillary documents to the business                                                    (ADDS Unit)
+                   address
+

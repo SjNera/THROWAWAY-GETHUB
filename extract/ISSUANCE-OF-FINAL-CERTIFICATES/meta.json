@@ -1,0 +1,42 @@
+{
+ "file": "ISSUANCE-OF-FINAL-CERTIFICATES.pdf",
+ "sha256": "2153ced47c8b9bd9e53fcc5a126e38ad82f9f88fc6654e10160ef4ab3796d8bf",
+ "pages": [
+  {
+   "n": 1,
+   "chars": 2627,
+   "method": "text",
+   "tables": 3
+  },
+  {
+   "n": 2,
+   "chars": 2181,
+   "method": "text",
+   "tables": 5
+  },
+  {
+   "n": 3,
+   "chars": 2912,
+   "method": "text",
+   "tables": 1
+  },
+  {
+   "n": 4,
+   "chars": 2279,
+   "method": "text",
+   "tables": 1
+  },
+  {
+   "n": 5,
+   "chars": 2370,
+   "method": "text",
+   "tables": 1
+  },
+  {
+   "n": 6,
+   "chars": 1250,
+   "method": "text",
+   "tables": 1
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "file": "Delayed-Registration-of-Certificate-of-Live-Birth.pdf",
+ "sha256": "e225499e5348c7b6c8a6e3a684e194e13d599741d9a976458b87646ff2d07fa3",
+ "pages": [
+  {
+   "n": 1,
+   "chars": 3848,
+   "method": "text",
+   "tables": 1
+  },
+  {
+   "n": 2,
+   "chars": 5219,
+   "method": "text",
+   "tables": 2
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+== ROADMAP TESTS ==
+PASS T1 PWD ID online, non-apparent, nothing owned
+PASS T2 PWD ID walk-in, apparent, has gov ID
+PASS T3 Senior ID online, no QC ID, no valid ID, no birth cert (cross-journey)
+PASS T4 Business renewal, tax unpaid -> tax payment before renewal
+PASS T5 Business renewal, tax paid -> no tax step
+PASS T6 Building permit, not owner, complex -> 7 working days
+PASS T7 Birth certificate copy, walk-in, representative
+PASS T8 Birth registration late -> not covered with office
+PASS T9 Unknown intent -> not covered
+== SUMMARY == errors=0 warnings=0 evidence=76 services=8 intents=6

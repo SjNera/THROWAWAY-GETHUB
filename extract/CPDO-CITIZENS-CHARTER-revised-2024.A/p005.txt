@@ -1,0 +1,25 @@
+                         3.3.
+                         Printing of LC;         5 minutes
+                         - BPLD flags
+                             for printing;
+                         - Actual printing
+
+                         3.4.
+                         Transmit LC to          5 minutes
+                         BPLD
+
+
+
+
+4. Receive the printed
+   copy of LC thru the                                          BPLD
+   Document Delivery
+   System of BPLD
+
+                         Total:                         20 minutes
+
+
+
+
+                                             5
+

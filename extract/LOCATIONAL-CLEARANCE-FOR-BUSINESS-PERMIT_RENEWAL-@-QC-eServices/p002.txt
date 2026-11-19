@@ -1,0 +1,44 @@
+                          has an existing
+                          record, validate
+                          the business
+                          information in the
+                          application form
+                          and compared it
+                          to the encoded
+                          information in the
+                          LC.
+
+                          3.4.                 5 minutes
+                          Go back to the
+                          system (ZAU
+                          interface) copy
+                          the evaluation
+                          result, and
+                          validity period,
+                          and submit it
+                          back to BPLD.
+
+
+
+                          3.5.                 5 minutes
+                          Printing of LC;
+                          - BPLD flags
+                               for printing;
+                          - Actual
+                               printing
+
+                          3.6.                 5 minutes
+                         Transmit LC to
+                         BPLD
+
+4. Receive the printed                                         BPLD
+   copy of LC thru the
+   Document Delivery
+   System of BPLD
+                          Total                       30 minutes
+
+
+
+
+                                                                   17 | P a g e
+

@@ -1,0 +1,31 @@
+{
+ "file": "REGISTRATION-AND-ISSUANCE-OF-PWD-ID.pdf",
+ "sha256": "fa5fba2a8c93dca6894d8de0896f0a614424e5e89a70cf64402e8f3780a81e98",
+ "pages": [
+  {
+   "n": 1,
+   "chars": 3069,
+   "method": "text"
+  },
+  {
+   "n": 2,
+   "chars": 1019,
+   "method": "text"
+  },
+  {
+   "n": 3,
+   "chars": 2330,
+   "method": "text"
+  },
+  {
+   "n": 4,
+   "chars": 756,
+   "method": "text"
+  },
+  {
+   "n": 5,
+   "chars": 443,
+   "method": "text"
+  }
+ ]
+}

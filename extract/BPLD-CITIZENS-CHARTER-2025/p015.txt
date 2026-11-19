@@ -1,0 +1,37 @@
+ISSUANCE OF LIQUOR PERMIT
+                                                                                                 PROCESSING      PERSON
+          CLIENT STEPS                       AGENCY ACTION                 FEES TO BE PAID
+                                                                                                    TIME       RESPONSIBLE
+
+ 1. Log into                        1.1. Evaluate the application and            None             30 mins.    Authorized LLD
+    https://qceservices.quezoncit   generate Order of payment                                                   Personnel
+    y.gov.ph/ and access Liquor
+    Permit Application and select
+    whether new, renewal or
+    amendment application.          1.2 Generate Order of Payment           Refer to the City     30 mins.         CTO
+    Input the mayor's permit                                               Treasurer’s Office
+    number and submit                                                       Citizen’s Charter
+    requirements.                                                        (bit.ly/QCCTOCitizens
+                                                                                 Charter)
+
+
+
+
+2. Settle order of payment at the   2.1. Receive and validate                    None             30 mins.    CTO Online and
+City Treasurer’s Office or online   payment.                                                                    On-Premise
+via QC E-Services (G-Cash,
+Maya, Landbank)
+                                    2.2. Final review of the                     None             30 mins.      LLD Chief
+                                    application
+
+
+                                    2.3. Approve liquor permit                   None             30 mins.      BPLD Head
+                                    application
+
+
+                                    Release the liquor permit and                None                            MIS-RAD
+                                    official receipt via:                                                       (ADDS unit)
+                                     1. email (digital copy of permit)
+                                     2. hard copy of permit to
+                                        business address
+

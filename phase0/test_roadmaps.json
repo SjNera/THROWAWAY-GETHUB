@@ -1,0 +1,481 @@
+{
+ "T1 PWD ID online, non-apparent, nothing owned": {
+  "status": "ok",
+  "goal": "s-pwd-id",
+  "groups": [
+   {
+    "group": 1,
+    "any_order": true,
+    "steps": [
+     {
+      "id": "r-barangay-cert",
+      "type": "prepare",
+      "name": "Barangay certificate / clearance",
+      "office": "Barangay hall (resident’s own barangay)",
+      "hint": null
+     },
+     {
+      "id": "r-cert-disability",
+      "type": "prepare",
+      "name": "Certificate of Disability (from a specialist doctor)",
+      "office": "Issuing agency or professional (outside QC charters)",
+      "hint": "Must be signed by the specialist for your disability type, not a family doctor or general physician."
+     },
+     {
+      "id": "r-id-photo-2x2",
+      "type": "prepare",
+      "name": "2x2 ID photo (and signature)",
+      "office": null,
+      "hint": null
+     },
+     {
+      "id": "s-eservices-register",
+      "type": "service",
+      "name": "QC E-Services account registration",
+      "channel": "online",
+      "office": "QC E-Services portal",
+      "address": null,
+      "fee": "not_listed",
+      "time": "Not listed — confirm with the office",
+      "needs": [],
+      "url": "https://qceservices.quezoncity.gov.ph/",
+      "note": "Fee and time not stated in the sources read."
+     }
+    ]
+   },
+   {
+    "group": 2,
+    "any_order": false,
+    "steps": [
+     {
+      "id": "s-pwd-id",
+      "type": "service",
+      "name": "PWD ID application (QCitizen PWD ID)",
+      "channel": "online",
+      "office": "QC E-Services portal",
+      "address": null,
+      "fee": "none",
+      "time": "3 days",
+      "needs": [
+       "r-barangay-cert",
+       "r-cert-disability",
+       "r-id-photo-2x2",
+       "s-eservices-register"
+      ],
+      "url": "https://qceservices.quezoncity.gov.ph/",
+      "note": "Non-apparent disability validation takes 2–3 days. Renewal of a white PWD ID is processed as a new application."
+     }
+    ]
+   }
+  ]
+ },
+ "T2 PWD ID walk-in, apparent, has gov ID": {
+  "status": "ok",
+  "goal": "s-pwd-id",
+  "groups": [
+   {
+    "group": 1,
+    "any_order": true,
+    "steps": [
+     {
+      "id": "r-id-photo-2x2",
+      "type": "prepare",
+      "name": "2x2 ID photo (and signature)",
+      "office": null,
+      "hint": null
+     },
+     {
+      "id": "r-whole-body-photo",
+      "type": "prepare",
+      "name": "Whole-body photo showing the disability",
+      "office": null,
+      "hint": null
+     }
+    ]
+   },
+   {
+    "group": 2,
+    "any_order": false,
+    "steps": [
+     {
+      "id": "s-pwd-id",
+      "type": "service",
+      "name": "PWD ID application (QCitizen PWD ID)",
+      "channel": "in_person",
+      "office": "Persons with Disability Affairs Office (PDAO)",
+      "address": "Ground Floor, Community Center Building, Gate 3, Kalayaan Ave., QC Hall Compound",
+      "fee": "none",
+      "time": "40 minutes",
+      "needs": [
+       "r-id-photo-2x2",
+       "r-whole-body-photo"
+      ],
+      "url": null,
+      "note": null
+     }
+    ]
+   }
+  ]
+ },
+ "T3 Senior ID online, no QC ID, no valid ID, no birth cert (cross-journey)": {
+  "status": "ok",
+  "goal": "s-senior-id",
+  "groups": [
+   {
+    "group": 1,
+    "any_order": true,
+    "steps": [
+     {
+      "id": "r-barangay-residency",
+      "type": "prepare",
+      "name": "Barangay Certificate of Residency",
+      "office": "Barangay hall (resident’s own barangay)",
+      "hint": null
+     },
+     {
+      "id": "r-id-photo-2x2",
+      "type": "prepare",
+      "name": "2x2 ID photo (and signature)",
+      "office": null,
+      "hint": null
+     },
+     {
+      "id": "s-eservices-register",
+      "type": "service",
+      "name": "QC E-Services account registration",
+      "channel": "online",
+      "office": "QC E-Services portal",
+      "address": null,
+      "fee": "not_listed",
+      "time": "Not listed — confirm with the office",
+      "needs": [],
+      "url": "https://qceservices.quezoncity.gov.ph/",
+      "note": "Fee and time not stated in the sources read."
+     }
+    ]
+   },
+   {
+    "group": 2,
+    "any_order": false,
+    "steps": [
+     {
+      "id": "s-birth-ctc",
+      "type": "service",
+      "name": "Certified True Copy of Birth Certificate (QC-registered)",
+      "channel": "online",
+      "office": "QC E-Services portal",
+      "address": null,
+      "fee": "PHP 65.00 per copy",
+      "time": "1–3 days plus 5 minutes at pick-up",
+      "needs": [
+       "s-eservices-register"
+      ],
+      "url": "https://qceservices.quezoncity.gov.ph/",
+      "note": null
+     }
+    ]
+   },
+   {
+    "group": 3,
+    "any_order": false,
+    "steps": [
+     {
+      "id": "s-senior-id",
+      "type": "service",
+      "name": "Senior Citizen QC ID (OSCA)",
+      "channel": "online",
+      "office": "QC E-Services portal",
+      "address": null,
+      "fee": "not_listed",
+      "time": "Not listed — confirm with the office",
+      "needs": [
+       "r-barangay-residency",
+       "r-id-photo-2x2",
+       "s-birth-ctc",
+       "s-eservices-register"
+      ],
+      "url": "https://qceservices.quezoncity.gov.ph/",
+      "note": "Fee and processing time are not stated in the guide."
+     }
+    ]
+   }
+  ]
+ },
+ "T4 Business renewal, tax unpaid -> tax payment before renewal": {
+  "status": "ok",
+  "goal": "s-business-permit-renewal",
+  "groups": [
+   {
+    "group": 1,
+    "any_order": true,
+    "steps": [
+     {
+      "id": "r-owner-valid-id",
+      "type": "prepare",
+      "name": "Valid ID of business owner",
+      "office": "Issuing agency or professional (outside QC charters)",
+      "hint": null
+     },
+     {
+      "id": "r-prev-mayors-permit",
+      "type": "prepare",
+      "name": "Previous Mayor’s Permit",
+      "office": null,
+      "hint": null
+     },
+     {
+      "id": "r-tax-bill",
+      "type": "prepare",
+      "name": "Computerized Business Tax Bill",
+      "office": "City Treasurer’s Office (CTO)",
+      "hint": null
+     }
+    ]
+   },
+   {
+    "group": 2,
+    "any_order": false,
+    "steps": [
+     {
+      "id": "s-business-tax-payment",
+      "type": "service",
+      "name": "Pay business tax (City Treasurer’s Office)",
+      "channel": "in_person",
+      "office": "City Treasurer’s Office (CTO)",
+      "address": "Annex Building, Mayaman St. Brgy. Central, QC Hall Compound, Diliman, Quezon City",
+      "fee": "As stated in the Business Tax Bill",
+      "time": "10 minutes",
+      "needs": [
+       "r-tax-bill"
+      ],
+      "url": null,
+      "note": "Online payment is also offered via QC E-Services (per the BPLD charter); details not captured here."
+     }
+    ]
+   },
+   {
+    "group": 3,
+    "any_order": false,
+    "steps": [
+     {
+      "id": "s-business-permit-renewal",
+      "type": "service",
+      "name": "Business permit renewal",
+      "channel": "online",
+      "office": "QC E-Services portal",
+      "address": null,
+      "fee": "none",
+      "time": "Not listed — confirm with the office",
+      "needs": [
+       "r-owner-valid-id",
+       "r-prev-mayors-permit",
+       "s-business-tax-payment"
+      ],
+      "url": "https://qceservices.quezoncity.gov.ph/",
+      "note": "Charter lists 30 minutes per evaluation stage but no single total; the system can auto-renew if compliant."
+     }
+    ]
+   }
+  ]
+ },
+ "T5 Business renewal, tax paid -> no tax step": {
+  "status": "ok",
+  "goal": "s-business-permit-renewal",
+  "groups": [
+   {
+    "group": 1,
+    "any_order": true,
+    "steps": [
+     {
+      "id": "r-authorization",
+      "type": "prepare",
+      "name": "Authorization form + valid ID of representative",
+      "office": null,
+      "hint": null
+     },
+     {
+      "id": "r-owner-valid-id",
+      "type": "prepare",
+      "name": "Valid ID of business owner",
+      "office": "Issuing agency or professional (outside QC charters)",
+      "hint": null
+     },
+     {
+      "id": "r-prev-mayors-permit",
+      "type": "prepare",
+      "name": "Previous Mayor’s Permit",
+      "office": null,
+      "hint": null
+     }
+    ]
+   },
+   {
+    "group": 2,
+    "any_order": false,
+    "steps": [
+     {
+      "id": "s-business-permit-renewal",
+      "type": "service",
+      "name": "Business permit renewal",
+      "channel": "online",
+      "office": "QC E-Services portal",
+      "address": null,
+      "fee": "none",
+      "time": "Not listed — confirm with the office",
+      "needs": [
+       "r-authorization",
+       "r-owner-valid-id",
+       "r-prev-mayors-permit"
+      ],
+      "url": "https://qceservices.quezoncity.gov.ph/",
+      "note": "Charter lists 30 minutes per evaluation stage but no single total; the system can auto-renew if compliant."
+     }
+    ]
+   }
+  ]
+ },
+ "T6 Building permit, not owner, complex -> 7 working days": {
+  "status": "ok",
+  "goal": "s-building-permit",
+  "groups": [
+   {
+    "group": 1,
+    "any_order": true,
+    "steps": [
+     {
+      "id": "r-affidavits",
+      "type": "prepare",
+      "name": "Notarized affidavits (forms printable from your QC E-Services account)",
+      "office": null,
+      "hint": null
+     },
+     {
+      "id": "r-building-plans",
+      "type": "prepare",
+      "name": "Building plans with wet signature and seal of the design professional",
+      "office": "Issuing agency or professional (outside QC charters)",
+      "hint": null
+     },
+     {
+      "id": "r-design-professional",
+      "type": "prepare",
+      "name": "Registered private design/building professional (with QC E-Services account)",
+      "office": "Issuing agency or professional (outside QC charters)",
+      "hint": null
+     },
+     {
+      "id": "r-legal-right",
+      "type": "prepare",
+      "name": "Legal document showing right to build (e.g., Deed of Absolute Sale) when applicant is not the registered owner",
+      "office": null,
+      "hint": null
+     },
+     {
+      "id": "s-eservices-register",
+      "type": "service",
+      "name": "QC E-Services account registration",
+      "channel": "online",
+      "office": "QC E-Services portal",
+      "address": null,
+      "fee": "not_listed",
+      "time": "Not listed — confirm with the office",
+      "needs": [],
+      "url": "https://qceservices.quezoncity.gov.ph/",
+      "note": "Fee and time not stated in the sources read."
+     }
+    ]
+   },
+   {
+    "group": 2,
+    "any_order": false,
+    "steps": [
+     {
+      "id": "s-building-permit",
+      "type": "service",
+      "name": "Building / construction permit (new construction)",
+      "channel": "online",
+      "office": "Department of the Building Official (DBO)",
+      "address": "Ground to 3rd Floors, Civic Center D (BRO Bldg.), Mayaman Street, Quezon City Hall Compound",
+      "fee": "Refer to the Schedule of Fees (computed by DBO)",
+      "time": "7 working days",
+      "needs": [
+       "r-affidavits",
+       "r-building-plans",
+       "r-design-professional",
+       "r-legal-right",
+       "s-eservices-register"
+      ],
+      "url": "https://qceservices.quezoncity.gov.ph/",
+      "note": "Payment window differs between sources: charter says Treasurer windows 13 or 14; the QCitizen guide says Counter 12. Confirm with DBO."
+     }
+    ]
+   }
+  ]
+ },
+ "T7 Birth certificate copy, walk-in, representative": {
+  "status": "ok",
+  "goal": "s-birth-ctc",
+  "groups": [
+   {
+    "group": 1,
+    "any_order": true,
+    "steps": [
+     {
+      "id": "r-authorization-ctc",
+      "type": "prepare",
+      "name": "Authorization letter/SPA + photocopies of owner’s and representative’s IDs",
+      "office": null,
+      "hint": null
+     },
+     {
+      "id": "r-id-ctc",
+      "type": "prepare",
+      "name": "Government-issued / valid ID",
+      "office": "Issuing agency or professional (outside QC charters)",
+      "hint": null
+     },
+     {
+      "id": "r-request-form-birth",
+      "type": "prepare",
+      "name": "Request form for birth certificate (Information Desk)",
+      "office": null,
+      "hint": null
+     }
+    ]
+   },
+   {
+    "group": 2,
+    "any_order": false,
+    "steps": [
+     {
+      "id": "s-birth-ctc",
+      "type": "service",
+      "name": "Certified True Copy of Birth Certificate (QC-registered)",
+      "channel": "in_person",
+      "office": "City Civil Registry Department (CCRD)",
+      "address": "Quezon City Hall Compound (1st Floor, Door 2, Civic Center)",
+      "fee": "PHP 65.00 per copy",
+      "time": "15 minutes if on database (1945–2015); 3 days if manual search",
+      "needs": [
+       "r-authorization-ctc",
+       "r-id-ctc",
+       "r-request-form-birth"
+      ],
+      "url": null,
+      "note": "For persons born in Quezon City; counters 1 & 2."
+     }
+    ]
+   }
+  ]
+ },
+ "T8 Birth registration late -> not covered with office": {
+  "status": "not_covered",
+  "message": "Registration after 30 days follows the delayed-registration process. Contact the City Civil Registry Department.",
+  "office": "City Civil Registry Department (CCRD)"
+ },
+ "T9 Unknown intent -> not covered": {
+  "status": "not_covered",
+  "message": "Not covered",
+  "office": null
+ }
+}
