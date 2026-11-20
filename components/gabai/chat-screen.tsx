@@ -356,18 +356,6 @@ function Details(p: Props & { step: Step }) {
           {step.bring.length ? 'Done. Everything on the list is ticked.' : 'Done. You already have this.'}
         </p>
       )}
-      {step.where && (
-        <div className="flex flex-col gap-1.5 self-stretch">
-          <p className={sectionLabel}>WHERE</p>
-          <p className="text-[15px] font-medium text-fg">{step.where}</p>
-        </div>
-      )}
-      {step.tip && (
-        <div className="flex flex-col gap-1.5 self-stretch">
-          <p className={sectionLabel}>TIP</p>
-          <p className="text-[14px] font-medium leading-[21px] text-fg">{step.tip}</p>
-        </div>
-      )}
       {step.bring.length > 0 && <BringList step={step} checks={checks[step.n]} onToggle={(i) => p.onToggle(step.n, i)} />}
       {step.fee && <FeeTime step={step} />}
       {step.inPerson && (
