@@ -1,0 +1,269 @@
+@import 'tailwindcss';
+
+/* Dark mode is a class on <html> (saved in localStorage). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ──────────────────────────────────────────────────────────────────
+   GabAI tokens, copied from the Figma "mobile ui" page
+   (light frames → :root, "Dark ·" frames → .dark)
+   ────────────────────────────────────────────────────────────────── */
+:root {
+  --bg-top: #fff7ee;
+  --bg-bottom: #fbebdc;
+  --card: #fffbf6;
+  --fg: #1e1e22;
+  --muted: #6b6b68;
+  --placeholder: #92928d;
+  --line: #e5dccb;
+  --input: #faefe2;
+  --tile: #f5e6d3;
+  --dtile-a: #1e1e22; /* bot avatar, send button, route tile */
+  --dtile-b: #3a3a40;
+  --ub-a: #a8500c; /* user bubble */
+  --ub-b: #d17a2a;
+  --settings-btn: rgba(255, 251, 240, 0.14);
+  --settings-btn-line: rgba(255, 251, 240, 0.35);
+  --sliders: #fffbf0;
+  --strong: #1e1e22; /* chevrons, arrows, back */
+  --chev: #92928d;
+  --chip: #ffe9cc;
+  --chip-fg: #a8500c;
+  --pin: #a8500c;
+  --building: #a8500c;
+  --chk: #fffbf6;
+  --chk-line: #cdbda4;
+  --fee: #ffe9cc;
+  --fee-fg: #8f4a0c;
+  --time: #fbe5c2;
+  --time-fg: #7a4a12;
+  --scrim: rgba(30, 30, 34, 0.2);
+  --bar-top-line: #1e1e22;
+  --sheet: #fef4ea;
+  --step-on: #fff1e0;
+  --step-on-line: #1e1e22;
+  --step-badge-a: #1e1e22;
+  --step-badge-b: #3a3a40;
+  --done-badge: #ffe9cc;
+  --done-check: #a8500c;
+  --done-title: #6b6b68;
+  --done-fg: #a8500c;
+  --badge: #f5e6d3;
+  --badge-fg: #8f4a0c;
+  --row-line: #e8ddcb;
+  --map-bg: #f6ebdb;
+  --map-block: #d4d4d0;
+  --map-park: #d6ebdd;
+  --map-road: #fffbf6;
+  --map-halo: #fffbf6;
+  --map-route: #1e1e22;
+  --map-here-halo: rgba(30, 30, 34, 0.22);
+  --map-here: #1e1e22;
+  --map-here-ring: #fffbf6;
+  --switch-track: #dacbb3;
+  --switch-knob: #fffbf6;
+  --seg: #f5e6d3;
+
+  /* shadcn/ui base variables (used by components/ui) */
+  --background: var(--bg-top);
+  --foreground: var(--fg);
+  --primary: #a8500c;
+  --primary-foreground: #fffbf6;
+  --ring: #a8500c;
+  --radius: 1rem;
+}
+
+.dark {
+  --bg-top: #111113;
+  --bg-bottom: #0b0b0d;
+  --card: #1f1f23;
+  --fg: #f2f2f0;
+  --muted: #b3b3af;
+  --placeholder: #868682;
+  --line: #3a3a40;
+  --input: #2b2b30;
+  --tile: #2b2b30;
+  --dtile-a: #c2610f;
+  --dtile-b: #d17a2a;
+  --ub-a: #c2610f;
+  --ub-b: #d17a2a;
+  --settings-btn: rgba(31, 31, 35, 0.14);
+  --strong: #f2f2f0;
+  --chev: #868682;
+  --chip: #3a2b1c;
+  --chip-fg: #f0b77a;
+  --pin: #f0b77a;
+  --building: #f5cfa3;
+  --chk: #1f1f23;
+  --chk-line: #80807c;
+  --fee: #27272c;
+  --fee-fg: #f5cfa3;
+  --time: #3a2b1c;
+  --time-fg: #f0b77a;
+  --scrim: rgba(0, 0, 0, 0.45);
+  --bar-top-line: #f0b77a;
+  --sheet: #111113;
+  --step-on: #2a2620;
+  --step-on-line: #c2610f;
+  --step-badge-a: #c2610f;
+  --step-badge-b: #d17a2a;
+  --done-badge: #27272c;
+  --done-check: #f5cfa3;
+  --done-title: #b3b3af;
+  --done-fg: #a8500c;
+  --badge: #2b2b30;
+  --badge-fg: #f5cfa3;
+  --row-line: #3a3a40;
+  --map-bg: #1d3230;
+  --map-block: #3a3a40;
+  --map-park: #3a3a40;
+  --map-road: #4a4a50;
+  --map-halo: #4a4a50;
+  --map-route: #f0b77a;
+  --map-here-halo: rgba(209, 122, 42, 0.22);
+  --map-here: #f0b77a;
+  --map-here-ring: #4a4a50;
+  --switch-track: #a8500c;
+  --switch-knob: #f2f2f0;
+  --seg: #2b2b30;
+}
+
+@theme inline {
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-ring: var(--ring);
+
+  --color-card: var(--card);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-placeholder: var(--placeholder);
+  --color-line: var(--line);
+  --color-input: var(--input);
+  --color-tile: var(--tile);
+  --color-strong: var(--strong);
+  --color-chev: var(--chev);
+  --color-chip: var(--chip);
+  --color-chip-fg: var(--chip-fg);
+  --color-pin: var(--pin);
+  --color-building: var(--building);
+  --color-chk: var(--chk);
+  --color-chk-line: var(--chk-line);
+  --color-fee: var(--fee);
+  --color-fee-fg: var(--fee-fg);
+  --color-time: var(--time);
+  --color-time-fg: var(--time-fg);
+  --color-scrim: var(--scrim);
+  --color-bar-top-line: var(--bar-top-line);
+  --color-sheet: var(--sheet);
+  --color-step-on: var(--step-on);
+  --color-step-on-line: var(--step-on-line);
+  --color-done-badge: var(--done-badge);
+  --color-done-check: var(--done-check);
+  --color-done-title: var(--done-title);
+  --color-done-fg: var(--done-fg);
+  --color-badge: var(--badge);
+  --color-badge-fg: var(--badge-fg);
+  --color-row-line: var(--row-line);
+  --color-settings-btn: var(--settings-btn);
+  --color-settings-btn-line: var(--settings-btn-line);
+  --color-sliders: var(--sliders);
+  --color-switch-track: var(--switch-track);
+  --color-switch-knob: var(--switch-knob);
+  --color-seg: var(--seg);
+
+  /* brand */
+  --color-brand-50: #fffbf6;
+  --color-brand-100: #ffe9cc;
+  --color-brand-200: #ffd38f;
+  --color-brand-300: #f0b77a;
+  --color-brand-400: #e3a55c;
+  --color-brand-500: #d17a2a;
+  --color-brand-600: #c2610f;
+  --color-brand-700: #a8500c;
+  --color-brand-800: #8f4a0c;
+
+  /* shadows (Figma drop shadows) */
+  --shadow-soft: 0 6px 20px 0 rgba(26, 26, 31, 0.12);
+  --shadow-tile: 0 6px 14px 0 rgba(26, 26, 31, 0.35);
+  --shadow-send: 0 6px 16px 0 rgba(181, 87, 13, 0.42);
+  --shadow-widget: 0 16px 40px 0 rgba(26, 26, 31, 0.3);
+  --shadow-sheet: 0 12px 28px -6px rgba(0, 0, 0, 0.14);
+  --shadow-logo: 0 8.286px 19.886px 0 rgba(0, 0, 0, 0.25);
+  --shadow-intro-main: 0 14px 28px 0 rgba(26, 26, 31, 0.25);
+  --shadow-intro-accent: 0 8px 16px 0 rgba(26, 26, 31, 0.18);
+  --shadow-intro-mini: 0 8px 18px 0 rgba(26, 26, 31, 0.18);
+  --shadow-intro-btn: 0 8px 18px 0 rgba(26, 26, 31, 0.3);
+
+  /* Figma "Ease out" */
+  --ease-figma: cubic-bezier(0, 0, 0.58, 1);
+
+  --animate-fade-in: fade-in var(--dur, 300ms) var(--ease-figma) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+    background: var(--bg-top);
+    color: var(--fg);
+    line-height: normal; /* Figma text uses "normal" line height */
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+.bg-screen {
+  background-image: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+}
+.grad-dtile {
+  background-image: linear-gradient(90deg, var(--dtile-a), var(--dtile-b));
+}
+.grad-user {
+  background-image: linear-gradient(90deg, var(--ub-a), var(--ub-b));
+}
+.grad-step-badge {
+  background-image: linear-gradient(90deg, var(--step-badge-a), var(--step-badge-b));
+}
+.grad-orange {
+  background-image: linear-gradient(90deg, #c2610f, #d17a2a);
+}
+.grad-header {
+  background-image: linear-gradient(90deg, #a8500c, #c2610f);
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Header height (56 status area + 44 logo row + 18 bottom padding in Figma), used to place the roadmap overlay */
+.chat-root {
+  --hdr: calc(max(56px, env(safe-area-inset-top)) + 62px);
+}
+
+/* Safe-area padding (installed PWA on notched phones) */
+.pt-safe-header {
+  padding-top: max(56px, env(safe-area-inset-top));
+}
+.pb-safe-input {
+  padding-bottom: max(28px, env(safe-area-inset-bottom));
+}
+.pb-safe-intro {
+  padding-bottom: max(40px, calc(env(safe-area-inset-bottom) + 8px));
+}
