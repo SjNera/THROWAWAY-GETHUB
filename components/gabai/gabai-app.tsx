@@ -6,7 +6,7 @@
 import * as React from 'react';
 import { STEPS } from '@/lib/demo-data';
 import { prefs, session } from '@/lib/storage';
-import { ChatScreen, MOTION, type Overlay, type Phase } from './chat-screen';
+import { ChatScreen, MOTION, type Phase, type SheetView } from './chat-screen';
 import { CrossFade } from './cross-fade';
 import { Intro } from './intro';
 import { Settings } from './settings';
@@ -24,9 +24,9 @@ export function GabaiApp() {
   const [screen, setScreen] = React.useState<Screen>('splash');
   const [screenMs, setScreenMs] = React.useState(MOTION.screen);
   const [dark, setDark] = React.useState(false);
-  const [lang, setLang] = React.useState<'en' | 'fil'>('en');
   const [phase, setPhase] = React.useState<Phase>('start');
-  const [overlay, setOverlayState] = React.useState<Overlay>('none');
+  const [sheetOpen, setSheetOpen] = React.useState(false);
+  const [view, setView] = React.useState<SheetView>({ kind: 'roadmap' });
   const [contentMs, setContentMs] = React.useState(MOTION.screen);
   const [checks, setChecks] = React.useState(initialChecks);
   const restored = React.useRef(false);
@@ -34,16 +34,15 @@ export function GabaiApp() {
   // Restore preferences (localStorage) and this tab's conversation (sessionStorage)
   React.useEffect(() => {
     setDark(document.documentElement.classList.contains('dark'));
-    setLang(prefs.get('lang') === 'fil' ? 'fil' : 'en');
     setPhase(session.get<Phase>('phase', 'start'));
-    setChecks(session.get('checks', initialChecks()));
+    setChecks(session.get('checks-v2', initialChecks()));
     restored.current = true;
   }, []);
 
   React.useEffect(() => {
     if (!restored.current) return;
     session.set('phase', phase);
-    session.set('checks', checks);
+    session.set('checks-v2', checks);
   }, [phase, checks]);
 
   const go = (s: Screen, ms: number = MOTION.screen) => {
@@ -69,7 +68,7 @@ export function GabaiApp() {
 
   const toPhase = (ph: Phase, ms: number) => {
     setContentMs(ms);
-    setOverlayState('none');
+    setSheetOpen(false);
     setPhase(ph);
   };
 
@@ -80,11 +79,6 @@ export function GabaiApp() {
     body = (
       <Settings
         dark={dark}
-        lang={lang}
-        onLang={(l) => {
-          setLang(l);
-          prefs.set('lang', l);
-        }}
         onDark={setTheme}
         onBack={() => go('chat')}
       />
@@ -93,19 +87,19 @@ export function GabaiApp() {
     body = (
       <ChatScreen
         phase={phase}
-        overlay={overlay}
+        sheetOpen={sheetOpen}
+        view={view}
         contentMs={contentMs}
         checks={checks}
         onToggle={(step, i) => setChecks((c) => ({ ...c, [step]: c[step].map((v, j) => (j === i ? !v : v)) }))}
         onPickService={() => toPhase(2, MOTION.screen)}
         onNext={() => phase !== 'start' && toPhase(phase === 4 ? 'start' : ((phase + 1) as Phase), MOTION.screen)}
-        onGoStep={(n) => toPhase(n, MOTION.dissolve)}
-        setOverlay={(o) => {
-          setContentMs(MOTION.roadmap);
-          setOverlayState(o);
+        setSheet={(open, v) => {
+          if (v) setView(v);
+          setSheetOpen(open);
         }}
         onSettings={() => {
-          setOverlayState('none');
+          setSheetOpen(false);
           go('settings');
         }}
       />

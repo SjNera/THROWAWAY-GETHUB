@@ -1,17 +1,17 @@
 // Browser storage, per the tech stack:
-//  - localStorage   → lasting preferences (theme, language, intro seen)
+//  - localStorage   → lasting preferences (theme, intro seen)
 //  - sessionStorage → this tab's conversation state
 // All access is guarded: storage can be unavailable (private mode, SSR).
 
 export const prefs = {
-  get(key: 'theme' | 'lang' | 'introSeen'): string | null {
+  get(key: 'theme' | 'introSeen'): string | null {
     try {
       return localStorage.getItem(`gabai:${key}`);
     } catch {
       return null;
     }
   },
-  set(key: 'theme' | 'lang' | 'introSeen', value: string) {
+  set(key: 'theme' | 'introSeen', value: string) {
     try {
       localStorage.setItem(`gabai:${key}`, value);
     } catch {}

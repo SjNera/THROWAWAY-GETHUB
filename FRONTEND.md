@@ -43,10 +43,19 @@ Motion follows the Figma prototype: splash keyframes and timings, 0.3s between s
 0.4s for the roadmap overlay, 0.2s dissolves for step details / map / step jumps, 0.15s for
 checklist ticks, all on Figma's ease-out curve `cubic-bezier(0, 0, 0.58, 1)`.
 
+## Changes from Figma (requested in review)
+
+- **Roadmap** is a pull-down drawer with a handle: drag the handle or bar down to open, up to
+  close (tap still toggles). It slides out of the bar and follows the finger.
+- **Every step** (card or roadmap row) opens its own details; "Get directions" + map appear for
+  in-person steps.
+- **Done steps:** a step is done once all its bring items are ticked. Nothing starts ticked
+  (step 1, Certificate of Disability, is already done in this demo).
+- **Intro:** the old page fades out before the next fades in, so text never overlaps.
+- **Settings** has only the Dark mode card, in light and dark mode.
+
 ## Known differences from Figma
 
-- **Light Settings** has only the Dark mode card in Figma; Language and Privacy exist only on
-  the dark frame. The app mirrors that.
 - **Map greens:** parks `#D6EBDD` and the dark map background `#1D3230` are copied from Figma.
 - **Intro** shows on first launch only; later launches go splash → chat.
 - **Settings back** returns to the chat you were on (Figma links it to the Start screen).

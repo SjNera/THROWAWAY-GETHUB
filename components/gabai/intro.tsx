@@ -1,16 +1,31 @@
 'use client';
 
-// Intro 1–3. Next/Start/Skip use Figma smart animate (0.3s ease-out):
-// the page dots resize and the illustration + copy crossfade.
+// Intro 1–3. On Next the page dots resize (0.3s ease-out) while the
+// illustration + copy fade out completely, then the next page fades in, so
+// the old and new text never overlap.
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { INTRO } from '@/lib/demo-data';
 import { cn } from '@/lib/utils';
-import { CrossFade } from './cross-fade';
 import { AccentCheck, AccentPin, ChipCheck, ChipX, IntroArrow, IntroMain, Search18, StepCheck16 } from './artwork';
+
+const HALF = 150; // fade out, then fade in: 0.3s total like the Figma transition
 
 export function Intro({ onFinish }: { onFinish: () => void }) {
   const [page, setPage] = React.useState(0);
+  const [shown, setShown] = React.useState(0); // page whose content is on screen
+  const [visible, setVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    if (page === shown) return;
+    setVisible(false);
+    const t = setTimeout(() => {
+      setShown(page);
+      setVisible(true);
+    }, HALF);
+    return () => clearTimeout(t);
+  }, [page, shown]);
+
   const item = INTRO[page];
   const next = () => (page < INTRO.length - 1 ? setPage(page + 1) : onFinish());
 
@@ -24,15 +39,16 @@ export function Intro({ onFinish }: { onFinish: () => void }) {
 
       <div className="flex flex-1 items-center justify-center px-8">
         <div className="relative h-[430px] w-[334px]">
-          <CrossFade id={String(page)} duration={300}>
-            <div className="flex flex-col items-center">
-              <Illustration page={page} />
-              <div className="mt-11 flex w-[334px] flex-col items-center gap-3 text-center">
-                <h1 className="text-[30px] font-extrabold tracking-[-0.6px]">{item.title}</h1>
-                <p className="text-[16px] font-medium text-[#6B6B68]">{item.body}</p>
-              </div>
+          <div
+            className="flex flex-col items-center transition-opacity ease-figma"
+            style={{ opacity: visible ? 1 : 0, transitionDuration: `${HALF}ms` }}
+          >
+            <Illustration page={shown} />
+            <div className="mt-11 flex w-[334px] flex-col items-center gap-3 text-center">
+              <h1 className="text-[30px] font-extrabold tracking-[-0.6px]">{INTRO[shown].title}</h1>
+              <p className="text-[16px] font-medium text-[#6B6B68]">{INTRO[shown].body}</p>
             </div>
-          </CrossFade>
+          </div>
         </div>
       </div>
 

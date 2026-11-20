@@ -181,7 +181,7 @@ function StepTitle({ step }: { step: Step }) {
   return (
     <span className="flex flex-col items-start gap-1.5">
       <span className="text-[17px] font-extrabold text-fg">{step.title}</span>
-      <Chip text={step.chip} />
+      {step.chip && <Chip text={step.chip} />}
     </span>
   );
 }
@@ -196,12 +196,12 @@ export function StepCard({
   step: Step;
   checks: boolean[];
   onToggle: (i: number) => void;
-  onOpen?: () => void;
+  onOpen: () => void;
   onNext: () => void;
 }) {
   return (
     <div className="flex flex-col gap-3 rounded-[22px] bg-card p-4 shadow-widget">
-      <button type="button" onClick={onOpen} disabled={!onOpen} className="flex items-center gap-3 text-left disabled:cursor-default">
+      <button type="button" onClick={onOpen} className="flex items-center gap-3 text-left" aria-label={`Open ${step.title} details`}>
         <span className="flex size-[46px] shrink-0 items-center justify-center rounded-[15px] bg-tile">
           <Building size={24} strokeWidth={2} color="var(--building)" />
         </span>
@@ -220,17 +220,24 @@ export function StepCard({
   );
 }
 
-export type RowState = 'done' | 'current' | 'todo';
-
-export function RoadmapRow({ step, state, onClick }: { step: Step; state: RowState; onClick: () => void }) {
-  const done = state === 'done';
-  const current = state === 'current';
+// One row in the roadmap list. A step is "done" once every bring item is ticked.
+export function RoadmapRow({
+  step,
+  done,
+  current,
+  onClick,
+}: {
+  step: Step;
+  done: boolean;
+  current: boolean;
+  onClick: () => void;
+}) {
   return (
     <button
       type="button"
       onClick={onClick}
       className={cn(
-        'flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left',
+        'flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left transition-colors duration-200 ease-figma',
         current ? 'border-2 border-step-on-line bg-step-on' : 'border border-line bg-card',
       )}
     >
@@ -249,7 +256,7 @@ export function RoadmapRow({ step, state, onClick }: { step: Step; state: RowSta
         </span>
       )}
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className={cn('text-[14px] font-semibold', done ? 'text-done-title' : 'text-fg')}>{step.title}</span>
+        <span className={cn('text-[14px] font-semibold', done && !current ? 'text-done-title' : 'text-fg')}>{step.title}</span>
         <span className={cn('text-[13px] font-medium', done ? 'text-done-fg' : 'text-muted')}>{done ? 'Done' : step.meta}</span>
       </span>
       <ChevronRight size={18} strokeWidth={2} color="var(--chev)" />

@@ -17,6 +17,7 @@ export type Step = {
   n: StepNo;
   title: string;
   meta: string; // subtitle in the roadmap list
+  inPerson?: boolean; // has an office to visit → "Get directions" + map
   chip: string; // chip under the title in the step card
   bring: string[];
   bringDefault: boolean[];
@@ -27,6 +28,10 @@ export type Step = {
 };
 
 export const ROADMAP_TITLE = 'PWD ID roadmap';
+
+// Step 1 is already finished in this demo; any other step is done once every bring item is ticked.
+export const isDone = (n: StepNo, checks: Record<number, boolean[]>) =>
+  n === 1 || (STEPS[n].bring.length > 0 && (checks[n] ?? []).length === STEPS[n].bring.length && checks[n].every(Boolean));
 
 export const STEPS: Record<StepNo, Step> = {
   1: {
@@ -45,9 +50,10 @@ export const STEPS: Record<StepNo, Step> = {
     n: 2,
     title: 'Barangay clearance',
     meta: 'In person · Varies',
+    inPerson: true,
     chip: 'In person · Barangay hall',
     bring: ['Valid ID + photocopy', 'Proof of residence', 'Filled-out form', 'Cash for fees'],
-    bringDefault: [false, true, false, false],
+    bringDefault: [false, false, false, false],
     fee: 'Varies',
     time: 'Ask office',
     userSays: 'PWD ID',
