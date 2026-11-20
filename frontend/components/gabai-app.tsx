@@ -7,11 +7,11 @@ import * as React from 'react';
 import { STEPS } from '@/lib/demo-data';
 import { againBatch, append, startThread, stepBatch, type Thread } from '@/lib/chat-thread';
 import { prefs, session } from '@/lib/storage';
-import { ChatScreen, MOTION, type Phase, type SheetView } from './chat-screen';
-import { Intro } from './intro';
-import { ScreenStack, type StackMotion } from './screen-stack';
-import { Settings } from './settings';
-import { Splash } from './splash';
+import { ChatScreen, MOTION, type Phase, type SheetView } from '@/components/screens/chat-screen';
+import { Intro } from '@/components/screens/intro';
+import { ScreenStack, type StackMotion } from '@/components/motion/screen-stack';
+import { Settings } from '@/components/screens/settings';
+import { Splash } from '@/components/screens/splash';
 
 type Screen = 'splash' | 'intro' | 'chat' | 'settings';
 

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Montserrat } from 'next/font/google';
 import './globals.css';
 import './splash.css';
-import { RegisterSW } from '@/components/gabai/register-sw';
+import { RegisterSW } from '@/components/register-sw';
 
 const montserrat = Montserrat({
   subsets: ['latin'],

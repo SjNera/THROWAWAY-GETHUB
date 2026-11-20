@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { INTRO } from '@/lib/demo-data';
 import { cn } from '@/lib/utils';
-import { AccentCheck, AccentPin, ChipCheck, ChipX, IntroArrow, IntroMain, Search18, StepCheck16 } from './artwork';
+import { AccentCheck, AccentPin, ChipCheck, ChipX, IntroArrow, IntroMain, Search18, StepCheck16 } from '@/components/brand/artwork';
 
 export function Intro({ onFinish }: { onFinish: () => void }) {
   const [page, setPage] = React.useState(0);

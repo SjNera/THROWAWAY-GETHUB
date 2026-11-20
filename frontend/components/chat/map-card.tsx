@@ -1,6 +1,6 @@
 // Illustrated map + office details from the Figma "Map open" frame (370×190).
 import { OFFICE_ROWS } from '@/lib/demo-data';
-import { MapPin } from './artwork';
+import { MapPin } from '@/components/brand/artwork';
 
 const R = ({ l, t, w, h, c, r = 0 }: { l: number; t: number; w: number; h: number; c: string; r?: number }) => (
   <span className="absolute" style={{ left: l, top: t, width: w, height: h, background: `var(${c})`, borderRadius: r }} />

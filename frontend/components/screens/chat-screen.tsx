@@ -29,10 +29,10 @@ import {
   StepCard,
   UserMessage,
   sectionLabel,
-} from './chat-parts';
-import { CrossFade } from './cross-fade';
-import { Check, Navigation, ServiceIcons } from './icons';
-import { MapCard, OfficeDetails } from './map-card';
+} from '@/components/chat/chat-parts';
+import { CrossFade } from '@/components/motion/cross-fade';
+import { Check, Navigation, ServiceIcons } from '@/components/brand/icons';
+import { MapCard, OfficeDetails } from '@/components/chat/map-card';
 
 export type Phase = 'start' | 2 | 3 | 4;
 export type SheetView = { kind: 'roadmap' } | { kind: 'details'; step: StepNo } | { kind: 'map'; step: StepNo };

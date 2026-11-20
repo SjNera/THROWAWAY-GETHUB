@@ -1,5 +1,8 @@
 # GabAI front end (mobile, PWA)
 
+Everything for the front end lives in this `frontend/` folder. The rest of the repo
+(`extract/`, `tools/`, `phase0/`, the charters) is the data pipeline and isn't touched here.
+
 Next.js (App Router) + React + TypeScript + Tailwind CSS v4 + shadcn/ui + lucide-react,
 exported as a static site for Cloudflare Pages and installable as a progressive web app.
 Front end only for now: the screens run on demo data (`lib/demo-data.ts`). The
@@ -8,6 +11,7 @@ Front end only for now: the screens run on demo data (`lib/demo-data.ts`). The
 ## Run it
 
 ```bash
+cd frontend
 npm install
 npm run dev        # http://localhost:3000; open it on your phone at http://<your-PC-IP>:3000
 npm run build      # static site in out/ (what Cloudflare Pages serves)
@@ -24,17 +28,28 @@ or Safari (iPhone) → Share → **Add to Home Screen**. It opens full-screen wi
 
 ## Where things are
 
-| Figma ("mobile ui" page) | Code |
-| --- | --- |
-| 01a–01e, 01 Splash (animated) | `components/gabai/splash.tsx` + `app/splash.css` (keyframes generated from the 6 frames) |
-| 02–04 Intro 1–3 | `components/gabai/intro.tsx` |
-| Start, Chat – roadmap bar, Step 3/4, Roadmap open, Step details, Map (light + dark) | `components/gabai/chat-screen.tsx`, `chat-parts.tsx`, `map-card.tsx` |
-| Settings / Dark · Settings | `components/gabai/settings.tsx` |
-| Colours, shadows, easing | `app/globals.css` (`:root` = light frames, `.dark` = "Dark ·" frames) |
-| Logo, splash art, intro art, map pin | `components/gabai/artwork.tsx` (exact Figma vectors) |
-| UI icons | lucide-react (`components/gabai/icons.tsx`) |
-| shadcn/ui | `components/ui/button.tsx`, `components/ui/switch.tsx` |
-| PWA | `public/manifest.webmanifest`, `public/sw.js`, `public/icons/`, `components/gabai/register-sw.tsx` |
+```
+frontend/
+├─ app/                    Next.js App Router
+│  ├─ layout.tsx           fonts, PWA metadata, dark-mode boot script
+│  ├─ page.tsx             renders <GabaiApp/>
+│  ├─ globals.css          Figma colour tokens (:root light, .dark), shadows, animations
+│  └─ splash.css           splash keyframes (generated from the 6 Figma splash frames)
+├─ components/
+│  ├─ gabai-app.tsx        app state + navigation (splash → intro → chat ⇄ settings)
+│  ├─ register-sw.tsx      registers the PWA service worker (production only)
+│  ├─ screens/             splash, intro (swipe carousel), chat-screen (+ roadmap drawer), settings
+│  ├─ chat/                chat building blocks (header, bubbles, step card, rows) and map card
+│  ├─ motion/              screen-stack (push/pop) and cross-fade (drawer view swaps)
+│  ├─ brand/               artwork (exact Figma vectors) and icons (lucide-react)
+│  └─ ui/                  shadcn/ui: button, switch
+├─ lib/
+│  ├─ demo-data.ts         PWD ID demo content (to be replaced by /api/roadmap)
+│  ├─ chat-thread.ts       chat message model (append-only conversation)
+│  ├─ storage.ts           localStorage (prefs) / sessionStorage (conversation)
+│  └─ utils.ts             cn() helper (shadcn)
+└─ public/                 manifest.webmanifest, sw.js, app icons
+```
 
 Storage (per the stack): theme, language and "intro seen" in `localStorage`; the current
 conversation (step, checklist ticks) in `sessionStorage` (`lib/storage.ts`).

@@ -7,7 +7,7 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import type { Step } from '@/lib/demo-data';
 import { cn } from '@/lib/utils';
-import { HeaderGlow, Logo } from './artwork';
+import { HeaderGlow, Logo } from '@/components/brand/artwork';
 import {
   ArrowRight,
   ArrowUp,
@@ -20,7 +20,7 @@ import {
   MapPin,
   Route,
   SlidersHorizontal,
-} from './icons';
+} from '@/components/brand/icons';
 
 export function Header({ onSettings, slidersColor }: { onSettings?: () => void; slidersColor?: string }) {
   return (

@@ -3,7 +3,7 @@
 // Splash sequence (Figma 01a → 01b → 01c → 01d → 01e → 01 Splash).
 // Positions are the 402×874 Figma artboard; keyframes live in app/splash.css.
 import * as React from 'react';
-import { AiGlow, FloatDoc, FloatIdCard, FloatPin, FloatStore, Logo, WaveBack, WaveFront } from './artwork';
+import { AiGlow, FloatDoc, FloatIdCard, FloatPin, FloatStore, Logo, WaveBack, WaveFront } from '@/components/brand/artwork';
 
 const W = 402;
 const H = 874;

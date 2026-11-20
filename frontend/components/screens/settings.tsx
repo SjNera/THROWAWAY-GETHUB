@@ -3,8 +3,8 @@
 // "Settings": a single Dark mode card, in both light and dark mode
 // (matches the light Figma frame).
 import { Switch } from '@/components/ui/switch';
-import { Header } from './chat-parts';
-import { ChevronLeft } from './icons';
+import { Header } from '@/components/chat/chat-parts';
+import { ChevronLeft } from '@/components/brand/icons';
 
 type Props = {
   dark: boolean;
