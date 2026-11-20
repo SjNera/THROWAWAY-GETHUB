@@ -18,6 +18,8 @@ export type Step = {
   title: string;
   meta: string; // subtitle in the roadmap list
   inPerson?: boolean; // has an office to visit → "Get directions" + map
+  where?: string; // who issues it, when it's not an office visit
+  tip?: string;
   chip: string; // chip under the title in the step card
   bring: string[];
   bringDefault: boolean[];
@@ -37,8 +39,11 @@ export const STEPS: Record<StepNo, Step> = {
   1: {
     n: 1,
     title: 'Certificate of Disability',
-    meta: 'Done',
-    chip: '',
+    meta: 'From a specialist doctor',
+    chip: 'From a specialist doctor',
+    // From phase0/graph.json (qc.r-cert-disability)
+    where: 'A specialist doctor for your disability type',
+    tip: 'Must be signed by the specialist for your disability type, not a family doctor or general physician.',
     bring: [],
     bringDefault: [],
     fee: '',

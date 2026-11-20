@@ -29,7 +29,7 @@ import {
   sectionLabel,
 } from './chat-parts';
 import { CrossFade } from './cross-fade';
-import { Navigation, ServiceIcons } from './icons';
+import { Check, Navigation, ServiceIcons } from './icons';
 import { MapCard, OfficeDetails } from './map-card';
 
 export type Phase = 'start' | 2 | 3 | 4;
@@ -115,10 +115,26 @@ function useDrawer(open: boolean, setOpen: (open: boolean) => void) {
 export function ChatScreen(p: Props) {
   const { phase, checks } = p;
   const inRoadmap = phase !== 'start';
-  const step = phase === 'start' ? STEPS[2] : STEPS[phase];
+  // The bar's "Step X of 4" text changes at the midpoint of the chat swap,
+  // together with the chat content (not before it).
+  const [barPhase, setBarPhase] = React.useState(phase);
+  React.useEffect(() => {
+    if (phase === 'start') return;
+    const t = setTimeout(() => setBarPhase(phase), barPhase === 'start' ? 0 : Math.round(p.contentMs / 2));
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+  const step = barPhase === 'start' ? STEPS[2] : STEPS[barPhase];
   const drawer = useDrawer(p.sheetOpen, (o) => p.setSheet(o, o ? { kind: 'roadmap' } : undefined));
   const openAmount = inRoadmap ? drawer.p : 0;
   const ease = drawer.dragging ? 'none' : `${MOTION.roadmap}ms cubic-bezier(0, 0, 0.58, 1)`;
+  // Switching views inside an open drawer fades out → in (0.2s); while it's
+  // closed, the view changes instantly so nothing flickers as it slides in.
+  const wasOpen = React.useRef(p.sheetOpen);
+  const swapMs = wasOpen.current && p.sheetOpen ? MOTION.dissolve : 0;
+  React.useEffect(() => {
+    wasOpen.current = p.sheetOpen;
+  });
 
   const content = React.useMemo(
     () => (
@@ -146,7 +162,7 @@ export function ChatScreen(p: Props) {
         style={{
           gridTemplateRows: inRoadmap ? '1fr' : '0fr',
           opacity: inRoadmap ? 1 : 0,
-          transitionDuration: `${p.contentMs}ms`,
+          transitionDuration: `${Math.round(p.contentMs / 2)}ms`,
         }}
       >
         <div className="overflow-hidden">
@@ -155,7 +171,7 @@ export function ChatScreen(p: Props) {
               type="button"
               aria-expanded={p.sheetOpen}
               aria-label="PWD ID roadmap"
-              onClick={drawer.tap(() => p.setSheet(!p.sheetOpen, { kind: 'roadmap' }))}
+              onClick={drawer.tap(() => (p.sheetOpen ? p.setSheet(false) : p.setSheet(true, { kind: 'roadmap' })))}
               {...drawer.handlers}
               className={cn(
                 'relative flex h-[62px] w-full touch-none select-none items-center gap-3 rounded-[18px] bg-card px-3 py-2.5 shadow-soft transition-[border-color] duration-300',
@@ -210,7 +226,7 @@ export function ChatScreen(p: Props) {
                 visibility: openAmount > 0 || p.sheetOpen ? 'visible' : 'hidden',
               }}
             >
-              <SheetContent {...p} />
+              <SheetContent {...p} swapMs={swapMs} />
               {/* open-state handle: push up to close */}
               <div
                 {...drawer.handlers}
@@ -276,13 +292,21 @@ function StepMessages({ step, checks, onToggle, onNext, setSheet }: Props & { st
   );
 }
 
-// Sheet content. Switching views swaps it outright and fades the new view in
-// (0.2s), so the old and new content never overlap.
-function SheetContent(p: Props) {
-  const { view, phase, checks } = p;
+// Drawer content: roadmap list, a step's details, or the map.
+function SheetContent(p: Props & { swapMs: number }) {
+  const { view } = p;
   const key = view.kind === 'roadmap' ? 'roadmap' : `${view.kind}-${view.step}`;
   return (
-    <div key={key} className="flex animate-fade-in flex-col items-center gap-3 [--dur:200ms]">
+    <CrossFade id={key} duration={p.swapMs} className="h-auto">
+      <SheetView {...p} />
+    </CrossFade>
+  );
+}
+
+function SheetView(p: Props) {
+  const { view, phase, checks } = p;
+  return (
+    <div className="flex flex-col items-center gap-3">
       {view.kind === 'roadmap' && (
         <>
           <div className="flex flex-col gap-2 self-stretch">
@@ -321,21 +345,31 @@ function SheetContent(p: Props) {
 
 function Details(p: Props & { step: Step }) {
   const { step, checks } = p;
+  const done = isDone(step.n, checks);
   const back = () => p.setSheet(true, { kind: 'roadmap' });
-  if (step.bring.length === 0) {
-    // Step 1 (Certificate of Disability) is already finished in this demo
-    return (
-      <>
-        <SheetTitle step={{ ...step, chip: 'Done' }} onBack={back} />
-        <p className="self-stretch text-[15px] font-medium text-fg">You’ve already finished this step.</p>
-      </>
-    );
-  }
   return (
     <>
       <SheetTitle step={step} onBack={back} />
-      <BringList step={step} checks={checks[step.n]} onToggle={(i) => p.onToggle(step.n, i)} />
-      <FeeTime step={step} />
+      {done && (
+        <p className="flex items-center gap-2 self-stretch rounded-[14px] bg-done-badge px-3 py-2.5 text-[13px] font-semibold text-done-fg">
+          <Check size={16} strokeWidth={2.4} color="var(--done-check)" />
+          {step.bring.length ? 'Done. Everything on the list is ticked.' : 'Done. You already have this.'}
+        </p>
+      )}
+      {step.where && (
+        <div className="flex flex-col gap-1.5 self-stretch">
+          <p className={sectionLabel}>WHERE</p>
+          <p className="text-[15px] font-medium text-fg">{step.where}</p>
+        </div>
+      )}
+      {step.tip && (
+        <div className="flex flex-col gap-1.5 self-stretch">
+          <p className={sectionLabel}>TIP</p>
+          <p className="text-[14px] font-medium leading-[21px] text-fg">{step.tip}</p>
+        </div>
+      )}
+      {step.bring.length > 0 && <BringList step={step} checks={checks[step.n]} onToggle={(i) => p.onToggle(step.n, i)} />}
+      {step.fee && <FeeTime step={step} />}
       {step.inPerson && (
         <Button variant="orange" onClick={() => p.setSheet(true, { kind: 'map', step: step.n })}>
           <Navigation size={18} strokeWidth={2} color="#FFFBF6" />

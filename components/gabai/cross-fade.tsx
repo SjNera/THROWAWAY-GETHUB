@@ -1,12 +1,10 @@
 'use client';
 
-// Crossfade between keyed views: Figma's "Dissolve", and what "Smart animate"
-// does for layers that don't match by name. The old view stays underneath
-// while the new one fades in, then it is removed.
+// Swaps keyed views without overlap: the old view fades out completely,
+// then the new one fades in (each half of `duration`, Figma ease-out).
+// Used for screens, chat content and the roadmap drawer's views.
 import * as React from 'react';
 import { cn } from '@/lib/utils';
-
-type Layer = { id: string; node: React.ReactNode };
 
 export function CrossFade({
   id,
@@ -19,36 +17,51 @@ export function CrossFade({
   children: React.ReactNode;
   className?: string;
 }) {
-  const [layers, setLayers] = React.useState<Layer[]>([{ id, node: children }]);
-  const last = React.useRef(id);
+  const [shown, setShown] = React.useState<{ id: string; node: React.ReactNode }>({ id, node: children });
+  const [visible, setVisible] = React.useState(true);
+  const latest = React.useRef({ id, node: children });
+  latest.current = { id, node: children };
+  const half = Math.round(duration / 2);
+  const timer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pending = React.useRef<string | null>(null);
 
   React.useEffect(() => {
-    if (id === last.current) {
-      setLayers((ls) => [...ls.slice(0, -1), { id, node: children }]);
-    } else {
-      last.current = id;
-      setLayers((ls) => [ls[ls.length - 1], { id, node: children }]);
+    if (id === shown.id && pending.current === null) {
+      setShown({ id, node: children }); // same view: just refresh its content
+      return;
     }
+    if (pending.current === id) return; // already swapping to this view
+    if (timer.current) clearTimeout(timer.current);
+    if (half === 0) {
+      pending.current = null;
+      setShown({ id, node: children });
+      setVisible(true);
+      return;
+    }
+    pending.current = id;
+    setVisible(false);
+    timer.current = setTimeout(() => {
+      pending.current = null;
+      setShown(latest.current);
+      setVisible(true);
+    }, half);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, children]);
 
+  React.useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
+
   return (
-    <div className={cn('relative h-full w-full', className)}>
-      {layers.map((l, i) => {
-        const top = i === layers.length - 1;
-        const fading = top && layers.length > 1;
-        return (
-          <div
-            key={l.id}
-            className={cn('absolute inset-0', fading && 'animate-fade-in', !top && 'pointer-events-none')}
-            style={fading ? ({ '--dur': `${duration}ms` } as React.CSSProperties) : undefined}
-            onAnimationEnd={
-              fading ? (e) => e.target === e.currentTarget && setLayers((ls) => ls.slice(-1)) : undefined
-            }
-          >
-            {l.node}
-          </div>
-        );
-      })}
+    <div
+      className={cn('h-full w-full', className)}
+      style={{
+        opacity: visible ? 1 : 0,
+        transition: `opacity ${half}ms cubic-bezier(0, 0, 0.58, 1)`,
+        pointerEvents: visible ? undefined : 'none',
+      }}
+    >
+      {shown.node}
     </div>
   );
 }

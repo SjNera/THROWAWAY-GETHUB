@@ -66,10 +66,19 @@ export function GabaiApp() {
     prefs.set('theme', on ? 'dark' : 'light');
   };
 
+  // Change the chat step. If the roadmap drawer is open, it slides closed
+  // first (0.4s) and only then the chat swaps, so the two never overlap.
+  const sheetOpenRef = React.useRef(sheetOpen);
+  sheetOpenRef.current = sheetOpen;
   const toPhase = (ph: Phase, ms: number) => {
-    setContentMs(ms);
-    setSheetOpen(false);
-    setPhase(ph);
+    const swap = () => {
+      setContentMs(ms);
+      setPhase(ph);
+    };
+    if (sheetOpenRef.current) {
+      setSheetOpen(false);
+      setTimeout(swap, MOTION.roadmap);
+    } else swap();
   };
 
   let body: React.ReactNode;
