@@ -200,7 +200,73 @@
   /* Figma "Ease out" */
   --ease-figma: cubic-bezier(0, 0, 0.58, 1);
 
+  /* iOS-style spring-ish curve for screen pushes and swipes */
+  --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
+
   --animate-fade-in: fade-in var(--dur, 300ms) var(--ease-figma) both;
+  --animate-msg-in: msg-in 380ms var(--ease-ios) both;
+  --animate-push-in: push-in 380ms var(--ease-ios) both;
+  --animate-push-out: push-out 380ms var(--ease-ios) both;
+  --animate-pop-in: pop-in 380ms var(--ease-ios) both;
+  --animate-pop-out: pop-out 380ms var(--ease-ios) both;
+  --animate-fade-out: fade-out var(--dur, 300ms) var(--ease-figma) both;
+}
+
+/* Chat messages: rise in like a messaging app */
+@keyframes msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Screen stack: new screen pushes in from the right, old one slides a little left and dims */
+@keyframes push-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes push-out {
+  from {
+    transform: none;
+    filter: brightness(1);
+  }
+  to {
+    transform: translateX(-28%);
+    filter: brightness(0.85);
+  }
+}
+@keyframes pop-in {
+  from {
+    transform: translateX(-28%);
+    filter: brightness(0.85);
+  }
+  to {
+    transform: none;
+    filter: brightness(1);
+  }
+}
+@keyframes pop-out {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes fade-in {

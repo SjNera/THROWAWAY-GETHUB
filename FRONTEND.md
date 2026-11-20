@@ -39,7 +39,7 @@ or Safari (iPhone) → Share → **Add to Home Screen**. It opens full-screen wi
 Storage (per the stack): theme, language and "intro seen" in `localStorage`; the current
 conversation (step, checklist ticks) in `sessionStorage` (`lib/storage.ts`).
 
-Motion follows the Figma prototype: splash keyframes and timings, 0.3s between screens,
+Motion started from the Figma prototype: splash keyframes and timings, 0.3s between screens,
 0.4s for the roadmap overlay, 0.2s dissolves for step details / map / step jumps, 0.15s for
 checklist ticks, all on Figma's ease-out curve `cubic-bezier(0, 0, 0.58, 1)`.
 
@@ -51,7 +51,11 @@ checklist ticks, all on Figma's ease-out curve `cubic-bezier(0, 0, 0.58, 1)`.
   in-person steps.
 - **Done steps:** a step is done once all its bring items are ticked. Nothing starts ticked
   (step 1, Certificate of Disability, is already done in this demo).
-- **Intro:** the old page fades out before the next fades in, so text never overlaps.
+- **Chat is one continuous conversation** (`lib/chat-thread.ts`): picking a service or "Next step"
+  adds the user message, bot reply and step card to the bottom; earlier steps stay above and
+  the chat scrolls. Only the newest card has "Next step". The bot avatar is the GabAI logo.
+- **Native-style motion:** screens push in from the right and pop back (`screen-stack.tsx`), the
+  intro is a swipeable carousel, chat messages rise in one after another.
 - **Settings** has only the Dark mode card, in light and dark mode.
 
 ## Known differences from Figma

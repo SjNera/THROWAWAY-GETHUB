@@ -2,7 +2,8 @@
 
 // Chat screen: covers the Figma frames "1 Start – pick a service",
 // "2 Chat – roadmap bar", "Step 3/4 – chat", "Roadmap open", "Step details
-// open", "Map open" and their "Dark ·" twins.
+// open", "Map open" and their "Dark ·" twins, as one continuous chat:
+// picking a service or "Next step" adds messages to the conversation.
 //
 // Changes from the Figma prototype (requested in review):
 //  - The roadmap is a pull-down drawer: drag the handle (or the bar) down to
@@ -13,6 +14,7 @@
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { SERVICES, STEPS, isDone, type Step, type StepNo } from '@/lib/demo-data';
+import type { Thread } from '@/lib/chat-thread';
 import { cn } from '@/lib/utils';
 import {
   BotMessage,
@@ -39,9 +41,9 @@ export const MOTION = { screen: 300, roadmap: 400, dissolve: 200 };
 
 type Props = {
   phase: Phase;
+  thread: Thread;
   sheetOpen: boolean;
   view: SheetView;
-  contentMs: number;
   checks: Record<number, boolean[]>;
   onToggle: (step: number, i: number) => void;
   onPickService: () => void;
@@ -113,18 +115,9 @@ function useDrawer(open: boolean, setOpen: (open: boolean) => void) {
 }
 
 export function ChatScreen(p: Props) {
-  const { phase, checks } = p;
+  const { phase, checks, thread } = p;
   const inRoadmap = phase !== 'start';
-  // The bar's "Step X of 4" text changes at the midpoint of the chat swap,
-  // together with the chat content (not before it).
-  const [barPhase, setBarPhase] = React.useState(phase);
-  React.useEffect(() => {
-    if (phase === 'start') return;
-    const t = setTimeout(() => setBarPhase(phase), barPhase === 'start' ? 0 : Math.round(p.contentMs / 2));
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phase]);
-  const step = barPhase === 'start' ? STEPS[2] : STEPS[barPhase];
+  const step = phase === 'start' ? STEPS[2] : STEPS[phase];
   const drawer = useDrawer(p.sheetOpen, (o) => p.setSheet(o, o ? { kind: 'roadmap' } : undefined));
   const openAmount = inRoadmap ? drawer.p : 0;
   const ease = drawer.dragging ? 'none' : `${MOTION.roadmap}ms cubic-bezier(0, 0, 0.58, 1)`;
@@ -136,34 +129,14 @@ export function ChatScreen(p: Props) {
     wasOpen.current = p.sheetOpen;
   });
 
-  const content = React.useMemo(
-    () => (
-      <div className="no-scrollbar h-full overflow-y-auto">
-        <div className="flex flex-col gap-3 px-4 pb-4 pt-2.5">
-          {phase === 'start' ? (
-            <StartMessages onPick={p.onPickService} />
-          ) : (
-            <StepMessages step={STEPS[phase]} {...p} />
-          )}
-        </div>
-      </div>
-    ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [phase, checks],
-  );
-
   return (
     <div className="bg-screen chat-root relative flex h-full flex-col">
       <Header onSettings={p.onSettings} />
 
-      {/* Roadmap bar + pull handle (appears with the roadmap) */}
+      {/* Roadmap bar + pull handle (appears once a roadmap starts) */}
       <div
-        className="relative z-30 grid shrink-0 transition-[grid-template-rows,opacity] ease-figma"
-        style={{
-          gridTemplateRows: inRoadmap ? '1fr' : '0fr',
-          opacity: inRoadmap ? 1 : 0,
-          transitionDuration: `${Math.round(p.contentMs / 2)}ms`,
-        }}
+        className="relative z-30 grid shrink-0 transition-[grid-template-rows,opacity] duration-300 ease-figma"
+        style={{ gridTemplateRows: inRoadmap ? '1fr' : '0fr', opacity: inRoadmap ? 1 : 0 }}
       >
         <div className="overflow-hidden">
           <div className="px-4 pt-4">
@@ -194,11 +167,7 @@ export function ChatScreen(p: Props) {
         </div>
       </div>
 
-      <div className="relative min-h-0 flex-1">
-        <CrossFade id={String(phase)} duration={p.contentMs}>
-          {content}
-        </CrossFade>
-      </div>
+      <ChatThread {...p} />
 
       <InputBar />
 
@@ -245,50 +214,90 @@ export function ChatScreen(p: Props) {
   );
 }
 
-function StartMessages({ onPick }: { onPick: () => void }) {
+// The conversation: one scrollable list that only ever grows. New messages
+// rise in one after another (like a messaging app) and the list scrolls so
+// the newest exchange is in view.
+function ChatThread(p: Props) {
+  const { thread, checks } = p;
+  const scroller = React.useRef<HTMLDivElement>(null);
+  const firstBatch = React.useRef(thread.batch); // batches present on mount don't animate
+  const lastStepId = [...thread.msgs].reverse().find((m) => m.kind === 'step')?.id;
+  const lastServicesId = [...thread.msgs].reverse().find((m) => m.kind === 'services')?.id;
+
+  React.useEffect(() => {
+    const el = scroller.current;
+    if (!el) return;
+    if (thread.batch === firstBatch.current) {
+      el.scrollTop = el.scrollHeight; // restored conversation: start at the bottom
+      return;
+    }
+    const first = el.querySelector<HTMLElement>(`[data-batch="${thread.batch}"]`);
+    if (first) el.scrollTo({ top: Math.max(0, first.offsetTop - 10), behavior: 'smooth' });
+  }, [thread.batch]);
+
+  let inBatch = 0;
+  let prevBatch = -1;
   return (
-    <>
-      <BotMessage text="Hi! I’ll walk you through any Quezon City service, one step at a time." />
-      <BotMessage text="What do you need today?" avatar={false} />
-      <Indented>
-        <div className="grid grid-cols-2 gap-2.5">
-          {SERVICES.map((s) => {
-            const Icon = ServiceIcons[s.icon];
-            return (
-              <button
-                key={s.key}
-                type="button"
-                onClick={s.key === 'pwd' ? onPick : undefined}
-                className="flex flex-col items-start gap-3.5 rounded-[20px] bg-card px-3.5 pb-4 pt-3.5 text-left shadow-soft"
-              >
-                <span className="grad-orange flex size-11 items-center justify-center rounded-[14px] shadow-soft">
-                  <Icon size={24} strokeWidth={2} color="#FFFBF6" />
-                </span>
-                <span className="text-[15px] font-bold text-fg">{s.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </Indented>
-    </>
+    <div ref={scroller} className="no-scrollbar relative min-h-0 flex-1 overflow-y-auto overscroll-contain">
+      <div className="flex min-h-full flex-col gap-3 px-4 pb-4 pt-2.5">
+        {thread.msgs.map((m, i) => {
+          inBatch = m.batch === prevBatch ? inBatch + 1 : 0;
+          prevBatch = m.batch;
+          const animate = m.batch > firstBatch.current;
+          const wrap = (node: React.ReactNode, className?: string) => (
+            <div
+              key={m.id}
+              data-batch={m.batch}
+              className={cn(animate && 'animate-msg-in', className)}
+              style={animate ? { animationDelay: `${inBatch * 260}ms` } : undefined}
+            >
+              {node}
+            </div>
+          );
+          if (m.kind === 'user') return wrap(<UserMessage text={m.text!} />, 'flex justify-end');
+          if (m.kind === 'bot') return wrap(<BotMessage text={m.text!} avatar={thread.msgs[i - 1]?.kind !== 'bot'} />);
+          if (m.kind === 'services')
+            return wrap(<Services onPick={m.id === lastServicesId ? p.onPickService : undefined} />);
+          const s = STEPS[m.step!];
+          return wrap(
+            <Indented>
+              <StepCard
+                step={s}
+                checks={checks[s.n]}
+                onToggle={(k) => p.onToggle(s.n, k)}
+                onOpen={() => p.setSheet(true, { kind: 'details', step: s.n })}
+                onNext={m.id === lastStepId ? p.onNext : undefined}
+              />
+            </Indented>,
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
-function StepMessages({ step, checks, onToggle, onNext, setSheet }: Props & { step: Step }) {
+function Services({ onPick }: { onPick?: () => void }) {
   return (
-    <>
-      <UserMessage text={step.userSays} />
-      <BotMessage text={step.botSays} />
-      <Indented>
-        <StepCard
-          step={step}
-          checks={checks[step.n]}
-          onToggle={(i) => onToggle(step.n, i)}
-          onOpen={() => setSheet(true, { kind: 'details', step: step.n })}
-          onNext={onNext}
-        />
-      </Indented>
-    </>
+    <Indented>
+      <div className="grid grid-cols-2 gap-2.5">
+        {SERVICES.map((s) => {
+          const Icon = ServiceIcons[s.icon];
+          return (
+            <button
+              key={s.key}
+              type="button"
+              onClick={s.key === 'pwd' ? onPick : undefined}
+              className="flex flex-col items-start gap-3.5 rounded-[20px] bg-card px-3.5 pb-4 pt-3.5 text-left shadow-soft transition-transform active:scale-[0.98]"
+            >
+              <span className="grad-orange flex size-11 items-center justify-center rounded-[14px] shadow-soft">
+                <Icon size={24} strokeWidth={2} color="#FFFBF6" />
+              </span>
+              <span className="text-[15px] font-bold text-fg">{s.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </Indented>
   );
 }
 

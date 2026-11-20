@@ -1,14 +1,15 @@
 'use client';
 
-// GabAI mobile front end. Flow follows the Figma prototype on the
-// "mobile ui" page: splash → intro 1–3 → chat (pick a service → roadmap
-// steps) with settings and dark mode. Front end only: no API calls yet.
+// GabAI mobile front end. Flow: splash → intro 1–3 (first launch) → chat
+// (pick a service → roadmap steps, as one continuous conversation) with a
+// pull-down roadmap, settings and dark mode. Front end only: no API calls yet.
 import * as React from 'react';
 import { STEPS } from '@/lib/demo-data';
+import { againBatch, append, startThread, stepBatch, type Thread } from '@/lib/chat-thread';
 import { prefs, session } from '@/lib/storage';
 import { ChatScreen, MOTION, type Phase, type SheetView } from './chat-screen';
-import { CrossFade } from './cross-fade';
 import { Intro } from './intro';
+import { ScreenStack, type StackMotion } from './screen-stack';
 import { Settings } from './settings';
 import { Splash } from './splash';
 
@@ -22,42 +23,44 @@ const initialChecks = (): Record<number, boolean[]> => ({
 
 export function GabaiApp() {
   const [screen, setScreen] = React.useState<Screen>('splash');
-  const [screenMs, setScreenMs] = React.useState(MOTION.screen);
+  const [motion, setMotion] = React.useState<StackMotion>('fade');
   const [dark, setDark] = React.useState(false);
   const [phase, setPhase] = React.useState<Phase>('start');
+  const [thread, setThread] = React.useState<Thread>(startThread);
   const [sheetOpen, setSheetOpen] = React.useState(false);
   const [view, setView] = React.useState<SheetView>({ kind: 'roadmap' });
-  const [contentMs, setContentMs] = React.useState(MOTION.screen);
   const [checks, setChecks] = React.useState(initialChecks);
-  const restored = React.useRef(false);
+  const [restored, setRestored] = React.useState(false);
 
   // Restore preferences (localStorage) and this tab's conversation (sessionStorage)
   React.useEffect(() => {
     setDark(document.documentElement.classList.contains('dark'));
-    setPhase(session.get<Phase>('phase', 'start'));
-    setChecks(session.get('checks-v2', initialChecks()));
-    restored.current = true;
+    setPhase(session.get<Phase>('phase-v3', 'start'));
+    setThread(session.get<Thread>('thread-v3', startThread()));
+    setChecks(session.get('checks-v3', initialChecks()));
+    setRestored(true);
   }, []);
 
   React.useEffect(() => {
-    if (!restored.current) return;
-    session.set('phase', phase);
-    session.set('checks-v2', checks);
-  }, [phase, checks]);
+    if (!restored) return;
+    session.set('phase-v3', phase);
+    session.set('thread-v3', thread);
+    session.set('checks-v3', checks);
+  }, [restored, phase, thread, checks]);
 
-  const go = (s: Screen, ms: number = MOTION.screen) => {
-    setScreenMs(ms);
+  const go = (s: Screen, m: StackMotion) => {
+    setMotion(m);
     setScreen(s);
   };
 
   const onSplashDone = React.useCallback(() => {
     // Intro shows on first launch only; after that the splash goes straight to chat
-    go(prefs.get('introSeen') ? 'chat' : 'intro', 300);
+    go(prefs.get('introSeen') ? 'chat' : 'intro', 'fade');
   }, []);
 
   const finishIntro = () => {
     prefs.set('introSeen', '1');
-    go('chat');
+    go('chat', 'push');
   };
 
   const setTheme = (on: boolean) => {
@@ -66,59 +69,60 @@ export function GabaiApp() {
     prefs.set('theme', on ? 'dark' : 'light');
   };
 
-  // Change the chat step. If the roadmap drawer is open, it slides closed
-  // first (0.4s) and only then the chat swaps, so the two never overlap.
+  // Close the roadmap drawer first (if open), then add to the chat
   const sheetOpenRef = React.useRef(sheetOpen);
   sheetOpenRef.current = sheetOpen;
-  const toPhase = (ph: Phase, ms: number) => {
-    const swap = () => {
-      setContentMs(ms);
-      setPhase(ph);
-    };
+  const afterDrawer = (fn: () => void) => {
     if (sheetOpenRef.current) {
       setSheetOpen(false);
-      setTimeout(swap, MOTION.roadmap);
-    } else swap();
+      setTimeout(fn, MOTION.roadmap);
+    } else fn();
   };
+
+  const pickService = () =>
+    afterDrawer(() => {
+      setThread((t) => append(t, stepBatch(2, STEPS[2].userSays)));
+      setPhase(2);
+    });
+
+  const next = () =>
+    afterDrawer(() => {
+      if (phase === 'start') return;
+      setThread((t) => append(t, phase === 4 ? againBatch() : stepBatch((phase + 1) as 3 | 4, 'Next step')));
+      if (phase !== 4) setPhase((phase + 1) as Phase);
+    });
 
   let body: React.ReactNode;
   if (screen === 'splash') body = <Splash onDone={onSplashDone} />;
   else if (screen === 'intro') body = <Intro onFinish={finishIntro} />;
-  else if (screen === 'settings')
-    body = (
-      <Settings
-        dark={dark}
-        onDark={setTheme}
-        onBack={() => go('chat')}
-      />
-    );
+  else if (screen === 'settings') body = <Settings dark={dark} onDark={setTheme} onBack={() => go('chat', 'pop')} />;
   else
     body = (
       <ChatScreen
         phase={phase}
+        thread={thread}
         sheetOpen={sheetOpen}
         view={view}
-        contentMs={contentMs}
         checks={checks}
         onToggle={(step, i) => setChecks((c) => ({ ...c, [step]: c[step].map((v, j) => (j === i ? !v : v)) }))}
-        onPickService={() => toPhase(2, MOTION.screen)}
-        onNext={() => phase !== 'start' && toPhase(phase === 4 ? 'start' : ((phase + 1) as Phase), MOTION.screen)}
+        onPickService={pickService}
+        onNext={next}
         setSheet={(open, v) => {
           if (v) setView(v);
           setSheetOpen(open);
         }}
         onSettings={() => {
           setSheetOpen(false);
-          go('settings');
+          go('settings', 'push');
         }}
       />
     );
 
   return (
     <main className="relative mx-auto h-dvh w-full max-w-[430px] overflow-hidden bg-[var(--bg-top)]">
-      <CrossFade id={screen} duration={screenMs}>
+      <ScreenStack id={screen} motion={motion}>
         {body}
-      </CrossFade>
+      </ScreenStack>
     </main>
   );
 }

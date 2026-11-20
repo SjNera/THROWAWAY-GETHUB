@@ -1,33 +1,42 @@
 'use client';
 
-// Intro 1–3. On Next the page dots resize (0.3s ease-out) while the
-// illustration + copy fade out completely, then the next page fades in, so
-// the old and new text never overlap.
+// Intro 1–3 as a swipeable carousel, like a phone app's onboarding:
+// pages slide sideways (swipe or Next), the dots stretch to the current page.
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { INTRO } from '@/lib/demo-data';
 import { cn } from '@/lib/utils';
 import { AccentCheck, AccentPin, ChipCheck, ChipX, IntroArrow, IntroMain, Search18, StepCheck16 } from './artwork';
 
-const HALF = 150; // fade out, then fade in: 0.3s total like the Figma transition
-
 export function Intro({ onFinish }: { onFinish: () => void }) {
   const [page, setPage] = React.useState(0);
-  const [shown, setShown] = React.useState(0); // page whose content is on screen
-  const [visible, setVisible] = React.useState(true);
+  const [dx, setDx] = React.useState<number | null>(null); // live drag offset in px
+  const start = React.useRef<{ x: number; y: number; t: number; w: number } | null>(null);
+  const last = INTRO.length - 1;
+  const next = () => (page < last ? setPage(page + 1) : onFinish());
 
-  React.useEffect(() => {
-    if (page === shown) return;
-    setVisible(false);
-    const t = setTimeout(() => {
-      setShown(page);
-      setVisible(true);
-    }, HALF);
-    return () => clearTimeout(t);
-  }, [page, shown]);
-
-  const item = INTRO[page];
-  const next = () => (page < INTRO.length - 1 ? setPage(page + 1) : onFinish());
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    start.current = { x: e.clientX, y: e.clientY, t: performance.now(), w: e.currentTarget.clientWidth };
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    const s = start.current;
+    if (!s) return;
+    const d = e.clientX - s.x;
+    if (dx === null && Math.abs(d) < 8) return;
+    // resist at the ends
+    const atEdge = (page === 0 && d > 0) || (page === last && d < 0);
+    setDx(atEdge ? d / 3 : d);
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    const s = start.current;
+    start.current = null;
+    if (!s || dx === null) return setDx(null);
+    const d = e.clientX - s.x;
+    const v = d / Math.max(1, performance.now() - s.t);
+    if ((d < -s.w / 4 || v < -0.4) && page < last) setPage(page + 1);
+    else if ((d > s.w / 4 || v > 0.4) && page > 0) setPage(page - 1);
+    setDx(null);
+  };
 
   return (
     <div className="flex h-full flex-col bg-[#FFF7EE] text-[#1E1E22]">
@@ -37,26 +46,45 @@ export function Intro({ onFinish }: { onFinish: () => void }) {
         </button>
       </div>
 
-      <div className="flex flex-1 items-center justify-center px-8">
-        <div className="relative h-[430px] w-[334px]">
-          <div
-            className="flex flex-col items-center transition-opacity ease-figma"
-            style={{ opacity: visible ? 1 : 0, transitionDuration: `${HALF}ms` }}
-          >
-            <Illustration page={shown} />
-            <div className="mt-11 flex w-[334px] flex-col items-center gap-3 text-center">
-              <h1 className="text-[30px] font-extrabold tracking-[-0.6px]">{INTRO[shown].title}</h1>
-              <p className="text-[16px] font-medium text-[#6B6B68]">{INTRO[shown].body}</p>
-            </div>
-          </div>
+      <div
+        className="relative flex-1 touch-pan-y overflow-hidden select-none"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => setDx(null)}
+      >
+        <div
+          className="flex h-full"
+          style={{
+            width: `${INTRO.length * 100}%`,
+            transform: `translateX(calc(${(-page * 100) / INTRO.length}% + ${dx ?? 0}px))`,
+            transition: dx === null ? 'transform 380ms cubic-bezier(0.32, 0.72, 0, 1)' : 'none',
+          }}
+        >
+          {INTRO.map((item, i) => (
+            <section
+              key={i}
+              aria-hidden={i !== page}
+              className="flex h-full flex-col items-center justify-center px-8"
+              style={{ width: `${100 / INTRO.length}%` }}
+            >
+              <Illustration page={i} />
+              <div className="mt-11 flex w-[334px] max-w-full flex-col items-center gap-3 text-center">
+                <h1 className="text-[30px] font-extrabold tracking-[-0.6px]">{item.title}</h1>
+                <p className="text-[16px] font-medium text-[#6B6B68]">{item.body}</p>
+              </div>
+            </section>
+          ))}
         </div>
       </div>
 
       <div className="pb-safe-intro flex items-center justify-between px-6 pt-4">
         <div className="flex items-center gap-2" aria-label={`Page ${page + 1} of ${INTRO.length}`}>
           {INTRO.map((_, i) => (
-            <span
+            <button
               key={i}
+              aria-label={`Go to page ${i + 1}`}
+              onClick={() => setPage(i)}
               className={cn(
                 'h-2 rounded-[4px] transition-all duration-300 ease-figma',
                 i === page ? 'w-7 bg-brand-700' : 'w-2 bg-[#DACBB3]',
@@ -65,7 +93,9 @@ export function Intro({ onFinish }: { onFinish: () => void }) {
           ))}
         </div>
         <Button variant="intro" onClick={next}>
-          {item.button}
+          <span key={INTRO[page].button} className="animate-fade-in [--dur:200ms]">
+            {INTRO[page].button}
+          </span>
           <IntroArrow />
         </Button>
       </div>

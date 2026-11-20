@@ -17,7 +17,6 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronUp,
-  Compass,
   MapPin,
   Route,
   SlidersHorizontal,
@@ -68,8 +67,8 @@ export function BotMessage({ text, avatar = true }: { text: string; avatar?: boo
   return (
     <div className="flex items-end gap-2">
       {avatar ? (
-        <span className="grad-dtile flex size-[30px] shrink-0 items-center justify-center rounded-[10px]">
-          <Compass size={17} strokeWidth={2} color="#FFFBF6" />
+        <span className="shrink-0 rounded-[7.7px] shadow-soft" aria-label="GabAI">
+          <Logo size={30} />
         </span>
       ) : (
         <span className="w-[30px] shrink-0" />
@@ -197,7 +196,7 @@ export function StepCard({
   checks: boolean[];
   onToggle: (i: number) => void;
   onOpen: () => void;
-  onNext: () => void;
+  onNext?: () => void; // only the latest card in the chat has "Next step"
 }) {
   return (
     <div className="flex flex-col gap-3 rounded-[22px] bg-card p-4 shadow-widget">
@@ -212,10 +211,12 @@ export function StepCard({
       </button>
       <BringList step={step} checks={checks} onToggle={onToggle} />
       <FeeTime step={step} />
-      <Button variant="outline" onClick={onNext}>
-        Next step
-        <ArrowRight size={18} strokeWidth={2} color="var(--strong)" />
-      </Button>
+      {onNext && (
+        <Button variant="outline" onClick={onNext}>
+          Next step
+          <ArrowRight size={18} strokeWidth={2} color="var(--strong)" />
+        </Button>
+      )}
     </div>
   );
 }
