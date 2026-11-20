@@ -1,0 +1,138 @@
+pdao-charter-2025:
+  type: pdf
+  file: PDAO-Citizens-Charter-2025-Updated-3.25.2025
+  title: PDAO Citizen’s Charter 2025 (4th Ed.)
+  url: https://quezoncity.gov.ph/wp-content/uploads/2020/09/PDAO-Citizens-Charter-2025-Updated-3.25.2025.pdf
+  office: pdao
+  edition: 2025 4th Ed., updated 3.25.2025
+  sha256: 60bfb024e6a7439a6a177d70cfb80368060b5fb6ccf50752332f2ce2fb13022a
+  pdf_pages: 42
+  local_file: qc-charters/PDAO-Citizens-Charter-2025-Updated-3.25.2025.pdf
+  accessed: '2026-11-18'
+pdao-pwd-service-2025:
+  type: pdf
+  file: REGISTRATION-AND-ISSUANCE-OF-PWD-ID
+  title: PDAO – Registration and Issuance of PWD ID (service sheet)
+  url: https://quezoncity.gov.ph/wp-content/uploads/2025/03/REGISTRATION-AND-ISSUANCE-OF-PWD-ID.pdf
+  office: pdao
+  edition: 2025/03 upload
+  sha256: fa5fba2a8c93dca6894d8de0896f0a614424e5e89a70cf64402e8f3780a81e98
+  pdf_pages: 5
+  local_file: qc-charters/REGISTRATION-AND-ISSUANCE-OF-PWD-ID.pdf
+  accessed: '2026-11-18'
+bpld-charter-2025:
+  type: pdf
+  file: BPLD-CITIZENS-CHARTER-2025
+  title: BPLD Citizen’s Charter (as of February 2025)
+  url: https://quezoncity.gov.ph/wp-content/uploads/2020/09/BPLD-CITIZENS-CHARTER-2025.pdf
+  office: bpld
+  edition: Feb 2025
+  sha256: ef6c2672b84066624f4a60b00a117a28904c07fbff6e4a2a3361a11d747eb217
+  pdf_pages: 20
+  local_file: qc-charters/BPLD-CITIZENS-CHARTER-2025.pdf
+  accessed: '2026-11-18'
+cto-business-tax-2024:
+  type: pdf
+  file: COLLECTION-OF-BUSINESS-TAX-1
+  title: CTO – Collection of Business Tax (service sheet)
+  url: https://quezoncity.gov.ph/wp-content/uploads/2024/03/COLLECTION-OF-BUSINESS-TAX-1.pdf
+  office: cto
+  edition: 2024/03 upload
+  sha256: 050a09082185efbbc541d3651c38719ae4e6b73d7753103fa629e16627f57557
+  pdf_pages: 1
+  local_file: qc-charters/COLLECTION-OF-BUSINESS-TAX-1.pdf
+  accessed: '2026-11-18'
+dbo-construction-permits:
+  type: pdf
+  file: Issuance-of-Construction-Permits
+  title: DBO – Issuance of Construction Permits (service sheet)
+  url: https://quezoncity.gov.ph/wp-content/uploads/2024/02/Issuance-of-Construction-Permits.pdf
+  office: dbo
+  edition: 2024/02 upload
+  sha256: 4dc327008fe92017e6e1802b56f1f19f8aac287792572440cc718652c66064bd
+  pdf_pages: 12
+  local_file: qc-charters/Issuance-of-Construction-Permits.pdf
+  accessed: '2026-11-18'
+ccrd-charter-2025:
+  type: pdf
+  file: CCRD-Citizens-Charter-2025-8th-Ed-
+  title: City Civil Registry Dept. Citizen’s Charter 2025 (8th Ed.)
+  url: https://quezoncity.gov.ph/wp-content/uploads/2020/09/CCRD-Citizens-Charter-2025-8th-Ed-.pdf
+  office: ccrd
+  edition: 2025 8th Ed.
+  sha256: 8ddf791a37b94564810edc76595ac42323ede8cf76134e86119bd6f4255adea5
+  pdf_pages: 49
+  local_file: qc-charters/CCRD-Citizens-Charter-2025-8th-Ed-.pdf
+  accessed: '2026-11-18'
+ccrd-ctc-birth:
+  type: pdf
+  file: Request-and-Issuance-of-Certified-True-Copy-of-Birth-Certificate
+  title: CCRD – Request and Issuance of CTC of Birth Certificate (service sheet)
+  url: https://quezoncity.gov.ph/wp-content/uploads/2025/04/Request-and-Issuance-of-Certified-True-Copy-of-Birth-Certificate.pdf
+  office: ccrd
+  edition: 2025/04 upload
+  sha256: f153f4cb91c1249b816aac7d068afe8a891863ec5feb5a65b58b67e2631f3822
+  pdf_pages: 1
+  local_file: qc-charters/Request-and-Issuance-of-Certified-True-Copy-of-Birth-Certificate.pdf
+  accessed: '2026-11-18'
+ccrd-ctc-online:
+  type: pdf
+  file: Request-for-Issuance-of-Certified-True-Copy-of-Birth-Marriage-and-Death-Cert.-via-Civil-Registry-Online-Services
+  title: CCRD – CTC of Birth/Marriage/Death via Civil Registry Online Services
+  url: https://quezoncity.gov.ph/wp-content/uploads/2025/04/Request-for-Issuance-of-Certified-True-Copy-of-Birth-Marriage-and-Death-Cert.-via-Civil-Registry-Online-Services.pdf
+  office: ccrd
+  edition: 2025/04 upload
+  sha256: 629944d19dda34b692e877d6ab858343f641a4312823fcce576c8105fdc7d9a1
+  pdf_pages: 1
+  local_file: qc-charters/Request-for-Issuance-of-Certified-True-Copy-of-Birth-Marriage-and-Death-Cert.-via-Civil-Registry-Online-Services.pdf
+  accessed: '2026-11-18'
+qc-guide-pwd-id:
+  type: html
+  file: qc-guide-pwd-id.txt
+  title: QCitizen Guide – How to Apply for PWD ID
+  url: https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-pwd-id/
+  office: pdao
+  edition: last updated 2026-05-13
+  sha256: 149a9d3e08358f26d4a4577d11a37fb29ae4e16327bd2dec5a063fee41864185
+  local_file: extract/html/qc-guide-pwd-id.txt
+  accessed: '2026-11-18'
+qc-guide-senior-card:
+  type: html
+  file: qc-guide-senior-card.txt
+  title: QCitizen Guide – How to Apply for Senior Citizen Card
+  url: https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-senior-citizen-card/
+  office: osca
+  edition: last updated 2025-10-02
+  sha256: 0a120b00623c6a63421034a76a33f2c4126f96d84a7fdc9dceddc80878162175
+  local_file: extract/html/qc-guide-senior-card.txt
+  accessed: '2026-11-18'
+qc-guide-renew-business-permit:
+  type: html
+  file: qc-guide-renew-business-permit.txt
+  title: QCitizen Guide – How to Renew Business Permit
+  url: https://quezoncity.gov.ph/qcitizen-guides/how-to-renew-business-permit/
+  office: bpld
+  edition: last updated 2026-01-06
+  sha256: 453f3152cebd40dfc5ea5c809047d2d550cbf0e4c6cb61df4edf894fe0bc5793
+  local_file: extract/html/qc-guide-renew-business-permit.txt
+  accessed: '2026-11-18'
+qc-guide-building-permit:
+  type: html
+  file: qc-guide-building-permit.txt
+  title: QCitizen Guide – How to Apply Online for a Building Permit
+  url: https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-a-building-permit/
+  office: dbo
+  edition: last updated 2025-10-02
+  sha256: fa145b90c6c8ba09061a8e3d4e0551e464b8d024df8c2b737fa7683169f7717c
+  local_file: extract/html/qc-guide-building-permit.txt
+  accessed: '2026-11-18'
+qc-contacts:
+  type: html
+  file: qc-contacts.txt
+  title: QC department contact pages (OSCA, DBO, BPLD, CTO)
+  url: https://quezoncity.gov.ph/departments/
+  office: multi
+  edition: read 2026-11-18
+  sha256: 6370486a288ee93ce7b6ad487a8cb744e234d2e327330b219d2b35f92333465a
+  local_file: extract/html/qc-contacts.txt
+  accessed: '2026-11-18'

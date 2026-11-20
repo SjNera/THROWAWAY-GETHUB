@@ -1,0 +1,21 @@
+{
+ "file": "FDPP-OBO-Building-Official.pdf",
+ "sha256": "0da1f9ba2d93e1dcbcc57d789581abf54452ad4651b357d888a3f7dc25269070",
+ "pages": [
+  {
+   "n": 1,
+   "chars": 1380,
+   "method": "text"
+  },
+  {
+   "n": 2,
+   "chars": 365,
+   "method": "text"
+  },
+  {
+   "n": 3,
+   "chars": 4505,
+   "method": "text"
+  }
+ ]
+}

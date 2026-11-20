@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>BPLO MARIKINA</title>
+    <meta name="csrf-token" content="VPEEjIwNHgsWUOsu80KPzePWgJze4OnSKNt24vLn">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img_bplo/seal.png" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="https://bplo.marikina.gov.ph/assets/bploweb/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="https://bplo.marikina.gov.ph/assets/bploweb/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="https://bplo.marikina.gov.ph/assets/bploweb/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+    <link href="https://bplo.marikina.gov.ph/assets/bploweb/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bplo.marikina.gov.ph/assets/bploweb/css/style.css" rel="stylesheet">
+
+  
+
+    <link href="https://bplo.marikina.gov.ph/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet"
+    type="text/css" />
+
+    <style>
+.iframe {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+   
+}
+.responsive-iframe {
+  
+    position: relative;
+    display: block;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+   
+}
+
+/* CSS for responsive iframe */
+/* ========================= */
+
+/* outer wrapper: set max-width & max-height; max-height greater than padding-bottom % will be ineffective and height will = padding-bottom % of max-width */
+#Iframe-Master-CC-and-Rs {
+  max-width: 912px;
+  max-height: 100%; 
+  overflow: hidden;
+}
+
+/* inner wrapper: make responsive */
+.responsive-wrapper {
+  position: relative;
+  height: 0;    /* gets height from padding-bottom */
+  
+  /* put following styles (necessary for overflow and scrolling handling on mobile devices) inline in .responsive-wrapper around iframe because not stable in CSS:
+    -webkit-overflow-scrolling: touch; overflow: auto; */
+  
+}
+ 
+.responsive-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* padding-bottom = h/w as % -- sets aspect ratio */
+/* YouTube video aspect ratio */
+.responsive-wrapper-wxh-572x612 {
+  padding-bottom: 107%;
+}
+
+/* general styles */
+/* ============== */
+.set-border {
+  border: 5px inset #4f4f4f;
+}
+.set-box-shadow { 
+  -webkit-box-shadow: 4px 4px 14px #4f4f4f;
+  -moz-box-shadow: 4px 4px 14px #4f4f4f;
+  box-shadow: 4px 4px 14px #4f4f4f;
+}
+
+.center-block-horiz {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Topbar Start -->
+  <div class="container-fluid d-none d-lg-block" style="background-color:#1E60AA ;color:aliceblue">
+    
+
+    <div class="container d-flex flex-wrap justify-content-center">
+        <a class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+            <img alt="Logo" src="img_bplo/bplo-logo.png" height="75px" />
+          <p class="small ps-2">
+          <span class="fs-4 display-3 text-white">BUSINESS PERMITS AND LICENSING OFFICE</span><br>
+          <span class="fs-6 display-3 text-white">CITY GOVERNMENT OF MARIKINA</span>
+      </p>
+        </a>
+        <!--<form class="col-12 col-lg-auto mb-3 mb-lg-0">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>-->
+      </div>
+
+    
+       
+    </div>
+</div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div class="container-fluid nav-bar bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white p-3 py-lg-0 px-lg-4">
+        <a href="" class="navbar-brand d-flex align-items-center m-0 p-0 d-lg-none">
+            <img alt="Logo" src="img_bplo/bplo-logo.png" height="45px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav me-auto">
+                <a href="/" class="nav-item nav-link  "  >Home</a>
+                
+             
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Online Services</a>
+                    <div class="dropdown-menu fade-up m-0">
+                  
+                        <a href="https://payment.marikina.gov.ph" target="_blank" class="dropdown-item">Online Payment</a>
+                        <a href="https://bplo.marikina.gov.ph/client/" target="_blank" class="dropdown-item">Business Portal</a>
+                     
+                      
+                    </div>
+                </div>
+                <a href="citizen-charter" class="nav-item nav-link">CITIZEN'S CHARTER</a>
+                <a href="ordinances-bplo" class="nav-item nav-link">ORDINANCE</a>
+                <a href="forms" class="nav-item nav-link">FORMS</a>
+                <a href="faq" class="nav-item nav-link    ">FAQ</a>
+                <a href="contact"  class="nav-item nav-link   ">Contact Us</a>
+            </div>
+            <div class="mt-4 mt-lg-0 me-lg-n4 py-3 px-4 bg-primary d-flex align-items-center">
+                <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white" style="width: 45px; height: 45px;">
+                
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href="https://www.facebook.com/bplomarikina"><i class="fab fa-facebook-f"></i></a>
+                
+         
+
+                </div>
+                <div class="ms-3">
+                  
+                    <h5 class="m-0 text-white">Follow us</h5>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5 py-5">
+        <div class="container">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Citizen's Charter</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb text-uppercase">
+                    <li class="breadcrumb-item"><a class="text-white" >Home</a></li>
+             
+                    <li class="breadcrumb-item text-white active" aria-current="page">Citizen's Charter</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-xxl  ">
+        <div class="container ">
+            <div class="row g-4">
+                <div class="col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+                    <div id="Iframe-Master-CC-and-Rs" class="set-margin set-padding set-border set-box-shadow center-block-horiz">
+                        <div class="responsive-wrapper 
+                           responsive-wrapper-wxh-572x612"
+                           style="-webkit-overflow-scrolling: touch; overflow: auto;">
+                      
+                          <iframe src="charter/BPLO CITIZENS CHARTER 2026.pdf"> 
+                            <a href="charter/BPLO CITIZENS CHARTER 2026.pdf" download  class="btn btn-primary"> Download</a>
+                          </iframe>
+                          
+                        </div>
+                      </div>
+                 
+                
+                  
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl py-2">
+      
+    </div>
+    <!-- Contact End -->
+
+
+    <!-- Footer Start -->
+    <!-- Footer Start  mt-5 -->
+ <div class="container-fluid  text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="background-color:#1E60AA ;color:aliceblue">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-4 col-md-4">
+                <h4 class="text-light mb-4">Address</h4>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Ground Floor, Finance Bldg, Shoe Ave.
+                    Sta.Elena, Marikina City</p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>82441800</p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i>bplo@marikina.gov.ph</p>
+                <div class="d-flex pt-2">
+                   
+                    <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/bplomarikina"><i class="fab fa-facebook-f"></i></a>
+                   
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <h4 class="text-light mb-4">Office Hours</h4>
+                <h6 class="text-light">Monday - Friday:</h6>
+                <p class="mb-4">08.00 AM - 05.00 PM</p>
+                
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <h4 class="text-light mb-4">Services</h4>
+                <a class="btn btn-link">New</a>
+                <a class="btn btn-link" >Renewal</a>
+                <a class="btn btn-link">Occupational Permit</a>
+                <a class="btn btn-link" >Retirement</a>
+                <a class="btn btn-link" >Contractors</a>
+                <a class="btn btn-link" >Special Permits</a>
+                <a class="btn btn-link">Certification</a>
+            </div>
+          
+        </div>
+    </div>
+    <div class="container">
+        <div class="copyright">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                   <a class="border-bottom" href="https://bplo.marikina.gov.ph/">BPLO MARIKINA</a>, Copyright © Business Permits and Licensing Office Marikina City 2022
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+    <!-- Footer End -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <script src="https://bplo.marikina.gov.ph/assets/bploweb/lib/wow/wow.min.js"></script>
+    <script src="https://bplo.marikina.gov.ph/assets/bploweb/lib/easing/easing.min.js"></script>
+    <script src="https://bplo.marikina.gov.ph/assets/bploweb/lib/waypoints/waypoints.min.js"></script>
+    <script src="https://bplo.marikina.gov.ph/assets/bploweb/lib/counterup/counterup.min.js"></script>
+
+    <script src="https://bplo.marikina.gov.ph/assets/bploweb/lib/counterup/counterup.min.js"></script>
+
+    <script src="https://bplo.marikina.gov.ph/assets/bploweb/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="https://bplo.marikina.gov.ph/assets/bploweb/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="https://bplo.marikina.gov.ph/assets/bploweb/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://bplo.marikina.gov.ph/assets/bploweb/js/main.js"></script>
+</body>
+
+</html>

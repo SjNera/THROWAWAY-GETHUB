@@ -5,6 +5,7 @@ pdao-charter-2025:
   url: https://quezoncity.gov.ph/wp-content/uploads/2020/09/PDAO-Citizens-Charter-2025-Updated-3.25.2025.pdf
   office: pdao
   edition: 2025 4th Ed., updated 3.25.2025
+  city: qc
   sha256: 60bfb024e6a7439a6a177d70cfb80368060b5fb6ccf50752332f2ce2fb13022a
   pdf_pages: 42
   local_file: qc-charters/PDAO-Citizens-Charter-2025-Updated-3.25.2025.pdf
@@ -16,6 +17,7 @@ pdao-pwd-service-2025:
   url: https://quezoncity.gov.ph/wp-content/uploads/2025/03/REGISTRATION-AND-ISSUANCE-OF-PWD-ID.pdf
   office: pdao
   edition: 2025/03 upload
+  city: qc
   sha256: fa5fba2a8c93dca6894d8de0896f0a614424e5e89a70cf64402e8f3780a81e98
   pdf_pages: 5
   local_file: qc-charters/REGISTRATION-AND-ISSUANCE-OF-PWD-ID.pdf
@@ -27,6 +29,7 @@ bpld-charter-2025:
   url: https://quezoncity.gov.ph/wp-content/uploads/2020/09/BPLD-CITIZENS-CHARTER-2025.pdf
   office: bpld
   edition: Feb 2025
+  city: qc
   sha256: ef6c2672b84066624f4a60b00a117a28904c07fbff6e4a2a3361a11d747eb217
   pdf_pages: 20
   local_file: qc-charters/BPLD-CITIZENS-CHARTER-2025.pdf
@@ -38,6 +41,7 @@ cto-business-tax-2024:
   url: https://quezoncity.gov.ph/wp-content/uploads/2024/03/COLLECTION-OF-BUSINESS-TAX-1.pdf
   office: cto
   edition: 2024/03 upload
+  city: qc
   sha256: 050a09082185efbbc541d3651c38719ae4e6b73d7753103fa629e16627f57557
   pdf_pages: 1
   local_file: qc-charters/COLLECTION-OF-BUSINESS-TAX-1.pdf
@@ -49,6 +53,7 @@ dbo-construction-permits:
   url: https://quezoncity.gov.ph/wp-content/uploads/2024/02/Issuance-of-Construction-Permits.pdf
   office: dbo
   edition: 2024/02 upload
+  city: qc
   sha256: 4dc327008fe92017e6e1802b56f1f19f8aac287792572440cc718652c66064bd
   pdf_pages: 12
   local_file: qc-charters/Issuance-of-Construction-Permits.pdf
@@ -60,6 +65,7 @@ ccrd-charter-2025:
   url: https://quezoncity.gov.ph/wp-content/uploads/2020/09/CCRD-Citizens-Charter-2025-8th-Ed-.pdf
   office: ccrd
   edition: 2025 8th Ed.
+  city: qc
   sha256: 8ddf791a37b94564810edc76595ac42323ede8cf76134e86119bd6f4255adea5
   pdf_pages: 49
   local_file: qc-charters/CCRD-Citizens-Charter-2025-8th-Ed-.pdf
@@ -71,6 +77,7 @@ ccrd-ctc-birth:
   url: https://quezoncity.gov.ph/wp-content/uploads/2025/04/Request-and-Issuance-of-Certified-True-Copy-of-Birth-Certificate.pdf
   office: ccrd
   edition: 2025/04 upload
+  city: qc
   sha256: f153f4cb91c1249b816aac7d068afe8a891863ec5feb5a65b58b67e2631f3822
   pdf_pages: 1
   local_file: qc-charters/Request-and-Issuance-of-Certified-True-Copy-of-Birth-Certificate.pdf
@@ -82,6 +89,7 @@ ccrd-ctc-online:
   url: https://quezoncity.gov.ph/wp-content/uploads/2025/04/Request-for-Issuance-of-Certified-True-Copy-of-Birth-Marriage-and-Death-Cert.-via-Civil-Registry-Online-Services.pdf
   office: ccrd
   edition: 2025/04 upload
+  city: qc
   sha256: 629944d19dda34b692e877d6ab858343f641a4312823fcce576c8105fdc7d9a1
   pdf_pages: 1
   local_file: qc-charters/Request-for-Issuance-of-Certified-True-Copy-of-Birth-Marriage-and-Death-Cert.-via-Civil-Registry-Online-Services.pdf
@@ -93,6 +101,7 @@ qc-guide-pwd-id:
   url: https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-pwd-id/
   office: pdao
   edition: last updated 2026-05-13
+  city: qc
   sha256: 149a9d3e08358f26d4a4577d11a37fb29ae4e16327bd2dec5a063fee41864185
   local_file: extract/html/qc-guide-pwd-id.txt
   accessed: '2026-11-18'
@@ -103,6 +112,7 @@ qc-guide-senior-card:
   url: https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-senior-citizen-card/
   office: osca
   edition: last updated 2025-10-02
+  city: qc
   sha256: 0a120b00623c6a63421034a76a33f2c4126f96d84a7fdc9dceddc80878162175
   local_file: extract/html/qc-guide-senior-card.txt
   accessed: '2026-11-18'
@@ -113,6 +123,7 @@ qc-guide-renew-business-permit:
   url: https://quezoncity.gov.ph/qcitizen-guides/how-to-renew-business-permit/
   office: bpld
   edition: last updated 2026-01-06
+  city: qc
   sha256: 453f3152cebd40dfc5ea5c809047d2d550cbf0e4c6cb61df4edf894fe0bc5793
   local_file: extract/html/qc-guide-renew-business-permit.txt
   accessed: '2026-11-18'
@@ -123,6 +134,7 @@ qc-guide-building-permit:
   url: https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-a-building-permit/
   office: dbo
   edition: last updated 2025-10-02
+  city: qc
   sha256: fa145b90c6c8ba09061a8e3d4e0551e464b8d024df8c2b737fa7683169f7717c
   local_file: extract/html/qc-guide-building-permit.txt
   accessed: '2026-11-18'
@@ -133,6 +145,192 @@ qc-contacts:
   url: https://quezoncity.gov.ph/departments/
   office: multi
   edition: read 2026-11-18
+  city: qc
   sha256: 6370486a288ee93ce7b6ad487a8cb744e234d2e327330b219d2b35f92333465a
   local_file: extract/html/qc-contacts.txt
   accessed: '2026-11-18'
+mkn-charter-2022:
+  type: pdf
+  file: MARIKINA-2022-Citizens-Charter
+  title: Marikina City Citizen’s Charter 2022 (omnibus, all offices)
+  url: https://www.marikina.gov.ph/facts/MARIKINA%202022%20Citizens%20Charter.pdf
+  office: multi
+  edition: 2022 (cross-check only; superseded by 2024 office charters)
+  city: mkn
+  sha256: 21e4d8611345bab81d3b8c26a98aaf0de0fe7268a4cd504102d7ce032f41223e
+  pdf_pages: 364
+  local_file: mkn-charters/MARIKINA-2022-Citizens-Charter.pdf
+  accessed: '2026-11-20'
+mkn-osca-2024:
+  type: pdf
+  file: FDPP-OSCA
+  title: OSCA Citizen’s Charter 2024
+  url: https://fdpp.marikina.gov.ph/file/citizens%20charter/osca.pdf
+  office: osca
+  edition: '2024'
+  city: mkn
+  sha256: bfd100a0e259bf93311dfabbb8931df480c82b1963d0868739d4c5dfb9b373dd
+  pdf_pages: 5
+  local_file: mkn-charters/FDPP-OSCA.pdf
+  accessed: '2026-11-20'
+mkn-cswdo-2024:
+  type: pdf
+  file: FDPP-CSWDO
+  title: CSWDO Citizen’s Charter 2024 (includes PDAO)
+  url: https://fdpp.marikina.gov.ph/file/citizens%20charter/cswdo.pdf
+  office: pdao
+  edition: '2024'
+  city: mkn
+  sha256: 703d42c60c363ae388dccf26c4648c70292154f9691dc922dcde2423713d009e
+  pdf_pages: 33
+  local_file: mkn-charters/FDPP-CSWDO.pdf
+  accessed: '2026-11-20'
+mkn-ccro-2024:
+  type: pdf
+  file: FDPP-CCRO-Civil-Registry
+  title: City Civil Registry Office Citizen’s Charter 2024
+  url: https://fdpp.marikina.gov.ph/file/citizens%20charter/civil%20registry.pdf
+  office: ccro
+  edition: '2024'
+  city: mkn
+  sha256: 40a35b296491f2bfc3fcd2476a0f9c8816378906c23f5c3b624f01b2dfe07188
+  pdf_pages: 31
+  local_file: mkn-charters/FDPP-CCRO-Civil-Registry.pdf
+  accessed: '2026-11-20'
+mkn-obo-2024:
+  type: pdf
+  file: FDPP-OBO-Building-Official
+  title: Office of the Building Official Citizen’s Charter 2024
+  url: https://fdpp.marikina.gov.ph/file/citizens%20charter/building%20official.pdf
+  office: obo
+  edition: '2024'
+  city: mkn
+  sha256: 0da1f9ba2d93e1dcbcc57d789581abf54452ad4651b357d888a3f7dc25269070
+  pdf_pages: 3
+  local_file: mkn-charters/FDPP-OBO-Building-Official.pdf
+  accessed: '2026-11-20'
+mkn-bplo-2026:
+  type: pdf
+  file: BPLO-CITIZENS-CHARTER-2026
+  title: BPLO Citizen’s Charter 2026 (1st Ed.)
+  url: https://bplo.marikina.gov.ph/charter/BPLO%20CITIZENS%20CHARTER%202026.pdf
+  office: bplo
+  edition: 2026 1st Ed.
+  city: mkn
+  sha256: 3c51a4522abd3b65ed5ada7e8cc28ccc5140ed425b4a626211f1b857aa49787f
+  pdf_pages: 29
+  local_file: mkn-charters/BPLO-CITIZENS-CHARTER-2026.pdf
+  accessed: '2026-11-20'
+mkn-bplo-2021:
+  type: pdf
+  file: BPLO-CITIZENS-CHARTER-2021-1st-Ed
+  title: BPLO Citizen’s Charter 2021 (1st Ed.; older file on BPLO site)
+  url: https://bplo.marikina.gov.ph/charter/BPLOX%201748569905.pdf
+  office: bplo
+  edition: 2021 1st Ed. (superseded by 2026)
+  city: mkn
+  sha256: 608db41d29ee21e03ee6cc087677b7664cfc68502060d8e757119fc16bb8a821
+  pdf_pages: 29
+  local_file: mkn-charters/BPLO-CITIZENS-CHARTER-2021-1st-Ed.pdf
+  accessed: '2026-11-20'
+mkn-cto-2024:
+  type: pdf
+  file: FDPP-CTO-Treasury
+  title: City Treasury Office Citizen’s Charter 2024
+  url: https://fdpp.marikina.gov.ph/file/citizens%20charter/treasury.pdf
+  office: cto
+  edition: 2024 (downloaded, not modelled)
+  city: mkn
+  sha256: 6dfbfe57656d489442f55b205985c7cbb6535f1bf632eec805fdd2fc4106b8c9
+  pdf_pages: 14
+  local_file: mkn-charters/FDPP-CTO-Treasury.pdf
+  accessed: '2026-11-20'
+mkn-cpdo-2024:
+  type: pdf
+  file: FDPP-CPDO-Planning
+  title: CPDO Citizen’s Charter 2024
+  url: https://fdpp.marikina.gov.ph/file/citizens%20charter/planning.pdf
+  office: cpdo
+  edition: 2024 (downloaded, not modelled)
+  city: mkn
+  sha256: 6276f53f2bb12127cf3623d161be2dd3741349e096b4af99c406c1f4a0a41c17
+  pdf_pages: 5
+  local_file: mkn-charters/FDPP-CPDO-Planning.pdf
+  accessed: '2026-11-20'
+mkn-contacts:
+  type: html
+  file: mkn-contacts.txt
+  title: Marikina City – Contact Us / City Hall directory
+  url: https://marikina.gov.ph/contact-us
+  office: multi
+  edition: read 2026-11-20
+  city: mkn
+  sha256: 1557660e5e2672b71fd02200d7bff2defe7bc90bedf49107d2a6f8bda976a721
+  local_file: extract/html/mkn-contacts.txt
+  accessed: '2026-11-20'
+mkn-bplo-contact:
+  type: html
+  file: mkn-bplo-contact.txt
+  title: BPLO Marikina – Contact Us
+  url: https://bplo.marikina.gov.ph/contact
+  office: bplo
+  edition: read 2026-11-20
+  city: mkn
+  sha256: a1cb70df1f14ea794d89f4cae306d0cd30e10c2c5b3811ae3e256dadea8292f3
+  local_file: extract/html/mkn-bplo-contact.txt
+  accessed: '2026-11-20'
+mkn-bplo-faq:
+  type: html
+  file: mkn-bplo-faq.txt
+  title: BPLO Marikina – FAQ (online assessment and payment)
+  url: https://bplo.marikina.gov.ph/faq
+  office: bplo
+  edition: read 2026-11-20
+  city: mkn
+  sha256: 2e4612cdb31944dc89112c86b778dcc75d03622f11f63dee8d44c0eee9aed4e4
+  local_file: extract/html/mkn-bplo-faq.txt
+  accessed: '2026-11-20'
+mkn-bplo-home:
+  type: html
+  file: mkn-bplo-home.txt
+  title: BPLO Marikina – home page
+  url: https://bplo.marikina.gov.ph/
+  office: bplo
+  edition: read 2026-11-20
+  city: mkn
+  sha256: 3067f27218c4cfd22ee16eeb2f58ae19ceaa3b6f250ace6e0f6eaeb936eacca7
+  local_file: extract/html/mkn-bplo-home.txt
+  accessed: '2026-11-20'
+mkn-bplo-charter-page:
+  type: html
+  file: mkn-bplo-charter-page.txt
+  title: BPLO Marikina – Citizen’s Charter page
+  url: https://bplo.marikina.gov.ph/citizen-charter
+  office: bplo
+  edition: read 2026-11-20
+  city: mkn
+  sha256: 73dab6726da54dad932827f45921f78bc36f67cadf31fb3846120668e811c706
+  local_file: extract/html/mkn-bplo-charter-page.txt
+  accessed: '2026-11-20'
+mkn-payment-portal:
+  type: html
+  file: mkn-payment-portal.txt
+  title: Marikina Online Services portal (sign-in page)
+  url: https://payment.marikina.gov.ph/Marikina/OnlineServices/
+  office: portal
+  edition: read 2026-11-20
+  city: mkn
+  sha256: 09f23449c5f5f276392a5f9a5ed2cce13b1dd265fe8464dc78cc4d7497b04e30
+  local_file: extract/html/mkn-payment-portal.txt
+  accessed: '2026-11-20'
+mkn-home:
+  type: html
+  file: mkn-home.txt
+  title: Marikina City – home page
+  url: https://www.marikina.gov.ph/
+  office: multi
+  edition: read 2026-11-20
+  city: mkn
+  sha256: d7e54d6225dd10f228e7901fff3a802722c3b57e7126385e4b2332f2a644b893
+  local_file: extract/html/mkn-home.txt
+  accessed: '2026-11-20'

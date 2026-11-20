@@ -1,4 +1,5 @@
-"""Phase 7/8 reference engine: builds a roadmap from graph.json + answers. Pure code, deterministic."""
+"""Phase 7/8 reference engine: builds a roadmap from graph.json + answers. Pure code, deterministic.
+answers['city'] (e.g. 'qc', 'mkn') picks which city's service the intent resolves to."""
 def _in(v, allowed): return v in (allowed if isinstance(allowed, list) else [allowed])
 def applies(item, a):
     if not all(_in(a.get(k), v) for k, v in item.get('when', {}).items()): return False
@@ -9,10 +10,17 @@ def pick_variant(svc, a):
     for v in svc['variants']:
         if v['channel'] == ch: return v
     return svc['variants'][0]
+def not_covered(g, city, message, office=None):
+    fb = g['cities'].get(city, {}).get('fallback_office')
+    return dict(status='not_covered', message=message, office=office or (g['offices'][fb]['name'] if fb else None))
 def roadmap(g, intent_id, a):
+    city = a.get('city')
+    if city not in g['cities']: return dict(status='not_covered', message='City not covered', office=None)
     intent = g['intents'].get(intent_id)
-    if not intent: return dict(status='not_covered', message='Not covered', office=None)
-    goal = intent['service']; gs = g['services'][goal]
+    if not intent: return not_covered(g, city, 'Not covered')
+    goal = intent['service_by_city'].get(city)
+    if not goal: return not_covered(g, city, f'Not covered in {g["cities"][city]["name"]}')
+    gs = g['services'][goal]
     for k, v in gs.get('exit_if', {}).items():
         if a.get(k) == v: return dict(status='not_covered', message=gs['exit_message'], office=g['offices'][gs['exit_office']]['name'])
     nodes = {}; edges = {}
@@ -26,7 +34,7 @@ def roadmap(g, intent_id, a):
             for rid in rids: add_req(sid, rid)
     def add_req(parent, rid):
         r = g['requirements'][rid]
-        if a.get('has_' + rid[2:].replace('-', '_')) == 'yes' and 'issuer_service' in r: return
+        if 'issuer_service' in r and a.get(r['owned_key']) == 'yes': return
         if 'issuer_service' in r:
             add_service(r['issuer_service']); edges[parent].add(r['issuer_service'])
         else:

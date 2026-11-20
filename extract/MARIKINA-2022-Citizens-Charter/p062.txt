@@ -1,0 +1,62 @@
+                                                Marikina Citizen’s Charter
+
+2. VAXCERTPH APPLICATION ASSISTANCE
+
+
+   VaxCertPH is the official digital vaccination certificate for Filipinos and non-Filipinos vaccinated in the
+    Philippines that may be used for international and domestic travel. This system is developed by the
+   Department of Information and Communications Technology (DICT).
+
+   Only those vaccinated at Marikina LGU vaccination sites can be rectified by Marikina LGU. For those
+    vaccinated outside Marikina, they will have to coordinate with the concerned LGU or country where they
+   were vaccinated.
+
+
+
+Office or Division:       MANAGEMENT INFORMATION SYSTEM AND CALL CENTER
+
+Classification:
+
+Type of Transaction:      G2C – Government to Citizen
+
+Who may avail:                1. Individuals who are vaccinated under Marikina LGU
+
+     CHECKLIST OF REQUIREMENTS                WHERE TO SECURE
+         1.  Government Issued ID (Passport, if                           Applicant
+              for International Travel)
+         2.  Marikina Vaccination Card                                   Applicant
+
+                     AGENCY     FEES TO BE   PROCESSING      PERSON
+    CLIENT STEPS
+                       ACTIONS         PAID          TIME       RESPONSIBLE
+
+1. Applicant may go         Input the                          1 - 2 mins       VaxCert Encoder
+   https://vaxcert.doh.gov    applicant’s
+   .ph/ or present your       information to the
+    valid ID and            VaxCertPH
+   vaccination card to                             website.
+   VaxCertPH Booth.
+2. Wait for the results            If record is found,                   1 - 2 mins       VaxCert Encoder
+                         download and
+                                  print the
+                          generated digital
+                           vaccine certificate.
+
+                                               If record is not                     5 - 10 mins       VaxCert Encoder
+                          found or needs to
+                        be corrected,
+                         VaxCert encoder
+                                      will verify the
+                             vaccination
+                            records then
+                        encode or edit the
+                             vaccination entries
+                        on VaxCertPH.
+
+                                      TOTAL    1 to 10 mins
+
+
+
+
+
+                                                                                    62

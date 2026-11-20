@@ -1,10 +1,24 @@
 {
  "meta": {
-  "version": "0.1-phase0",
-  "built": "2026-11-18",
-  "scope": "Quezon City; 6 intents across 5 journeys; auto-verified only, human review pending",
+  "version": "0.2-phase0-multicity",
+  "built": "2026-11-20",
+  "cities": [
+   "qc",
+   "mkn"
+  ],
+  "scope": "Quezon City and Marikina City; 6 intents; auto-verified only, human review pending",
   "page_note": "pdf_page = physical page number in the PDF file (not the printed page number)",
-  "disclaimer": "Based on official QC sources, last checked 2026-11-18. Please confirm with the office before you go."
+  "disclaimer": "Based on official city sources, last checked 2026-11-18 (Quezon City) and 2026-11-20 (Marikina). Please confirm with the office before you go."
+ },
+ "cities": {
+  "qc": {
+   "name": "Quezon City",
+   "fallback_office": null
+  },
+  "mkn": {
+   "name": "Marikina City",
+   "fallback_office": "mkn.cityhall"
+  }
  },
  "sources": {
   "pdao-charter-2025": {
@@ -14,6 +28,7 @@
    "url": "https://quezoncity.gov.ph/wp-content/uploads/2020/09/PDAO-Citizens-Charter-2025-Updated-3.25.2025.pdf",
    "office": "pdao",
    "edition": "2025 4th Ed., updated 3.25.2025",
+   "city": "qc",
    "sha256": "60bfb024e6a7439a6a177d70cfb80368060b5fb6ccf50752332f2ce2fb13022a",
    "pdf_pages": 42,
    "local_file": "qc-charters/PDAO-Citizens-Charter-2025-Updated-3.25.2025.pdf",
@@ -26,6 +41,7 @@
    "url": "https://quezoncity.gov.ph/wp-content/uploads/2025/03/REGISTRATION-AND-ISSUANCE-OF-PWD-ID.pdf",
    "office": "pdao",
    "edition": "2025/03 upload",
+   "city": "qc",
    "sha256": "fa5fba2a8c93dca6894d8de0896f0a614424e5e89a70cf64402e8f3780a81e98",
    "pdf_pages": 5,
    "local_file": "qc-charters/REGISTRATION-AND-ISSUANCE-OF-PWD-ID.pdf",
@@ -38,6 +54,7 @@
    "url": "https://quezoncity.gov.ph/wp-content/uploads/2020/09/BPLD-CITIZENS-CHARTER-2025.pdf",
    "office": "bpld",
    "edition": "Feb 2025",
+   "city": "qc",
    "sha256": "ef6c2672b84066624f4a60b00a117a28904c07fbff6e4a2a3361a11d747eb217",
    "pdf_pages": 20,
    "local_file": "qc-charters/BPLD-CITIZENS-CHARTER-2025.pdf",
@@ -50,6 +67,7 @@
    "url": "https://quezoncity.gov.ph/wp-content/uploads/2024/03/COLLECTION-OF-BUSINESS-TAX-1.pdf",
    "office": "cto",
    "edition": "2024/03 upload",
+   "city": "qc",
    "sha256": "050a09082185efbbc541d3651c38719ae4e6b73d7753103fa629e16627f57557",
    "pdf_pages": 1,
    "local_file": "qc-charters/COLLECTION-OF-BUSINESS-TAX-1.pdf",
@@ -62,6 +80,7 @@
    "url": "https://quezoncity.gov.ph/wp-content/uploads/2024/02/Issuance-of-Construction-Permits.pdf",
    "office": "dbo",
    "edition": "2024/02 upload",
+   "city": "qc",
    "sha256": "4dc327008fe92017e6e1802b56f1f19f8aac287792572440cc718652c66064bd",
    "pdf_pages": 12,
    "local_file": "qc-charters/Issuance-of-Construction-Permits.pdf",
@@ -74,6 +93,7 @@
    "url": "https://quezoncity.gov.ph/wp-content/uploads/2020/09/CCRD-Citizens-Charter-2025-8th-Ed-.pdf",
    "office": "ccrd",
    "edition": "2025 8th Ed.",
+   "city": "qc",
    "sha256": "8ddf791a37b94564810edc76595ac42323ede8cf76134e86119bd6f4255adea5",
    "pdf_pages": 49,
    "local_file": "qc-charters/CCRD-Citizens-Charter-2025-8th-Ed-.pdf",
@@ -86,6 +106,7 @@
    "url": "https://quezoncity.gov.ph/wp-content/uploads/2025/04/Request-and-Issuance-of-Certified-True-Copy-of-Birth-Certificate.pdf",
    "office": "ccrd",
    "edition": "2025/04 upload",
+   "city": "qc",
    "sha256": "f153f4cb91c1249b816aac7d068afe8a891863ec5feb5a65b58b67e2631f3822",
    "pdf_pages": 1,
    "local_file": "qc-charters/Request-and-Issuance-of-Certified-True-Copy-of-Birth-Certificate.pdf",
@@ -98,6 +119,7 @@
    "url": "https://quezoncity.gov.ph/wp-content/uploads/2025/04/Request-for-Issuance-of-Certified-True-Copy-of-Birth-Marriage-and-Death-Cert.-via-Civil-Registry-Online-Services.pdf",
    "office": "ccrd",
    "edition": "2025/04 upload",
+   "city": "qc",
    "sha256": "629944d19dda34b692e877d6ab858343f641a4312823fcce576c8105fdc7d9a1",
    "pdf_pages": 1,
    "local_file": "qc-charters/Request-for-Issuance-of-Certified-True-Copy-of-Birth-Marriage-and-Death-Cert.-via-Civil-Registry-Online-Services.pdf",
@@ -110,6 +132,7 @@
    "url": "https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-pwd-id/",
    "office": "pdao",
    "edition": "last updated 2026-05-13",
+   "city": "qc",
    "sha256": "149a9d3e08358f26d4a4577d11a37fb29ae4e16327bd2dec5a063fee41864185",
    "local_file": "extract/html/qc-guide-pwd-id.txt",
    "accessed": "2026-11-18"
@@ -121,6 +144,7 @@
    "url": "https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-senior-citizen-card/",
    "office": "osca",
    "edition": "last updated 2025-10-02",
+   "city": "qc",
    "sha256": "0a120b00623c6a63421034a76a33f2c4126f96d84a7fdc9dceddc80878162175",
    "local_file": "extract/html/qc-guide-senior-card.txt",
    "accessed": "2026-11-18"
@@ -132,6 +156,7 @@
    "url": "https://quezoncity.gov.ph/qcitizen-guides/how-to-renew-business-permit/",
    "office": "bpld",
    "edition": "last updated 2026-01-06",
+   "city": "qc",
    "sha256": "453f3152cebd40dfc5ea5c809047d2d550cbf0e4c6cb61df4edf894fe0bc5793",
    "local_file": "extract/html/qc-guide-renew-business-permit.txt",
    "accessed": "2026-11-18"
@@ -143,6 +168,7 @@
    "url": "https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-a-building-permit/",
    "office": "dbo",
    "edition": "last updated 2025-10-02",
+   "city": "qc",
    "sha256": "fa145b90c6c8ba09061a8e3d4e0551e464b8d024df8c2b737fa7683169f7717c",
    "local_file": "extract/html/qc-guide-building-permit.txt",
    "accessed": "2026-11-18"
@@ -154,13 +180,215 @@
    "url": "https://quezoncity.gov.ph/departments/",
    "office": "multi",
    "edition": "read 2026-11-18",
+   "city": "qc",
    "sha256": "6370486a288ee93ce7b6ad487a8cb744e234d2e327330b219d2b35f92333465a",
    "local_file": "extract/html/qc-contacts.txt",
    "accessed": "2026-11-18"
+  },
+  "mkn-charter-2022": {
+   "type": "pdf",
+   "file": "MARIKINA-2022-Citizens-Charter",
+   "title": "Marikina City Citizen’s Charter 2022 (omnibus, all offices)",
+   "url": "https://www.marikina.gov.ph/facts/MARIKINA%202022%20Citizens%20Charter.pdf",
+   "office": "multi",
+   "edition": "2022 (cross-check only; superseded by 2024 office charters)",
+   "city": "mkn",
+   "sha256": "21e4d8611345bab81d3b8c26a98aaf0de0fe7268a4cd504102d7ce032f41223e",
+   "pdf_pages": 364,
+   "local_file": "mkn-charters/MARIKINA-2022-Citizens-Charter.pdf",
+   "accessed": "2026-11-20"
+  },
+  "mkn-osca-2024": {
+   "type": "pdf",
+   "file": "FDPP-OSCA",
+   "title": "OSCA Citizen’s Charter 2024",
+   "url": "https://fdpp.marikina.gov.ph/file/citizens%20charter/osca.pdf",
+   "office": "osca",
+   "edition": "2024",
+   "city": "mkn",
+   "sha256": "bfd100a0e259bf93311dfabbb8931df480c82b1963d0868739d4c5dfb9b373dd",
+   "pdf_pages": 5,
+   "local_file": "mkn-charters/FDPP-OSCA.pdf",
+   "accessed": "2026-11-20"
+  },
+  "mkn-cswdo-2024": {
+   "type": "pdf",
+   "file": "FDPP-CSWDO",
+   "title": "CSWDO Citizen’s Charter 2024 (includes PDAO)",
+   "url": "https://fdpp.marikina.gov.ph/file/citizens%20charter/cswdo.pdf",
+   "office": "pdao",
+   "edition": "2024",
+   "city": "mkn",
+   "sha256": "703d42c60c363ae388dccf26c4648c70292154f9691dc922dcde2423713d009e",
+   "pdf_pages": 33,
+   "local_file": "mkn-charters/FDPP-CSWDO.pdf",
+   "accessed": "2026-11-20"
+  },
+  "mkn-ccro-2024": {
+   "type": "pdf",
+   "file": "FDPP-CCRO-Civil-Registry",
+   "title": "City Civil Registry Office Citizen’s Charter 2024",
+   "url": "https://fdpp.marikina.gov.ph/file/citizens%20charter/civil%20registry.pdf",
+   "office": "ccro",
+   "edition": "2024",
+   "city": "mkn",
+   "sha256": "40a35b296491f2bfc3fcd2476a0f9c8816378906c23f5c3b624f01b2dfe07188",
+   "pdf_pages": 31,
+   "local_file": "mkn-charters/FDPP-CCRO-Civil-Registry.pdf",
+   "accessed": "2026-11-20"
+  },
+  "mkn-obo-2024": {
+   "type": "pdf",
+   "file": "FDPP-OBO-Building-Official",
+   "title": "Office of the Building Official Citizen’s Charter 2024",
+   "url": "https://fdpp.marikina.gov.ph/file/citizens%20charter/building%20official.pdf",
+   "office": "obo",
+   "edition": "2024",
+   "city": "mkn",
+   "sha256": "0da1f9ba2d93e1dcbcc57d789581abf54452ad4651b357d888a3f7dc25269070",
+   "pdf_pages": 3,
+   "local_file": "mkn-charters/FDPP-OBO-Building-Official.pdf",
+   "accessed": "2026-11-20"
+  },
+  "mkn-bplo-2026": {
+   "type": "pdf",
+   "file": "BPLO-CITIZENS-CHARTER-2026",
+   "title": "BPLO Citizen’s Charter 2026 (1st Ed.)",
+   "url": "https://bplo.marikina.gov.ph/charter/BPLO%20CITIZENS%20CHARTER%202026.pdf",
+   "office": "bplo",
+   "edition": "2026 1st Ed.",
+   "city": "mkn",
+   "sha256": "3c51a4522abd3b65ed5ada7e8cc28ccc5140ed425b4a626211f1b857aa49787f",
+   "pdf_pages": 29,
+   "local_file": "mkn-charters/BPLO-CITIZENS-CHARTER-2026.pdf",
+   "accessed": "2026-11-20"
+  },
+  "mkn-bplo-2021": {
+   "type": "pdf",
+   "file": "BPLO-CITIZENS-CHARTER-2021-1st-Ed",
+   "title": "BPLO Citizen’s Charter 2021 (1st Ed.; older file on BPLO site)",
+   "url": "https://bplo.marikina.gov.ph/charter/BPLOX%201748569905.pdf",
+   "office": "bplo",
+   "edition": "2021 1st Ed. (superseded by 2026)",
+   "city": "mkn",
+   "sha256": "608db41d29ee21e03ee6cc087677b7664cfc68502060d8e757119fc16bb8a821",
+   "pdf_pages": 29,
+   "local_file": "mkn-charters/BPLO-CITIZENS-CHARTER-2021-1st-Ed.pdf",
+   "accessed": "2026-11-20"
+  },
+  "mkn-cto-2024": {
+   "type": "pdf",
+   "file": "FDPP-CTO-Treasury",
+   "title": "City Treasury Office Citizen’s Charter 2024",
+   "url": "https://fdpp.marikina.gov.ph/file/citizens%20charter/treasury.pdf",
+   "office": "cto",
+   "edition": "2024 (downloaded, not modelled)",
+   "city": "mkn",
+   "sha256": "6dfbfe57656d489442f55b205985c7cbb6535f1bf632eec805fdd2fc4106b8c9",
+   "pdf_pages": 14,
+   "local_file": "mkn-charters/FDPP-CTO-Treasury.pdf",
+   "accessed": "2026-11-20"
+  },
+  "mkn-cpdo-2024": {
+   "type": "pdf",
+   "file": "FDPP-CPDO-Planning",
+   "title": "CPDO Citizen’s Charter 2024",
+   "url": "https://fdpp.marikina.gov.ph/file/citizens%20charter/planning.pdf",
+   "office": "cpdo",
+   "edition": "2024 (downloaded, not modelled)",
+   "city": "mkn",
+   "sha256": "6276f53f2bb12127cf3623d161be2dd3741349e096b4af99c406c1f4a0a41c17",
+   "pdf_pages": 5,
+   "local_file": "mkn-charters/FDPP-CPDO-Planning.pdf",
+   "accessed": "2026-11-20"
+  },
+  "mkn-contacts": {
+   "type": "html",
+   "file": "mkn-contacts.txt",
+   "title": "Marikina City – Contact Us / City Hall directory",
+   "url": "https://marikina.gov.ph/contact-us",
+   "office": "multi",
+   "edition": "read 2026-11-20",
+   "city": "mkn",
+   "sha256": "1557660e5e2672b71fd02200d7bff2defe7bc90bedf49107d2a6f8bda976a721",
+   "local_file": "extract/html/mkn-contacts.txt",
+   "accessed": "2026-11-20"
+  },
+  "mkn-bplo-contact": {
+   "type": "html",
+   "file": "mkn-bplo-contact.txt",
+   "title": "BPLO Marikina – Contact Us",
+   "url": "https://bplo.marikina.gov.ph/contact",
+   "office": "bplo",
+   "edition": "read 2026-11-20",
+   "city": "mkn",
+   "sha256": "a1cb70df1f14ea794d89f4cae306d0cd30e10c2c5b3811ae3e256dadea8292f3",
+   "local_file": "extract/html/mkn-bplo-contact.txt",
+   "accessed": "2026-11-20"
+  },
+  "mkn-bplo-faq": {
+   "type": "html",
+   "file": "mkn-bplo-faq.txt",
+   "title": "BPLO Marikina – FAQ (online assessment and payment)",
+   "url": "https://bplo.marikina.gov.ph/faq",
+   "office": "bplo",
+   "edition": "read 2026-11-20",
+   "city": "mkn",
+   "sha256": "2e4612cdb31944dc89112c86b778dcc75d03622f11f63dee8d44c0eee9aed4e4",
+   "local_file": "extract/html/mkn-bplo-faq.txt",
+   "accessed": "2026-11-20"
+  },
+  "mkn-bplo-home": {
+   "type": "html",
+   "file": "mkn-bplo-home.txt",
+   "title": "BPLO Marikina – home page",
+   "url": "https://bplo.marikina.gov.ph/",
+   "office": "bplo",
+   "edition": "read 2026-11-20",
+   "city": "mkn",
+   "sha256": "3067f27218c4cfd22ee16eeb2f58ae19ceaa3b6f250ace6e0f6eaeb936eacca7",
+   "local_file": "extract/html/mkn-bplo-home.txt",
+   "accessed": "2026-11-20"
+  },
+  "mkn-bplo-charter-page": {
+   "type": "html",
+   "file": "mkn-bplo-charter-page.txt",
+   "title": "BPLO Marikina – Citizen’s Charter page",
+   "url": "https://bplo.marikina.gov.ph/citizen-charter",
+   "office": "bplo",
+   "edition": "read 2026-11-20",
+   "city": "mkn",
+   "sha256": "73dab6726da54dad932827f45921f78bc36f67cadf31fb3846120668e811c706",
+   "local_file": "extract/html/mkn-bplo-charter-page.txt",
+   "accessed": "2026-11-20"
+  },
+  "mkn-payment-portal": {
+   "type": "html",
+   "file": "mkn-payment-portal.txt",
+   "title": "Marikina Online Services portal (sign-in page)",
+   "url": "https://payment.marikina.gov.ph/Marikina/OnlineServices/",
+   "office": "portal",
+   "edition": "read 2026-11-20",
+   "city": "mkn",
+   "sha256": "09f23449c5f5f276392a5f9a5ed2cce13b1dd265fe8464dc78cc4d7497b04e30",
+   "local_file": "extract/html/mkn-payment-portal.txt",
+   "accessed": "2026-11-20"
+  },
+  "mkn-home": {
+   "type": "html",
+   "file": "mkn-home.txt",
+   "title": "Marikina City – home page",
+   "url": "https://www.marikina.gov.ph/",
+   "office": "multi",
+   "edition": "read 2026-11-20",
+   "city": "mkn",
+   "sha256": "d7e54d6225dd10f228e7901fff3a802722c3b57e7126385e4b2332f2a644b893",
+   "local_file": "extract/html/mkn-home.txt",
+   "accessed": "2026-11-20"
   }
  },
  "offices": {
-  "pdao": {
+  "qc.pdao": {
    "name": "Persons with Disability Affairs Office (PDAO)",
    "address": "Ground Floor, Community Center Building, Gate 3, Kalayaan Ave., QC Hall Compound",
    "phone": "8988-4242 loc 7809",
@@ -169,9 +397,10 @@
     "lat": null,
     "lng": null,
     "status": "needs_review"
-   }
+   },
+   "city": "qc"
   },
-  "osca": {
+  "qc.osca": {
    "name": "Office for the Senior Citizens’ Affairs (OSCA)",
    "address": "Ground Floor Community Center Building, Gate-3 Quezon City Hall Complex, Kalayaan Avenue, Quezon City",
    "phone": "8988-4242 locals 1104, 8703-2843",
@@ -180,9 +409,10 @@
     "lat": null,
     "lng": null,
     "status": "needs_review"
-   }
+   },
+   "city": "qc"
   },
-  "bpld": {
+  "qc.bpld": {
    "name": "Business Permits and Licensing Department (BPLD)",
    "address": "Ground Floor, Civic Center Building A, Quezon City Hall, Mayaman St., Barangay Central, Quezon City",
    "phone": "8988-4242 local 8173",
@@ -191,9 +421,10 @@
     "lat": null,
     "lng": null,
     "status": "needs_review"
-   }
+   },
+   "city": "qc"
   },
-  "cto": {
+  "qc.cto": {
    "name": "City Treasurer’s Office (CTO)",
    "address": "Annex Building, Mayaman St. Brgy. Central, QC Hall Compound, Diliman, Quezon City",
    "phone": "8988-4242 locals 8317, 8145, 8156, 8157",
@@ -202,9 +433,10 @@
     "lat": null,
     "lng": null,
     "status": "needs_review"
-   }
+   },
+   "city": "qc"
   },
-  "dbo": {
+  "qc.dbo": {
    "name": "Department of the Building Official (DBO)",
    "address": "Ground to 3rd Floors, Civic Center D (BRO Bldg.), Mayaman Street, Quezon City Hall Compound",
    "phone": "8988-4242 Local 8902, 8903, 8905, 8909, 8916, 1400, 1401",
@@ -213,9 +445,10 @@
     "lat": null,
     "lng": null,
     "status": "needs_review"
-   }
+   },
+   "city": "qc"
   },
-  "ccrd": {
+  "qc.ccrd": {
    "name": "City Civil Registry Department (CCRD)",
    "address": "Quezon City Hall Compound (1st Floor, Door 2, Civic Center)",
    "phone": "8988-4242 local 1516 (Birth Registration Division)",
@@ -224,160 +457,449 @@
     "lat": null,
     "lng": null,
     "status": "needs_review"
-   }
+   },
+   "city": "qc"
   },
-  "eservices": {
+  "qc.eservices": {
    "name": "QC E-Services portal",
    "address": null,
    "url": "https://qceservices.quezoncity.gov.ph/",
    "channel": "online",
-   "map": null
+   "map": null,
+   "city": "qc"
   },
-  "barangay": {
+  "qc.barangay": {
    "name": "Barangay hall (resident’s own barangay)",
    "address": null,
    "channel": "in_person",
    "external": true,
    "note": "Not covered by QC charters; confirm requirements and fees with your barangay.",
-   "map": null
+   "map": null,
+   "city": "qc"
   },
-  "external-agency": {
+  "qc.external-agency": {
    "name": "Issuing agency or professional (outside QC charters)",
    "address": null,
    "channel": "varies",
    "external": true,
-   "map": null
+   "map": null,
+   "city": "qc"
+  },
+  "mkn.cityhall": {
+   "name": "Marikina City Hall",
+   "address": "Marikina City Hall, Shoe Avenue, Sta. Elena, Marikina City 1800",
+   "phone": "8646-0462",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   },
+   "city": "mkn"
+  },
+  "mkn.osca": {
+   "name": "Office for Senior Citizens Affairs (OSCA)",
+   "address": "Marikina City Hall, Shoe Avenue, Sta. Elena, Marikina City 1800 (floor/room inside the compound is not stated in the sources; confirm with the office)",
+   "phone": "8659-1956",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   },
+   "city": "mkn"
+  },
+  "mkn.pdao": {
+   "name": "Persons with Disability Affairs Office (PDAO), under CSWDO",
+   "address": null,
+   "phone": null,
+   "channel": "in_person",
+   "note": "Address and phone are not stated in the sources read; confirm with CSWDO / City Hall.",
+   "map": null,
+   "city": "mkn"
+  },
+  "mkn.ccro": {
+   "name": "City Civil Registry Office (LCRO)",
+   "address": "Marikina City Hall, Shoe Avenue, Sta. Elena, Marikina City 1800 (floor/room inside the compound is not stated in the sources; confirm with the office)",
+   "phone": "8646-0373",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   },
+   "city": "mkn"
+  },
+  "mkn.obo": {
+   "name": "Office of the Building Official (OBO)",
+   "address": null,
+   "phone": null,
+   "channel": "in_person",
+   "note": "Address and phone are not stated in the sources read; confirm with City Hall.",
+   "map": null,
+   "city": "mkn"
+  },
+  "mkn.bplo": {
+   "name": "Business Permits and Licensing Office (BPLO)",
+   "address": "Ground Floor, Finance Bldg, Shoe Ave., Sta. Elena, Marikina City",
+   "phone": "8244-1800 / 8646-2354",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   },
+   "city": "mkn"
+  },
+  "mkn.cto": {
+   "name": "City Treasury Office (cashier)",
+   "address": "Marikina City Hall, Shoe Avenue, Sta. Elena, Marikina City 1800 (floor/room inside the compound is not stated in the sources; confirm with the office)",
+   "phone": "8682-9571 / 8646-1623",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   },
+   "city": "mkn"
+  },
+  "mkn.cpdo": {
+   "name": "City Planning and Development Office (CPDO)",
+   "address": null,
+   "phone": null,
+   "channel": "in_person",
+   "note": "Issues the Locational Clearance; not modelled in this graph.",
+   "map": null,
+   "city": "mkn"
+  },
+  "mkn.portal": {
+   "name": "Marikina Online Services portal",
+   "address": null,
+   "url": "https://payment.marikina.gov.ph/Marikina/OnlineServices/",
+   "channel": "online",
+   "map": null,
+   "city": "mkn"
+  },
+  "mkn.barangay": {
+   "name": "Barangay hall (resident’s own barangay)",
+   "address": null,
+   "channel": "in_person",
+   "external": true,
+   "note": "Not covered by the Marikina charters read; confirm with your barangay.",
+   "map": null,
+   "city": "mkn"
+  },
+  "mkn.external-agency": {
+   "name": "Issuing agency or professional (outside the Marikina charters)",
+   "address": null,
+   "channel": "varies",
+   "external": true,
+   "map": null,
+   "city": "mkn"
   }
  },
  "requirements": {
-  "r-eservices-account": {
+  "qc.r-eservices-account": {
    "name": "QC E-Services account",
-   "issuer_service": "s-eservices-register"
+   "issuer_service": "qc.s-eservices-register",
+   "owned_key": "qc.has_eservices_account",
+   "city": "qc"
   },
-  "r-cert-disability": {
+  "qc.r-cert-disability": {
    "name": "Certificate of Disability (from a specialist doctor)",
-   "external": "external-agency",
-   "hint": "Must be signed by the specialist for your disability type, not a family doctor or general physician."
+   "external": "qc.external-agency",
+   "hint": "Must be signed by the specialist for your disability type, not a family doctor or general physician.",
+   "city": "qc"
   },
-  "r-med-cert-cancer-rare": {
+  "qc.r-med-cert-cancer-rare": {
    "name": "Medical certificate (cancer / rare disease)",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-whole-body-photo": {
+  "qc.r-whole-body-photo": {
    "name": "Whole-body photo showing the disability",
    "external": null,
-   "applicant": true
+   "applicant": true,
+   "city": "qc"
   },
-  "r-gov-id": {
+  "qc.r-gov-id": {
    "name": "Government-issued ID",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-barangay-cert": {
+  "qc.r-barangay-cert": {
    "name": "Barangay certificate / clearance",
-   "external": "barangay"
+   "external": "qc.barangay",
+   "city": "qc"
   },
-  "r-id-photo-2x2": {
+  "qc.r-id-photo-2x2": {
    "name": "2x2 ID photo (and signature)",
-   "applicant": true
+   "applicant": true,
+   "city": "qc"
   },
-  "r-valid-id-bd-address": {
+  "qc.r-valid-id-bd-address": {
    "name": "Valid ID showing birth date and address",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-birth-certificate": {
+  "qc.r-birth-certificate": {
    "name": "Birth certificate",
-   "issuer_service": "s-birth-ctc"
+   "issuer_service": "qc.s-birth-ctc",
+   "owned_key": "qc.has_birth_certificate",
+   "city": "qc"
   },
-  "r-barangay-residency": {
+  "qc.r-barangay-residency": {
    "name": "Barangay Certificate of Residency",
-   "external": "barangay"
+   "external": "qc.barangay",
+   "city": "qc"
   },
-  "r-marriage-cert": {
+  "qc.r-marriage-cert": {
    "name": "Marriage Certificate",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-prev-mayors-permit": {
+  "qc.r-prev-mayors-permit": {
    "name": "Previous Mayor’s Permit",
-   "applicant": true
+   "applicant": true,
+   "city": "qc"
   },
-  "r-business-tax-or": {
+  "qc.r-business-tax-or": {
    "name": "Official Receipt of business tax payment (current year)",
-   "issuer_service": "s-business-tax-payment"
+   "issuer_service": "qc.s-business-tax-payment",
+   "owned_key": "qc.has_business_tax_or",
+   "city": "qc"
   },
-  "r-owner-valid-id": {
+  "qc.r-owner-valid-id": {
    "name": "Valid ID of business owner",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-authorization": {
+  "qc.r-authorization": {
    "name": "Authorization form + valid ID of representative",
-   "applicant": true
+   "applicant": true,
+   "city": "qc"
   },
-  "r-tax-bill": {
+  "qc.r-tax-bill": {
    "name": "Computerized Business Tax Bill",
-   "external": "cto"
+   "external": "qc.cto",
+   "city": "qc"
   },
-  "r-design-professional": {
+  "qc.r-design-professional": {
    "name": "Registered private design/building professional (with QC E-Services account)",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-tct": {
+  "qc.r-tct": {
    "name": "Certified True Copy of Transfer Certificate of Title (TCT)",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-legal-right": {
+  "qc.r-legal-right": {
    "name": "Legal document showing right to build (e.g., Deed of Absolute Sale) when applicant is not the registered owner",
-   "applicant": true
+   "applicant": true,
+   "city": "qc"
   },
-  "r-affidavits": {
+  "qc.r-affidavits": {
    "name": "Notarized affidavits (forms printable from your QC E-Services account)",
-   "applicant": true
+   "applicant": true,
+   "city": "qc"
   },
-  "r-building-plans": {
+  "qc.r-building-plans": {
    "name": "Building plans with wet signature and seal of the design professional",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-prev-building-permit": {
+  "qc.r-prev-building-permit": {
    "name": "Previous building permit / certificate of occupancy and approved plans (renovation; permit issued before Nov 17, 2022)",
-   "applicant": true
+   "applicant": true,
+   "city": "qc"
   },
-  "r-request-form-birth": {
+  "qc.r-request-form-birth": {
    "name": "Request form for birth certificate (Information Desk)",
-   "applicant": true
+   "applicant": true,
+   "city": "qc"
   },
-  "r-id-ctc": {
+  "qc.r-id-ctc": {
    "name": "Government-issued / valid ID",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-authorization-ctc": {
+  "qc.r-authorization-ctc": {
    "name": "Authorization letter/SPA + photocopies of owner’s and representative’s IDs",
-   "applicant": true
+   "applicant": true,
+   "city": "qc"
   },
-  "r-colb-4": {
+  "qc.r-colb-4": {
    "name": "Duly accomplished Certificate of Live Birth (4 copies)",
-   "external": "external-agency",
-   "hint": "From the hospital, maternity/lying-in clinic or birthing facility."
+   "external": "qc.external-agency",
+   "hint": "From the hospital, maternity/lying-in clinic or birthing facility.",
+   "city": "qc"
   },
-  "r-parents-marriage-cert": {
+  "qc.r-parents-marriage-cert": {
    "name": "Marriage Certificate of parents (PSA or local copy)",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-parents-ids": {
+  "qc.r-parents-ids": {
    "name": "Copy of valid IDs of parents",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
   },
-  "r-aop-ausf": {
+  "qc.r-aop-ausf": {
    "name": "Notarized Affidavit of Admission of Paternity and/or Affidavit to Use the Surname of the Father",
-   "external": "external-agency"
+   "external": "qc.external-agency",
+   "city": "qc"
+  },
+  "mkn.r-portal-account": {
+   "name": "Marikina Online Services account (payment.marikina.gov.ph)",
+   "issuer_service": "mkn.s-portal-register",
+   "owned_key": "mkn.has_portal_account",
+   "city": "mkn"
+  },
+  "mkn.r-gov-id": {
+   "name": "Government-issued valid ID",
+   "external": "mkn.external-agency",
+   "city": "mkn"
+  },
+  "mkn.r-med-cert": {
+   "name": "Medical certificate or Certificate of Non-Apparent Disability from the doctor",
+   "external": "mkn.external-agency",
+   "hint": "From a medical doctor, ophthalmologist, neurologist or orthopedic doctor.",
+   "city": "mkn"
+  },
+  "mkn.r-photo-1x1": {
+   "name": "1x1 ID picture",
+   "applicant": true,
+   "city": "mkn"
+  },
+  "mkn.r-whole-body-photo": {
+   "name": "Whole-body picture",
+   "applicant": true,
+   "city": "mkn"
+  },
+  "mkn.r-osca-form": {
+   "name": "Fully accomplished OSCA application form",
+   "external": "mkn.external-agency",
+   "hint": "Obtained from OSCA.",
+   "city": "mkn"
+  },
+  "mkn.r-photo-1x1-senior": {
+   "name": "3 pcs. latest 1x1 ID picture",
+   "applicant": true,
+   "city": "mkn"
+  },
+  "mkn.r-valid-id-senior": {
+   "name": "One valid ID or document (e.g., PhilSys National ID, UMID, voter’s ID, PRC ID, driver’s license, passport, birth certificate, barangay clearance)",
+   "external": "mkn.external-agency",
+   "city": "mkn"
+  },
+  "mkn.r-authorization-senior": {
+   "name": "Authorization letter signed by the senior citizen + valid ID of the senior citizen and of the representative",
+   "applicant": true,
+   "city": "mkn"
+  },
+  "mkn.r-request-form-birth": {
+   "name": "Request form for birth certificate (LCRO Window 4)",
+   "applicant": true,
+   "city": "mkn"
+  },
+  "mkn.r-id-ctc": {
+   "name": "Government-issued / valid ID of requester",
+   "external": "mkn.external-agency",
+   "city": "mkn"
+  },
+  "mkn.r-authorization-ctc": {
+   "name": "Authorization letter / Special Power of Attorney from the document owner",
+   "applicant": true,
+   "city": "mkn"
+  },
+  "mkn.r-colb-form102": {
+   "name": "Properly accomplished Municipal Form 102 (Certificate of Live Birth), 1 set",
+   "external": "mkn.external-agency",
+   "hint": "From the hospital, lying-in clinic or other birthing facility.",
+   "city": "mkn"
+  },
+  "mkn.r-parents-marriage-cert": {
+   "name": "Certified true copy or PSA/NSO copy of the parents’ marriage certificate",
+   "external": "mkn.external-agency",
+   "city": "mkn"
+  },
+  "mkn.r-aop": {
+   "name": "Affidavit of Admission of Paternity (back of Form 102, signed by the parents and notarized)",
+   "external": "mkn.external-agency",
+   "city": "mkn"
+  },
+  "mkn.r-aus": {
+   "name": "Affidavit to Use the Surname of the Father (4 copies, signed by the mother and notarized)",
+   "external": "mkn.external-agency",
+   "city": "mkn"
+  },
+  "mkn.r-eboss": {
+   "name": "eBOSS compliance (Engineering, BFP, CHO, CEMO)",
+   "external": "mkn.external-agency",
+   "hint": "Check your compliance status on the E-BOSS portal: https://bplo.marikina.gov.ph/client",
+   "city": "mkn"
+  },
+  "mkn.r-financial-statement": {
+   "name": "Financial Statement / Quarterly VAT Returns / Monthly Percentage Tax (photocopies)",
+   "external": "mkn.external-agency",
+   "city": "mkn"
+  },
+  "mkn.r-business-account-no": {
+   "name": "Business Account Number (from your existing Marikina business permit)",
+   "applicant": true,
+   "city": "mkn"
+  },
+  "mkn.r-authorization-biz": {
+   "name": "If through a representative: Authorization Letter/SPA (sole proprietorship) or Secretary’s Certificate (corporation, partnership, cooperative), plus valid IDs",
+   "applicant": true,
+   "city": "mkn"
+  },
+  "mkn.r-public-liability": {
+   "name": "Public liability insurance",
+   "external": "mkn.external-agency",
+   "hint": "From any accredited insurance company (City Ordinance No. 32, Series of 2013).",
+   "city": "mkn"
+  },
+  "mkn.r-property-docs": {
+   "name": "TCT, Tax Declaration, Tax Receipt",
+   "external": "mkn.external-agency",
+   "city": "mkn"
+  },
+  "mkn.r-bom-specs": {
+   "name": "Bill of materials and specifications",
+   "applicant": true,
+   "city": "mkn"
+  },
+  "mkn.r-cshp": {
+   "name": "CSHP Certificate from DOLE",
+   "external": "mkn.external-agency",
+   "city": "mkn"
+  },
+  "mkn.r-locational-clearance": {
+   "name": "Locational Clearance",
+   "external": "mkn.cpdo",
+   "city": "mkn"
+  },
+  "mkn.r-signed-plans": {
+   "name": "Signed and sealed construction plans (Architectural, Structural, Lot Plan, Electrical, Sanitary, Mechanical)",
+   "external": "mkn.external-agency",
+   "city": "mkn"
+  },
+  "mkn.r-other-clearances": {
+   "name": "Other government agency clearances, as required",
+   "external": "mkn.external-agency",
+   "city": "mkn"
   }
  },
  "services": {
-  "s-eservices-register": {
+  "qc.s-eservices-register": {
    "name": "QC E-Services account registration",
    "goal": false,
    "variants": [
     {
      "channel": "online",
-     "office": "eservices",
+     "office": "qc.eservices",
      "fee": "not_listed",
      "time": "not_listed",
      "time_by_class": null,
@@ -394,67 +916,68 @@
      "note": "Fee and time not stated in the sources read."
     }
    ],
-   "question_keys": []
+   "question_keys": [],
+   "city": "qc"
   },
-  "s-pwd-id": {
+  "qc.s-pwd-id": {
    "name": "PWD ID application (QCitizen PWD ID)",
    "goal": true,
    "variants": [
     {
      "channel": "online",
-     "office": "eservices",
+     "office": "qc.eservices",
      "fee": "none",
      "time": "3 days",
      "time_by_class": null,
      "requires": [
       {
-       "req": "r-eservices-account",
+       "req": "qc.r-eservices-account",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-whole-body-photo",
+       "req": "qc.r-whole-body-photo",
        "when": {
-        "disability_type": "apparent"
+        "qc.disability_type": "apparent"
        },
        "skip_if": {}
       },
       {
-       "req": "r-cert-disability",
+       "req": "qc.r-cert-disability",
        "when": {
-        "disability_type": "non_apparent"
+        "qc.disability_type": "non_apparent"
        },
        "skip_if": {
-        "has_med_cert": "yes"
+        "qc.has_med_cert": "yes"
        }
       },
       {
-       "req": "r-med-cert-cancer-rare",
+       "req": "qc.r-med-cert-cancer-rare",
        "when": {
-        "disability_type": "cancer_rare"
+        "qc.disability_type": "cancer_rare"
        },
        "skip_if": {
-        "has_med_cert": "yes"
+        "qc.has_med_cert": "yes"
        }
       },
       {
        "or_options": [
         [
-         "r-gov-id"
+         "qc.r-gov-id"
         ],
         [
-         "r-barangay-cert"
+         "qc.r-barangay-cert"
         ]
        ],
        "default": 1,
        "when": {},
        "skip_if": {
-        "has_gov_id": "yes"
+        "qc.has_gov_id": "yes"
        },
        "label": "Proof of residence"
       },
       {
-       "req": "r-id-photo-2x2",
+       "req": "qc.r-id-photo-2x2",
        "when": {},
        "skip_if": {}
       }
@@ -474,54 +997,54 @@
     },
     {
      "channel": "in_person",
-     "office": "pdao",
+     "office": "qc.pdao",
      "fee": "none",
      "time": "40 minutes",
      "time_by_class": null,
      "requires": [
       {
-       "req": "r-whole-body-photo",
+       "req": "qc.r-whole-body-photo",
        "when": {
-        "disability_type": "apparent"
+        "qc.disability_type": "apparent"
        },
        "skip_if": {}
       },
       {
-       "req": "r-cert-disability",
+       "req": "qc.r-cert-disability",
        "when": {
-        "disability_type": "non_apparent"
+        "qc.disability_type": "non_apparent"
        },
        "skip_if": {
-        "has_med_cert": "yes"
+        "qc.has_med_cert": "yes"
        }
       },
       {
-       "req": "r-med-cert-cancer-rare",
+       "req": "qc.r-med-cert-cancer-rare",
        "when": {
-        "disability_type": "cancer_rare"
+        "qc.disability_type": "cancer_rare"
        },
        "skip_if": {
-        "has_med_cert": "yes"
+        "qc.has_med_cert": "yes"
        }
       },
       {
        "or_options": [
         [
-         "r-gov-id"
+         "qc.r-gov-id"
         ],
         [
-         "r-barangay-cert"
+         "qc.r-barangay-cert"
         ]
        ],
        "default": 1,
        "when": {},
        "skip_if": {
-        "has_gov_id": "yes"
+        "qc.has_gov_id": "yes"
        },
        "label": "Proof of residence"
       },
       {
-       "req": "r-id-photo-2x2",
+       "req": "qc.r-id-photo-2x2",
        "when": {},
        "skip_if": {}
       }
@@ -542,35 +1065,36 @@
    ],
    "question_keys": [
     "channel",
-    "disability_type",
-    "has_eservices_account",
-    "has_gov_id",
-    "has_med_cert"
-   ]
+    "qc.disability_type",
+    "qc.has_eservices_account",
+    "qc.has_gov_id",
+    "qc.has_med_cert"
+   ],
+   "city": "qc"
   },
-  "s-birth-ctc": {
+  "qc.s-birth-ctc": {
    "name": "Certified True Copy of Birth Certificate (QC-registered)",
    "goal": true,
    "variants": [
     {
      "channel": "in_person",
-     "office": "ccrd",
+     "office": "qc.ccrd",
      "fee": "PHP 65.00 per copy",
      "time": "15 minutes if on database (1945–2015); 3 days if manual search",
      "time_by_class": null,
      "requires": [
       {
-       "req": "r-request-form-birth",
+       "req": "qc.r-request-form-birth",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-id-ctc",
+       "req": "qc.r-id-ctc",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-authorization-ctc",
+       "req": "qc.r-authorization-ctc",
        "when": {
         "is_representative": "yes"
        },
@@ -591,18 +1115,18 @@
     },
     {
      "channel": "online",
-     "office": "eservices",
+     "office": "qc.eservices",
      "fee": "PHP 65.00 per copy",
      "time": "1–3 days plus 5 minutes at pick-up",
      "time_by_class": null,
      "requires": [
       {
-       "req": "r-eservices-account",
+       "req": "qc.r-eservices-account",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-authorization-ctc",
+       "req": "qc.r-authorization-ctc",
        "when": {
         "is_representative": "yes"
        },
@@ -624,45 +1148,46 @@
    ],
    "question_keys": [
     "channel",
-    "has_eservices_account",
+    "qc.has_eservices_account",
     "is_representative"
-   ]
+   ],
+   "city": "qc"
   },
-  "s-birth-registration": {
+  "qc.s-birth-registration": {
    "name": "Registration of Certificate of Live Birth (within 30 days)",
    "goal": true,
    "exit_if": {
     "within_30_days": "no"
    },
    "exit_message": "Registration after 30 days follows the delayed-registration process. Contact the City Civil Registry Department.",
-   "exit_office": "ccrd",
+   "exit_office": "qc.ccrd",
    "variants": [
     {
      "channel": "in_person",
-     "office": "ccrd",
+     "office": "qc.ccrd",
      "fee": "none",
      "time": "5 minutes",
      "time_by_class": null,
      "requires": [
       {
-       "req": "r-colb-4",
+       "req": "qc.r-colb-4",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-parents-marriage-cert",
+       "req": "qc.r-parents-marriage-cert",
        "when": {
         "parents_married": "yes"
        },
        "skip_if": {}
       },
       {
-       "req": "r-parents-ids",
+       "req": "qc.r-parents-ids",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-aop-ausf",
+       "req": "qc.r-aop-ausf",
        "when": {
         "parents_married": "no"
        },
@@ -682,35 +1207,35 @@
     },
     {
      "channel": "online",
-     "office": "eservices",
+     "office": "qc.eservices",
      "fee": "none",
      "time": "1–3 days after submission, then submit originals",
      "time_by_class": null,
      "requires": [
       {
-       "req": "r-eservices-account",
+       "req": "qc.r-eservices-account",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-colb-4",
+       "req": "qc.r-colb-4",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-parents-marriage-cert",
+       "req": "qc.r-parents-marriage-cert",
        "when": {
         "parents_married": "yes"
        },
        "skip_if": {}
       },
       {
-       "req": "r-parents-ids",
+       "req": "qc.r-parents-ids",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-aop-ausf",
+       "req": "qc.r-aop-ausf",
        "when": {
         "parents_married": "no"
        },
@@ -732,24 +1257,25 @@
    ],
    "question_keys": [
     "channel",
-    "has_eservices_account",
+    "qc.has_eservices_account",
     "parents_married",
     "within_30_days"
-   ]
+   ],
+   "city": "qc"
   },
-  "s-business-tax-payment": {
+  "qc.s-business-tax-payment": {
    "name": "Pay business tax (City Treasurer’s Office)",
    "goal": false,
    "variants": [
     {
      "channel": "in_person",
-     "office": "cto",
+     "office": "qc.cto",
      "fee": "As stated in the Business Tax Bill",
      "time": "10 minutes",
      "time_by_class": null,
      "requires": [
       {
-       "req": "r-tax-bill",
+       "req": "qc.r-tax-bill",
        "when": {},
        "skip_if": {}
       }
@@ -766,36 +1292,37 @@
      "note": "Online payment is also offered via QC E-Services (per the BPLD charter); details not captured here."
     }
    ],
-   "question_keys": []
+   "question_keys": [],
+   "city": "qc"
   },
-  "s-business-permit-renewal": {
+  "qc.s-business-permit-renewal": {
    "name": "Business permit renewal",
    "goal": true,
    "variants": [
     {
      "channel": "online",
-     "office": "eservices",
+     "office": "qc.eservices",
      "fee": "none",
      "time": "not_listed",
      "time_by_class": null,
      "requires": [
       {
-       "req": "r-prev-mayors-permit",
+       "req": "qc.r-prev-mayors-permit",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-business-tax-or",
+       "req": "qc.r-business-tax-or",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-owner-valid-id",
+       "req": "qc.r-owner-valid-id",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-authorization",
+       "req": "qc.r-authorization",
        "when": {
         "is_representative": "yes"
        },
@@ -817,52 +1344,53 @@
     }
    ],
    "question_keys": [
-    "has_business_tax_or",
+    "qc.has_business_tax_or",
     "is_representative"
-   ]
+   ],
+   "city": "qc"
   },
-  "s-senior-id": {
+  "qc.s-senior-id": {
    "name": "Senior Citizen QC ID (OSCA)",
    "goal": true,
    "variants": [
     {
      "channel": "online",
-     "office": "eservices",
+     "office": "qc.eservices",
      "fee": "not_listed",
      "time": "not_listed",
      "time_by_class": null,
      "requires": [
       {
-       "req": "r-eservices-account",
+       "req": "qc.r-eservices-account",
        "when": {},
        "skip_if": {}
       },
       {
        "or_options": [
         [
-         "r-valid-id-bd-address"
+         "qc.r-valid-id-bd-address"
         ],
         [
-         "r-birth-certificate",
-         "r-barangay-residency"
+         "qc.r-birth-certificate",
+         "qc.r-barangay-residency"
         ]
        ],
        "default": 1,
        "when": {},
        "skip_if": {
-        "has_qcitizen_id": "yes"
+        "qc.has_qcitizen_id": "yes"
        },
        "label": "Proof of birth date and address"
       },
       {
-       "req": "r-marriage-cert",
+       "req": "qc.r-marriage-cert",
        "when": {
-        "married_woman_diff_surname": "yes"
+        "qc.married_woman_diff_surname": "yes"
        },
        "skip_if": {}
       },
       {
-       "req": "r-id-photo-2x2",
+       "req": "qc.r-id-photo-2x2",
        "when": {},
        "skip_if": {}
       }
@@ -882,7 +1410,7 @@
     },
     {
      "channel": "in_person",
-     "office": "osca",
+     "office": "qc.osca",
      "fee": "not_listed",
      "time": "not_listed",
      "time_by_class": null,
@@ -890,29 +1418,29 @@
       {
        "or_options": [
         [
-         "r-valid-id-bd-address"
+         "qc.r-valid-id-bd-address"
         ],
         [
-         "r-birth-certificate",
-         "r-barangay-residency"
+         "qc.r-birth-certificate",
+         "qc.r-barangay-residency"
         ]
        ],
        "default": 1,
        "when": {},
        "skip_if": {
-        "has_qcitizen_id": "yes"
+        "qc.has_qcitizen_id": "yes"
        },
        "label": "Proof of birth date and address"
       },
       {
-       "req": "r-marriage-cert",
+       "req": "qc.r-marriage-cert",
        "when": {
-        "married_woman_diff_surname": "yes"
+        "qc.married_woman_diff_surname": "yes"
        },
        "skip_if": {}
       },
       {
-       "req": "r-id-photo-2x2",
+       "req": "qc.r-id-photo-2x2",
        "when": {},
        "skip_if": {}
       }
@@ -932,19 +1460,20 @@
    ],
    "question_keys": [
     "channel",
-    "has_birth_certificate",
-    "has_eservices_account",
-    "has_qcitizen_id",
-    "married_woman_diff_surname"
-   ]
+    "qc.has_birth_certificate",
+    "qc.has_eservices_account",
+    "qc.has_qcitizen_id",
+    "qc.married_woman_diff_surname"
+   ],
+   "city": "qc"
   },
-  "s-building-permit": {
+  "qc.s-building-permit": {
    "name": "Building / construction permit (new construction)",
    "goal": true,
    "variants": [
     {
      "channel": "online",
-     "office": "dbo",
+     "office": "qc.dbo",
      "fee": "Refer to the Schedule of Fees (computed by DBO)",
      "time": "by class: 3 / 7 / 20 working days",
      "time_by_class": {
@@ -954,43 +1483,43 @@
      },
      "requires": [
       {
-       "req": "r-eservices-account",
+       "req": "qc.r-eservices-account",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-design-professional",
+       "req": "qc.r-design-professional",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-tct",
+       "req": "qc.r-tct",
        "when": {
-        "is_owner": "yes"
+        "qc.is_owner": "yes"
        },
        "skip_if": {}
       },
       {
-       "req": "r-legal-right",
+       "req": "qc.r-legal-right",
        "when": {
-        "is_owner": "no"
+        "qc.is_owner": "no"
        },
        "skip_if": {}
       },
       {
-       "req": "r-affidavits",
+       "req": "qc.r-affidavits",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-building-plans",
+       "req": "qc.r-building-plans",
        "when": {},
        "skip_if": {}
       },
       {
-       "req": "r-prev-building-permit",
+       "req": "qc.r-prev-building-permit",
        "when": {
-        "is_renovation_pre2022": "yes"
+        "qc.is_renovation_pre2022": "yes"
        },
        "skip_if": {}
       }
@@ -1012,16 +1541,417 @@
     }
    ],
    "question_keys": [
-    "has_eservices_account",
-    "is_owner",
-    "is_renovation_pre2022",
+    "qc.has_eservices_account",
+    "qc.is_owner",
+    "qc.is_renovation_pre2022",
     "permit_class"
-   ]
+   ],
+   "city": "qc"
+  },
+  "mkn.s-portal-register": {
+   "name": "Marikina Online Services account registration",
+   "goal": false,
+   "variants": [
+    {
+     "channel": "online",
+     "office": "mkn.portal",
+     "fee": "not_listed",
+     "time": "not_listed",
+     "time_by_class": null,
+     "requires": [],
+     "url": "https://payment.marikina.gov.ph/Marikina/OnlineServices/",
+     "detail_steps": [
+      "Visit https://payment.marikina.gov.ph",
+      "Click Sign Up and input account information (password needs an uppercase, lowercase, number and special character)",
+      "Verify your email using the message sent to you"
+     ],
+     "evidence": {
+      "fee": null,
+      "time": null
+     },
+     "note": "Fee and time are not stated in the sources read."
+    }
+   ],
+   "question_keys": [],
+   "city": "mkn"
+  },
+  "mkn.s-pwd-id": {
+   "name": "PWD ID (PDAO)",
+   "goal": true,
+   "variants": [
+    {
+     "channel": "in_person",
+     "office": "mkn.pdao",
+     "fee": "none",
+     "time": "16 minutes",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "mkn.r-gov-id",
+       "when": {},
+       "skip_if": {
+        "mkn.has_gov_id": "yes"
+       }
+      },
+      {
+       "req": "mkn.r-med-cert",
+       "when": {},
+       "skip_if": {
+        "mkn.has_med_cert": "yes"
+       }
+      },
+      {
+       "req": "mkn.r-photo-1x1",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-whole-body-photo",
+       "when": {},
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "Fill in the PWD form and be interviewed by the PDAO focal person",
+      "Submit requirements, including pictures; staff review them and record them in the log book",
+      "PWD card is issued and your information is encoded in the database",
+      "Optional: request other assistance (burial, medical, assistive device, if available)"
+     ],
+     "evidence": {
+      "fee": "svc:s-pwd-id:walkin:fee",
+      "time": "svc:s-pwd-id:walkin:time"
+     },
+     "note": "Walk-in only in the sources read. The 2022 omnibus charter gives a different total (11 minutes and 10 seconds); the 2024 charter is used."
+    }
+   ],
+   "question_keys": [
+    "mkn.has_gov_id",
+    "mkn.has_med_cert"
+   ],
+   "city": "mkn"
+  },
+  "mkn.s-senior-id": {
+   "name": "Senior Citizen’s ID with booklet (OSCA)",
+   "goal": true,
+   "variants": [
+    {
+     "channel": "in_person",
+     "office": "mkn.osca",
+     "fee": "none",
+     "time": "6 minutes",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "mkn.r-osca-form",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-photo-1x1-senior",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-valid-id-senior",
+       "when": {},
+       "skip_if": {
+        "mkn.has_valid_id": "yes"
+       }
+      },
+      {
+       "req": "mkn.r-authorization-senior",
+       "when": {
+        "is_representative": "yes"
+       },
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "Submit the accomplished form with complete requirements; OSCA staff check them, interview you and encode your data",
+      "Claim the Senior Citizen’s ID and booklet"
+     ],
+     "evidence": {
+      "fee": "svc:s-senior-id:fee",
+      "time": "svc:s-senior-id:time"
+     },
+     "note": "For Marikina residents aged 60 or older. Walk-in only in the sources read."
+    }
+   ],
+   "question_keys": [
+    "mkn.has_valid_id",
+    "is_representative"
+   ],
+   "city": "mkn"
+  },
+  "mkn.s-birth-ctc": {
+   "name": "Certified True Copy of Birth Certificate (Marikina-registered)",
+   "goal": true,
+   "variants": [
+    {
+     "channel": "in_person",
+     "office": "mkn.ccro",
+     "fee": "PHP 150.00 per copy",
+     "time": "6 minutes",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "mkn.r-request-form-birth",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-id-ctc",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-authorization-ctc",
+       "when": {
+        "is_representative": "yes"
+       },
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "Fill out the request form at LCRO Window 4 and submit it; the verifier checks availability in the database and issues the order of payment",
+      "Pay the CTC fee at the City Treasurer’s office and get the Official Receipt",
+      "Bring the OR to LCRO Window 4 to receive the certified copy"
+     ],
+     "evidence": {
+      "fee": "svc:s-birth-ctc:fee",
+      "time": "svc:s-birth-ctc:time"
+     },
+     "note": "Records registered at the Marikina City Civil Registry only. The same fee is shown for birth, marriage and death copies. Walk-in only in the sources read."
+    }
+   ],
+   "question_keys": [
+    "is_representative"
+   ],
+   "city": "mkn"
+  },
+  "mkn.s-birth-registration": {
+   "name": "Registration of Certificate of Live Birth (on-time, within 30 days)",
+   "goal": true,
+   "exit_if": {
+    "within_30_days": "no"
+   },
+   "exit_message": "Registration after 30 days follows the late-registration process. Contact the City Civil Registry Office (Window 5).",
+   "exit_office": "mkn.ccro",
+   "variants": [
+    {
+     "channel": "in_person",
+     "office": "mkn.ccro",
+     "fee": "PHP 100.00 (on-time registration fee)",
+     "time": "9 minutes",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "mkn.r-colb-form102",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-parents-marriage-cert",
+       "when": {
+        "parents_married": "yes"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-aop",
+       "when": {
+        "parents_married": "no"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-aus",
+       "when": {
+        "parents_married": "no"
+       },
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "Submit the Certificate of Live Birth and requirements at LCRO; staff check completeness and give an order of payment",
+      "Pay the registration fee at the City Treasurer’s office",
+      "Bring the Official Receipt to LCRO Window 5 and get a claim stub with the release date"
+     ],
+     "evidence": {
+      "fee": "svc:s-birth-registration:fee",
+      "time": "svc:s-birth-registration:time"
+     },
+     "note": "For births in Marikina City. Walk-in only in the sources read."
+    }
+   ],
+   "question_keys": [
+    "parents_married",
+    "within_30_days"
+   ],
+   "city": "mkn"
+  },
+  "mkn.s-business-permit-renewal": {
+   "name": "Business permit renewal (BPLO)",
+   "goal": true,
+   "variants": [
+    {
+     "channel": "online",
+     "office": "mkn.portal",
+     "fee": "Per the Revenue Code of Marikina City (computed by the portal)",
+     "time": "15 minutes (register and pay online)",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "mkn.r-portal-account",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-business-account-no",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-financial-statement",
+       "when": {},
+       "skip_if": {}
+      }
+     ],
+     "url": "https://payment.marikina.gov.ph/Marikina/OnlineServices/",
+     "detail_steps": [
+      "Sign in at payment.marikina.gov.ph, select Business Permit & Licensing Office, enter your Business Account Number and click Renew",
+      "Input the actual/annual declared gross sales and attach your financial statement and quarterly VAT, then Submit",
+      "Select the business and quarter to pay, Compute Business Tax, Proceed to Checkout and pay (credit/debit card, GCash, Maya or Bayad App)",
+      "An email confirmation is sent after a successful payment"
+     ],
+     "evidence": {
+      "fee": "svc:s-business-permit-renewal:online:fee",
+      "time": "svc:s-business-permit-renewal:online:time"
+     },
+     "note": "Check your eBOSS compliance status first at https://bplo.marikina.gov.ph/client."
+    },
+    {
+     "channel": "in_person",
+     "office": "mkn.bplo",
+     "fee": "Per the Revenue Code of Marikina City (assessed by BPLO)",
+     "time": "File 15 minutes, then pay 15 minutes",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "mkn.r-eboss",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-financial-statement",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-authorization-biz",
+       "when": {
+        "is_representative": "yes"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-public-liability",
+       "when": {},
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "File the duly accomplished application form with complete requirements at BPLO (evaluation, assessment, billing and permit)",
+      "Pay at the Treasury Office cashier",
+      "Payment due dates for the current year: Jan 20, Apr 20, Jul 20, Oct 20 (1st to 4th quarter)"
+     ],
+     "evidence": {
+      "fee": "svc:s-business-permit-renewal:walkin:fee",
+      "time": "svc:s-business-permit-renewal:walkin:time"
+     },
+     "note": "The charter lists 15 minutes per stage (file, pay) with no single total."
+    }
+   ],
+   "question_keys": [
+    "channel",
+    "mkn.has_portal_account",
+    "is_representative"
+   ],
+   "city": "mkn"
+  },
+  "mkn.s-building-permit": {
+   "name": "Building permit and other ancillary permits (OBO)",
+   "goal": true,
+   "variants": [
+    {
+     "channel": "in_person",
+     "office": "mkn.obo",
+     "fee": "Based on the Philippine Electrical Code, Mechanical Code and National Building Code",
+     "time": "1 day and 3 hours",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "mkn.r-property-docs",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-bom-specs",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-cshp",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-locational-clearance",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-signed-plans",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "mkn.r-other-clearances",
+       "when": {},
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "Submit complete requirements at the receiving section; the clerk checks the application",
+      "Two copies of the plan are endorsed to BFP",
+      "Technical evaluators check the electrical, sanitary, structural and architectural plans and property documents",
+      "The proposed construction is inspected",
+      "If compliant, the order of payment is prepared and approved; pay the permit fees at the cashier",
+      "The Building Official approves and the releasing clerk releases the permit"
+     ],
+     "evidence": {
+      "fee": "svc:s-building-permit:fee",
+      "time": "svc:s-building-permit:time"
+     },
+     "note": "Classified Highly Technical in the 2024 charter. Walk-in only in the sources read."
+    }
+   ],
+   "question_keys": [],
+   "city": "mkn"
   }
  },
  "intents": {
   "pwd-id-application": {
-   "service": "s-pwd-id",
+   "service_by_city": {
+    "qc": "qc.s-pwd-id",
+    "mkn": "mkn.s-pwd-id"
+   },
    "aliases": [
     "PWD ID",
     "PWD card",
@@ -1035,7 +1965,10 @@
    ]
   },
   "senior-citizen-id": {
-   "service": "s-senior-id",
+   "service_by_city": {
+    "qc": "qc.s-senior-id",
+    "mkn": "mkn.s-senior-id"
+   },
    "aliases": [
     "senior citizen ID",
     "OSCA ID",
@@ -1049,7 +1982,10 @@
    ]
   },
   "business-permit-renewal": {
-   "service": "s-business-permit-renewal",
+   "service_by_city": {
+    "qc": "qc.s-business-permit-renewal",
+    "mkn": "mkn.s-business-permit-renewal"
+   },
    "aliases": [
     "renew business permit",
     "mayor’s permit renewal",
@@ -1061,7 +1997,10 @@
    ]
   },
   "building-permit": {
-   "service": "s-building-permit",
+   "service_by_city": {
+    "qc": "qc.s-building-permit",
+    "mkn": "mkn.s-building-permit"
+   },
    "aliases": [
     "building permit",
     "construction permit",
@@ -1073,7 +2012,10 @@
    ]
   },
   "birth-certificate-copy": {
-   "service": "s-birth-ctc",
+   "service_by_city": {
+    "qc": "qc.s-birth-ctc",
+    "mkn": "mkn.s-birth-ctc"
+   },
    "aliases": [
     "birth certificate copy",
     "certified true copy of birth certificate",
@@ -1084,7 +2026,10 @@
    ]
   },
   "birth-registration": {
-   "service": "s-birth-registration",
+   "service_by_city": {
+    "qc": "qc.s-birth-registration",
+    "mkn": "mkn.s-birth-registration"
+   },
    "aliases": [
     "register a birth",
     "register newborn",
@@ -1096,6 +2041,20 @@
   }
  },
  "questions": {
+  "city": {
+   "key": "city",
+   "text": "Which city is this for?",
+   "text_tl": "Para saan na lungsod ito?",
+   "options": [
+    "qc",
+    "mkn"
+   ],
+   "option_labels": {
+    "qc": "Quezon City",
+    "mkn": "Marikina City"
+   },
+   "city": "all"
+  },
   "channel": {
    "key": "channel",
    "text": "Do you want to apply online or in person?",
@@ -1103,53 +2062,59 @@
    "options": [
     "online",
     "in_person"
-   ]
+   ],
+   "city": "all"
   },
-  "disability_type": {
-   "key": "disability_type",
+  "qc.disability_type": {
+   "key": "qc.disability_type",
    "text": "What kind of disability do you have?",
    "text_tl": "Anong uri ng disability?",
    "options": [
     "apparent",
     "non_apparent",
     "cancer_rare"
-   ]
+   ],
+   "city": "qc"
   },
-  "has_med_cert": {
-   "key": "has_med_cert",
+  "qc.has_med_cert": {
+   "key": "qc.has_med_cert",
    "text": "Do you already have the certificate from your specialist?",
    "text_tl": null,
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "qc"
   },
-  "has_gov_id": {
-   "key": "has_gov_id",
+  "qc.has_gov_id": {
+   "key": "qc.has_gov_id",
    "text": "Do you have a government-issued ID with your Quezon City address?",
    "text_tl": "May government ID ka ba na may QC address?",
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "qc"
   },
-  "has_qcitizen_id": {
-   "key": "has_qcitizen_id",
+  "qc.has_qcitizen_id": {
+   "key": "qc.has_qcitizen_id",
    "text": "Do you already have a QCitizen ID?",
    "text_tl": null,
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "qc"
   },
-  "married_woman_diff_surname": {
-   "key": "married_woman_diff_surname",
+  "qc.married_woman_diff_surname": {
+   "key": "qc.married_woman_diff_surname",
    "text": "Are you a married woman whose surname differs from your valid ID?",
    "text_tl": null,
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "qc"
   },
   "is_representative": {
    "key": "is_representative",
@@ -1158,25 +2123,28 @@
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "all"
   },
-  "is_owner": {
-   "key": "is_owner",
+  "qc.is_owner": {
+   "key": "qc.is_owner",
    "text": "Are you the registered owner of the lot (named on the TCT)?",
    "text_tl": null,
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "qc"
   },
-  "is_renovation_pre2022": {
-   "key": "is_renovation_pre2022",
+  "qc.is_renovation_pre2022": {
+   "key": "qc.is_renovation_pre2022",
    "text": "Is this a renovation of a building whose permit was issued before Nov 17, 2022?",
    "text_tl": null,
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "qc"
   },
   "permit_class": {
    "key": "permit_class",
@@ -1186,7 +2154,8 @@
     "simple",
     "complex",
     "highly_technical"
-   ]
+   ],
+   "city": "all"
   },
   "parents_married": {
    "key": "parents_married",
@@ -1195,7 +2164,8 @@
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "all"
   },
   "within_30_days": {
    "key": "within_30_days",
@@ -1204,644 +2174,1394 @@
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "all"
   },
-  "has_eservices_account": {
-   "key": "has_eservices_account",
+  "qc.has_eservices_account": {
+   "key": "qc.has_eservices_account",
    "text": "Do you already have a QC E-Services account?",
    "text_tl": null,
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "qc"
   },
-  "has_birth_certificate": {
-   "key": "has_birth_certificate",
+  "qc.has_birth_certificate": {
+   "key": "qc.has_birth_certificate",
    "text": "Do you already have your birth certificate (PSA or CCRD copy)?",
    "text_tl": null,
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "qc"
   },
-  "has_business_tax_or": {
-   "key": "has_business_tax_or",
+  "qc.has_business_tax_or": {
+   "key": "qc.has_business_tax_or",
    "text": "Have you already paid this year’s business tax (do you have the official receipt)?",
    "text_tl": null,
    "options": [
     "yes",
     "no"
-   ]
+   ],
+   "city": "qc"
+  },
+  "mkn.has_gov_id": {
+   "key": "mkn.has_gov_id",
+   "text": "Do you have a valid government-issued ID?",
+   "text_tl": "May valid government ID ka ba?",
+   "options": [
+    "yes",
+    "no"
+   ],
+   "city": "mkn"
+  },
+  "mkn.has_med_cert": {
+   "key": "mkn.has_med_cert",
+   "text": "Do you already have the medical certificate (or certificate of non-apparent disability) from your doctor?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ],
+   "city": "mkn"
+  },
+  "mkn.has_valid_id": {
+   "key": "mkn.has_valid_id",
+   "text": "Do you have a valid ID or one of the accepted documents (e.g., birth certificate, barangay clearance)?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ],
+   "city": "mkn"
+  },
+  "mkn.has_portal_account": {
+   "key": "mkn.has_portal_account",
+   "text": "Do you already have a Marikina Online Services account?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ],
+   "city": "mkn"
   }
  },
  "evidence": [
   {
-   "ref": "office:pdao:address",
+   "ref": "office:qc.pdao:address",
    "source": "pdao-charter-2025",
    "pdf_page": 42,
    "quote": "Gate 3, Kalayaan Ave., QC Hall",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "office:pdao:phone",
+   "ref": "office:qc.pdao:phone",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 5,
    "quote": "8988-4242 loc 7809",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "office:osca:address",
+   "ref": "office:qc.osca:address",
    "source": "qc-contacts",
    "pdf_page": 1,
    "quote": "Gate-3 Quezon City Hall Complex, Kalayaan Avenue",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "office:bpld:address",
+   "ref": "office:qc.bpld:address",
    "source": "qc-contacts",
    "pdf_page": 1,
    "quote": "Civic Center Building A, Quezon City Hall, Mayaman St.",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "office:cto:address",
+   "ref": "office:qc.cto:address",
    "source": "qc-contacts",
    "pdf_page": 1,
    "quote": "Annex Building, Mayaman St.",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "office:dbo:address",
+   "ref": "office:qc.dbo:address",
    "source": "qc-contacts",
    "pdf_page": 1,
    "quote": "Civic Center D (BRO Bldg.), Mayaman Street",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "office:ccrd:address",
+   "ref": "office:qc.ccrd:address",
    "source": "ccrd-charter-2025",
    "pdf_page": 49,
    "quote": "Birth Registration Division 1st Floor, Door 2, Civic Center",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "office:eservices:url",
+   "ref": "office:qc.eservices:url",
    "source": "dbo-construction-permits",
    "pdf_page": 2,
    "quote": "https://qceservices.quezoncity.gov.ph/",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-cert-disability",
+   "ref": "req:qc.r-cert-disability",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 1,
    "quote": "Certificate of Disability Qualified Doctor /City Issuer",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-cert-disability:specialist",
+   "ref": "req:qc.r-cert-disability:specialist",
    "source": "qc-guide-pwd-id",
    "pdf_page": 1,
    "quote": "Certificate of disability from the specialist",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "req:r-cert-disability:not-gp",
+   "ref": "req:qc.r-cert-disability:not-gp",
    "source": "qc-guide-pwd-id",
    "pdf_page": 1,
    "quote": "family doctors or general physicians are not encourage",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "req:r-med-cert-cancer-rare",
+   "ref": "req:qc.r-med-cert-cancer-rare",
    "source": "qc-guide-pwd-id",
    "pdf_page": 1,
    "quote": "medical certificate for Cancer and Rare diseases",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "req:r-whole-body-photo",
+   "ref": "req:qc.r-whole-body-photo",
    "source": "qc-guide-pwd-id",
    "pdf_page": 1,
    "quote": "Whole body photo that shows disability physically",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "req:r-gov-id",
+   "ref": "req:qc.r-gov-id",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 1,
    "quote": "Barangay clearance or any other government-issued",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-barangay-cert",
+   "ref": "req:qc.r-barangay-cert",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 1,
    "quote": "Barangay clearance or any other government-issued",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-id-photo-2x2",
+   "ref": "req:qc.r-id-photo-2x2",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 1,
    "quote": "2 pcs. 2X2 I.D. picture / Signature",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-eservices-account",
+   "ref": "req:qc.r-eservices-account",
    "source": "qc-guide-pwd-id",
    "pdf_page": 1,
    "quote": "Register at QC E-Services using personal email",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "req:r-valid-id-bd-address",
+   "ref": "req:qc.r-valid-id-bd-address",
    "source": "qc-guide-senior-card",
    "pdf_page": 1,
    "quote": "valid ID with applicant’s birth date and address",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "req:r-birth-certificate",
+   "ref": "req:qc.r-birth-certificate",
    "source": "qc-guide-senior-card",
    "pdf_page": 1,
    "quote": "Birth Certificate and Barangay Certificate of Residency",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "req:r-barangay-residency",
+   "ref": "req:qc.r-barangay-residency",
    "source": "qc-guide-senior-card",
    "pdf_page": 1,
    "quote": "Barangay Certificate of Residency",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "req:r-marriage-cert",
+   "ref": "req:qc.r-marriage-cert",
    "source": "qc-guide-senior-card",
    "pdf_page": 1,
    "quote": "Marriage Certificate (if the applicant is a married woman",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "req:r-prev-mayors-permit",
+   "ref": "req:qc.r-prev-mayors-permit",
    "source": "bpld-charter-2025",
    "pdf_page": 6,
    "quote": "Previous Mayor’s Permit",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-business-tax-or",
+   "ref": "req:qc.r-business-tax-or",
    "source": "bpld-charter-2025",
    "pdf_page": 6,
    "quote": "Official Receipt of Business Tax Payment for the current year",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-owner-valid-id",
+   "ref": "req:qc.r-owner-valid-id",
    "source": "bpld-charter-2025",
    "pdf_page": 6,
    "quote": "Valid ID of Business Owner",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-authorization",
+   "ref": "req:qc.r-authorization",
    "source": "bpld-charter-2025",
    "pdf_page": 6,
    "quote": "If filed by a duly authorized representative",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-tax-bill",
+   "ref": "req:qc.r-tax-bill",
    "source": "cto-business-tax-2024",
    "pdf_page": 1,
    "quote": "Computerized Business Tax Bill",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-design-professional",
+   "ref": "req:qc.r-design-professional",
    "source": "dbo-construction-permits",
    "pdf_page": 2,
    "quote": "A private design/building professional",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-tct",
+   "ref": "req:qc.r-tct",
    "source": "dbo-construction-permits",
    "pdf_page": 2,
    "quote": "Land Registration Authority for the Certified",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-legal-right",
+   "ref": "req:qc.r-legal-right",
    "source": "dbo-construction-permits",
    "pdf_page": 2,
    "quote": "Additional legal document showing right to",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-affidavits",
+   "ref": "req:qc.r-affidavits",
    "source": "dbo-construction-permits",
    "pdf_page": 2,
    "quote": "Duly accomplished and notarized",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-building-plans",
+   "ref": "req:qc.r-building-plans",
    "source": "dbo-construction-permits",
    "pdf_page": 3,
    "quote": "Building plans (with wet sign & seal of",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-prev-building-permit",
+   "ref": "req:qc.r-prev-building-permit",
    "source": "dbo-construction-permits",
    "pdf_page": 3,
    "quote": "Previous Building Permit or previous",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-prev-building-permit:date",
+   "ref": "req:qc.r-prev-building-permit:date",
    "source": "dbo-construction-permits",
    "pdf_page": 3,
    "quote": "November 17, 2022",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-request-form-birth",
+   "ref": "req:qc.r-request-form-birth",
    "source": "ccrd-ctc-birth",
    "pdf_page": 1,
    "quote": "Request Form for Birth Certificate",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-id-ctc",
+   "ref": "req:qc.r-id-ctc",
    "source": "ccrd-ctc-birth",
    "pdf_page": 1,
    "quote": "Government-issued / Valid Identification Card",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-authorization-ctc",
+   "ref": "req:qc.r-authorization-ctc",
    "source": "ccrd-ctc-birth",
    "pdf_page": 1,
    "quote": "Authorization Letter/Special Power of Attorney",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-colb-4",
+   "ref": "req:qc.r-colb-4",
    "source": "ccrd-charter-2025",
    "pdf_page": 5,
    "quote": "Duly accomplished Certificate of Live Birth (4",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-parents-marriage-cert",
+   "ref": "req:qc.r-parents-marriage-cert",
    "source": "ccrd-charter-2025",
    "pdf_page": 5,
    "quote": "Marriage Certificate of Parents",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-parents-ids",
+   "ref": "req:qc.r-parents-ids",
    "source": "ccrd-charter-2025",
    "pdf_page": 5,
    "quote": "Copy of valid IDs of parents",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "req:r-aop-ausf",
+   "ref": "req:qc.r-aop-ausf",
    "source": "ccrd-charter-2025",
    "pdf_page": 5,
    "quote": "Notarized Affidavit to Use the Surname of the",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-eservices-register:steps",
+   "ref": "svc:qc.s-eservices-register:steps",
    "source": "qc-guide-pwd-id",
    "pdf_page": 1,
    "quote": "Confirm and validate E-Services account",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-pwd-id:online:fee",
+   "ref": "svc:qc.s-pwd-id:online:fee",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 1,
    "quote": "None (2-3 days",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-pwd-id:online:time",
+   "ref": "svc:qc.s-pwd-id:online:time",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 5,
    "quote": "ONLINE APPLICATION TOTAL : 3 Days",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-pwd-id:walkin:fee",
+   "ref": "svc:qc.s-pwd-id:walkin:fee",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 1,
    "quote": "None (2-3 days",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-pwd-id:walkin:time",
+   "ref": "svc:qc.s-pwd-id:walkin:time",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 5,
    "quote": "WALK-IN APPLICATION TOTAL : 40 minutes",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-pwd-id:walkin:steps",
+   "ref": "svc:qc.s-pwd-id:walkin:steps",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 3,
    "quote": "Bring copies of",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-pwd-id:renewal",
+   "ref": "svc:qc.s-pwd-id:renewal",
    "source": "pdao-pwd-service-2025",
    "pdf_page": 2,
    "quote": "process will be considered as new applications",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-birth-ctc:walkin:fee",
+   "ref": "svc:qc.s-birth-ctc:walkin:fee",
    "source": "ccrd-ctc-birth",
    "pdf_page": 1,
    "quote": "PHP 65.00",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-birth-ctc:walkin:time",
+   "ref": "svc:qc.s-birth-ctc:walkin:time",
    "source": "ccrd-ctc-birth",
    "pdf_page": 1,
    "quote": "15 Minutes -",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-birth-ctc:online:fee",
+   "ref": "svc:qc.s-birth-ctc:online:fee",
    "source": "ccrd-ctc-online",
    "pdf_page": 1,
    "quote": "PHP 65.00",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-birth-ctc:online:time",
+   "ref": "svc:qc.s-birth-ctc:online:time",
    "source": "ccrd-ctc-online",
    "pdf_page": 1,
    "quote": "1-3 Days and",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-birth-ctc:manual",
+   "ref": "svc:qc.s-birth-ctc:manual",
    "source": "ccrd-ctc-birth",
    "pdf_page": 1,
    "quote": "manual searching",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-birth-registration:walkin:fee",
+   "ref": "svc:qc.s-birth-registration:walkin:fee",
    "source": "ccrd-charter-2025",
    "pdf_page": 5,
    "quote": "TOTAL: None 5 Minutes",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-birth-registration:walkin:time",
+   "ref": "svc:qc.s-birth-registration:walkin:time",
    "source": "ccrd-charter-2025",
    "pdf_page": 5,
    "quote": "TOTAL: None 5 Minutes",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-birth-registration:online:fee",
+   "ref": "svc:qc.s-birth-registration:online:fee",
    "source": "ccrd-charter-2025",
    "pdf_page": 5,
    "quote": "NONE",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-birth-registration:online:time",
+   "ref": "svc:qc.s-birth-registration:online:time",
    "source": "ccrd-charter-2025",
    "pdf_page": 6,
    "quote": "1 - 3 Days",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-birth-registration:30days",
+   "ref": "svc:qc.s-birth-registration:30days",
    "source": "ccrd-charter-2025",
    "pdf_page": 5,
    "quote": "within thirty (30) days from the date of birth",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-business-tax-payment:fee",
+   "ref": "svc:qc.s-business-tax-payment:fee",
    "source": "cto-business-tax-2024",
    "pdf_page": 1,
    "quote": "As stated",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-business-tax-payment:time",
+   "ref": "svc:qc.s-business-tax-payment:time",
    "source": "cto-business-tax-2024",
    "pdf_page": 1,
    "quote": "Total 10 minutes",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-business-tax-payment:online",
+   "ref": "svc:qc.s-business-tax-payment:online",
    "source": "bpld-charter-2025",
    "pdf_page": 7,
    "quote": "Online Portal the choose Pay",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-business-permit-renewal:fee",
+   "ref": "svc:qc.s-business-permit-renewal:fee",
    "source": "bpld-charter-2025",
    "pdf_page": 7,
    "quote": "None 30 mins.",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-business-permit-renewal:channels",
+   "ref": "svc:qc.s-business-permit-renewal:channels",
    "source": "bpld-charter-2025",
    "pdf_page": 7,
    "quote": "QC e-Services Portal",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-business-permit-renewal:validity",
+   "ref": "svc:qc.s-business-permit-renewal:validity",
    "source": "bpld-charter-2025",
    "pdf_page": 6,
    "quote": "one (1) year from the date of issue",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-business-permit-renewal:auto",
+   "ref": "svc:qc.s-business-permit-renewal:auto",
    "source": "qc-guide-renew-business-permit",
    "pdf_page": 1,
    "quote": "capable of auto-renewing a business permit",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-senior-id:qualification",
+   "ref": "svc:qc.s-senior-id:qualification",
    "source": "qc-guide-senior-card",
    "pdf_page": 1,
    "quote": "sixty (60) years of age or older",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-senior-id:photo",
+   "ref": "svc:qc.s-senior-id:photo",
    "source": "qc-guide-senior-card",
    "pdf_page": 1,
    "quote": "Latest digital or ID photo (2×2)",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-senior-id:online",
+   "ref": "svc:qc.s-senior-id:online",
    "source": "qc-guide-senior-card",
    "pdf_page": 1,
    "quote": "Create a profile and account with QC E-Services",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-senior-id:walkin",
+   "ref": "svc:qc.s-senior-id:walkin",
    "source": "qc-guide-senior-card",
    "pdf_page": 1,
    "quote": "Submit the Fully Accomplished Senior Citizen QC ID Application Form",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-senior-id:pickup",
+   "ref": "svc:qc.s-senior-id:pickup",
    "source": "qc-guide-senior-card",
    "pdf_page": 1,
    "quote": "can be picked up at OSCA",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-building-permit:fee",
+   "ref": "svc:qc.s-building-permit:fee",
    "source": "dbo-construction-permits",
    "pdf_page": 12,
    "quote": "Schedule 5 at windows 13 or",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-building-permit:time",
+   "ref": "svc:qc.s-building-permit:time",
    "source": "dbo-construction-permits",
    "pdf_page": 11,
    "quote": "3 (simple permit applications)-7 (complex permit applications)",
    "status": "needs_review",
-   "note": "Fee/time flagged for human check."
+   "note": "Fee/time flagged for human check.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-building-permit:appointment",
+   "ref": "svc:qc.s-building-permit:appointment",
    "source": "dbo-construction-permits",
    "pdf_page": 2,
    "quote": "Confirmed Online Appointment Visit",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-building-permit:form",
+   "ref": "svc:qc.s-building-permit:form",
    "source": "dbo-construction-permits",
    "pdf_page": 2,
    "quote": "Unified Building",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-building-permit:pay-charter",
+   "ref": "svc:qc.s-building-permit:pay-charter",
    "source": "dbo-construction-permits",
    "pdf_page": 12,
    "quote": "windows 13 or",
    "status": "auto_verified",
-   "note": null
+   "note": null,
+   "city": "qc"
   },
   {
-   "ref": "svc:s-building-permit:pay-guide",
+   "ref": "svc:qc.s-building-permit:pay-guide",
    "source": "qc-guide-building-permit",
    "pdf_page": 1,
    "quote": "Counter 12 of the City Treasurer’s Office",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
   },
   {
-   "ref": "svc:s-building-permit:kiosk",
+   "ref": "svc:qc.s-building-permit:kiosk",
    "source": "qc-guide-building-permit",
    "pdf_page": 1,
    "quote": "Schedule an appointment to physically submit",
    "status": "auto_verified",
-   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "qc"
+  },
+  {
+   "ref": "office:mkn.cityhall:address",
+   "source": "mkn-contacts",
+   "pdf_page": 1,
+   "quote": "Marikina City Hall, Shoe Avenue, Sta. Elena, Marikina City 1800",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "office:mkn.cityhall:phone",
+   "source": "mkn-contacts",
+   "pdf_page": 1,
+   "quote": "8646-0462",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "office:mkn.osca:phone",
+   "source": "mkn-contacts",
+   "pdf_page": 1,
+   "quote": "OSCA (Office of Senior Citizen Affairs) 8659-1956",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "office:mkn.osca:address",
+   "source": "mkn-contacts",
+   "pdf_page": 1,
+   "quote": "City Hall Offices Treasury Office",
+   "status": "auto_verified",
+   "note": "Listed under “City Hall Offices”; exact location inside City Hall not stated. HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "office:mkn.ccro:phone",
+   "source": "mkn-contacts",
+   "pdf_page": 1,
+   "quote": "LCR (Local Civil Registry) 8646-0373",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "office:mkn.ccro:address",
+   "source": "mkn-contacts",
+   "pdf_page": 1,
+   "quote": "City Hall Offices Treasury Office",
+   "status": "auto_verified",
+   "note": "Listed under “City Hall Offices”; exact location inside City Hall not stated. HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "office:mkn.cto:phone",
+   "source": "mkn-contacts",
+   "pdf_page": 1,
+   "quote": "Treasury Office 8682-9571 - 8646-1623",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "office:mkn.cto:address",
+   "source": "mkn-contacts",
+   "pdf_page": 1,
+   "quote": "City Hall Offices Treasury Office",
+   "status": "auto_verified",
+   "note": "Listed under “City Hall Offices”; exact location inside City Hall not stated. HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "office:mkn.bplo:address",
+   "source": "mkn-bplo-contact",
+   "pdf_page": 1,
+   "quote": "Ground Floor, Finance Bldg, Shoe Ave.",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "office:mkn.bplo:phone",
+   "source": "mkn-contacts",
+   "pdf_page": 1,
+   "quote": "8244-1800 - 8646-2354",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "office:mkn.portal:url",
+   "source": "mkn-bplo-faq",
+   "pdf_page": 1,
+   "quote": "Visit https://payment.marikina.gov.ph",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-gov-id",
+   "source": "mkn-cswdo-2024",
+   "pdf_page": 10,
+   "quote": "Government-issued Valid ID Any Government offices",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-med-cert",
+   "source": "mkn-cswdo-2024",
+   "pdf_page": 10,
+   "quote": "Medical Certificate or Certificate of Non- Medical Doctor, Ophthalmologist, Neurologist or",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-photo-1x1",
+   "source": "mkn-cswdo-2024",
+   "pdf_page": 10,
+   "quote": "Pcs. 1x1 Picture",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-whole-body-photo",
+   "source": "mkn-cswdo-2024",
+   "pdf_page": 10,
+   "quote": "Whole Body Picture",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-osca-form",
+   "source": "mkn-osca-2024",
+   "pdf_page": 3,
+   "quote": "Fully Accomplished Form OSCA",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-photo-1x1-senior",
+   "source": "mkn-osca-2024",
+   "pdf_page": 3,
+   "quote": "3 pcs. Latest 1x1 ID, PHYLSIS National ID",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-valid-id-senior",
+   "source": "mkn-osca-2024",
+   "pdf_page": 3,
+   "quote": "PHYLSIS National ID, UMID Card",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-authorization-senior",
+   "source": "mkn-osca-2024",
+   "pdf_page": 3,
+   "quote": "Authorization Letter signed by the applicant",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-request-form-birth",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 16,
+   "quote": "Request of Birth / Marriage / Death Civil Registry Office Window 4",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-id-ctc",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 16,
+   "quote": "Government-issued /Valid Identification",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-authorization-ctc",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 16,
+   "quote": "Authorization Letter / Special Power of",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-colb-form102",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 5,
+   "quote": "Properly accomplished Municipal Form 102",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-parents-marriage-cert",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 5,
+   "quote": "If Parents are Married at the time of birth",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-aop",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 5,
+   "quote": "Affidavit of Admission of Paternity",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-aus",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 5,
+   "quote": "Affidavit to Use the Surname of the Father",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-eboss",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 7,
+   "quote": "eBOSS Compliance Engineering, BFP, CHO, CEMO",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-financial-statement",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 7,
+   "quote": "Financial Statement / Quarterly Vat Returns /",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-business-account-no",
+   "source": "mkn-bplo-faq",
+   "pdf_page": 1,
+   "quote": "Input Business Account Number",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-authorization-biz",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 7,
+   "quote": "Authorization Letter or SPA from the owner",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-authorization-biz:corp",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 7,
+   "quote": "Secretary Certificate",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-public-liability",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 7,
+   "quote": "PUBLIC LIABILITY INSURANCE",
+   "status": "auto_verified",
+   "note": "Listed under “Additional requirements” after the walk-in list; whether it also applies to online renewal is not stated.",
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-property-docs",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "TCT, Tax Declaration, Tax Receipt, Bill of materials, Specification",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-bom-specs",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "TCT, Tax Declaration, Tax Receipt, Bill of materials, Specification",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-cshp",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "CSHP Certificate from DOLE, Locational Clearance",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-locational-clearance",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "CSHP Certificate from DOLE, Locational Clearance",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-signed-plans",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "Signed and Sealed Construction Plans (Architectural, Structural, Lot",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-other-clearances",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "Others government agency clearances as requirements",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "req:mkn.r-portal-account",
+   "source": "mkn-bplo-faq",
+   "pdf_page": 1,
+   "quote": "Click Sign Up to create an account",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-portal-register:steps",
+   "source": "mkn-bplo-faq",
+   "pdf_page": 1,
+   "quote": "An email will be sent to verify the registration.",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-pwd-id:walkin:fee",
+   "source": "mkn-cswdo-2024",
+   "pdf_page": 10,
+   "quote": "Interview and none 5 minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-pwd-id:walkin:time",
+   "source": "mkn-cswdo-2024",
+   "pdf_page": 10,
+   "quote": "TOTAL 16 minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-pwd-id:steps",
+   "source": "mkn-cswdo-2024",
+   "pdf_page": 10,
+   "quote": "4. Issuance of PWD",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-pwd-id:xcheck2022",
+   "source": "mkn-charter-2022",
+   "pdf_page": 180,
+   "quote": "11 minutes",
+   "status": "auto_verified",
+   "note": "Older edition; shown only to document the difference.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-senior-id:fee",
+   "source": "mkn-osca-2024",
+   "pdf_page": 3,
+   "quote": "none 3 minutes OSCA Staff (ID",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-senior-id:time",
+   "source": "mkn-osca-2024",
+   "pdf_page": 3,
+   "quote": "TOTAL 6 minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-senior-id:qualification",
+   "source": "mkn-osca-2024",
+   "pdf_page": 3,
+   "quote": "Marikina Residents who is sixty (60)years of age or older",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-senior-id:xcheck2022",
+   "source": "mkn-charter-2022",
+   "pdf_page": 259,
+   "quote": "Valid Id with Marikina Address",
+   "status": "auto_verified",
+   "note": "Older edition; shown for cross-check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-birth-ctc:fee",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 16,
+   "quote": "Php 150.00",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-birth-ctc:time",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 16,
+   "quote": "TOTAL 6 minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-birth-ctc:notice",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 16,
+   "quote": "Only documents with official",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-birth-registration:fee",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 5,
+   "quote": "PHP100.00",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-birth-registration:time",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 5,
+   "quote": "TOTAL 9 minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-birth-registration:30days",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 5,
+   "quote": "within thirty (30) days from the date of birth",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-birth-registration:claim",
+   "source": "mkn-ccro-2024",
+   "pdf_page": 5,
+   "quote": "then get a claim",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-business-permit-renewal:online:fee",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 9,
+   "quote": "Revenue Code",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-business-permit-renewal:online:time",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 9,
+   "quote": "(Assessment, 15 minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-business-permit-renewal:walkin:fee",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 8,
+   "quote": "Revenue Code",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-business-permit-renewal:walkin:time",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 8,
+   "quote": "Assessment, 15 minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-business-permit-renewal:due",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 8,
+   "quote": "PAYMENT DUE DATE",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-business-permit-renewal:eboss",
+   "source": "mkn-bplo-2026",
+   "pdf_page": 8,
+   "quote": "E-BOSS Portal at https://bplo.marikina.gov.ph/client",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-business-permit-renewal:renew",
+   "source": "mkn-bplo-faq",
+   "pdf_page": 1,
+   "quote": "Click Renew button",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-business-permit-renewal:gross",
+   "source": "mkn-bplo-faq",
+   "pdf_page": 1,
+   "quote": "Input the Actual / Annual Declared Gross Sales and attached",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-business-permit-renewal:pay",
+   "source": "mkn-bplo-faq",
+   "pdf_page": 1,
+   "quote": "Credit card, Debit Card, E-wallet (Gcash",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-building-permit:fee",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "Based on 10 minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-building-permit:time",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "1 day and 3",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check.",
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-building-permit:bfp",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "Endorses 2 copies of",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-building-permit:inspect",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "Proposed Construction 1 day Building Inspectors",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-building-permit:pay",
+   "source": "mkn-obo-2024",
+   "pdf_page": 3,
+   "quote": "Pays permit",
+   "status": "auto_verified",
+   "note": null,
+   "city": "mkn"
+  },
+  {
+   "ref": "svc:mkn.s-building-permit:xcheck2022",
+   "source": "mkn-charter-2022",
+   "pdf_page": 139,
+   "quote": "1 day and 3",
+   "status": "auto_verified",
+   "note": "2022 omnibus agrees on the total time.",
+   "city": "mkn"
   }
  ]
 }

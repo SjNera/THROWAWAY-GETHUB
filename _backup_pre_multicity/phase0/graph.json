@@ -1,0 +1,1847 @@
+{
+ "meta": {
+  "version": "0.1-phase0",
+  "built": "2026-11-18",
+  "scope": "Quezon City; 6 intents across 5 journeys; auto-verified only, human review pending",
+  "page_note": "pdf_page = physical page number in the PDF file (not the printed page number)",
+  "disclaimer": "Based on official QC sources, last checked 2026-11-18. Please confirm with the office before you go."
+ },
+ "sources": {
+  "pdao-charter-2025": {
+   "type": "pdf",
+   "file": "PDAO-Citizens-Charter-2025-Updated-3.25.2025",
+   "title": "PDAO Citizen’s Charter 2025 (4th Ed.)",
+   "url": "https://quezoncity.gov.ph/wp-content/uploads/2020/09/PDAO-Citizens-Charter-2025-Updated-3.25.2025.pdf",
+   "office": "pdao",
+   "edition": "2025 4th Ed., updated 3.25.2025",
+   "sha256": "60bfb024e6a7439a6a177d70cfb80368060b5fb6ccf50752332f2ce2fb13022a",
+   "pdf_pages": 42,
+   "local_file": "qc-charters/PDAO-Citizens-Charter-2025-Updated-3.25.2025.pdf",
+   "accessed": "2026-11-18"
+  },
+  "pdao-pwd-service-2025": {
+   "type": "pdf",
+   "file": "REGISTRATION-AND-ISSUANCE-OF-PWD-ID",
+   "title": "PDAO – Registration and Issuance of PWD ID (service sheet)",
+   "url": "https://quezoncity.gov.ph/wp-content/uploads/2025/03/REGISTRATION-AND-ISSUANCE-OF-PWD-ID.pdf",
+   "office": "pdao",
+   "edition": "2025/03 upload",
+   "sha256": "fa5fba2a8c93dca6894d8de0896f0a614424e5e89a70cf64402e8f3780a81e98",
+   "pdf_pages": 5,
+   "local_file": "qc-charters/REGISTRATION-AND-ISSUANCE-OF-PWD-ID.pdf",
+   "accessed": "2026-11-18"
+  },
+  "bpld-charter-2025": {
+   "type": "pdf",
+   "file": "BPLD-CITIZENS-CHARTER-2025",
+   "title": "BPLD Citizen’s Charter (as of February 2025)",
+   "url": "https://quezoncity.gov.ph/wp-content/uploads/2020/09/BPLD-CITIZENS-CHARTER-2025.pdf",
+   "office": "bpld",
+   "edition": "Feb 2025",
+   "sha256": "ef6c2672b84066624f4a60b00a117a28904c07fbff6e4a2a3361a11d747eb217",
+   "pdf_pages": 20,
+   "local_file": "qc-charters/BPLD-CITIZENS-CHARTER-2025.pdf",
+   "accessed": "2026-11-18"
+  },
+  "cto-business-tax-2024": {
+   "type": "pdf",
+   "file": "COLLECTION-OF-BUSINESS-TAX-1",
+   "title": "CTO – Collection of Business Tax (service sheet)",
+   "url": "https://quezoncity.gov.ph/wp-content/uploads/2024/03/COLLECTION-OF-BUSINESS-TAX-1.pdf",
+   "office": "cto",
+   "edition": "2024/03 upload",
+   "sha256": "050a09082185efbbc541d3651c38719ae4e6b73d7753103fa629e16627f57557",
+   "pdf_pages": 1,
+   "local_file": "qc-charters/COLLECTION-OF-BUSINESS-TAX-1.pdf",
+   "accessed": "2026-11-18"
+  },
+  "dbo-construction-permits": {
+   "type": "pdf",
+   "file": "Issuance-of-Construction-Permits",
+   "title": "DBO – Issuance of Construction Permits (service sheet)",
+   "url": "https://quezoncity.gov.ph/wp-content/uploads/2024/02/Issuance-of-Construction-Permits.pdf",
+   "office": "dbo",
+   "edition": "2024/02 upload",
+   "sha256": "4dc327008fe92017e6e1802b56f1f19f8aac287792572440cc718652c66064bd",
+   "pdf_pages": 12,
+   "local_file": "qc-charters/Issuance-of-Construction-Permits.pdf",
+   "accessed": "2026-11-18"
+  },
+  "ccrd-charter-2025": {
+   "type": "pdf",
+   "file": "CCRD-Citizens-Charter-2025-8th-Ed-",
+   "title": "City Civil Registry Dept. Citizen’s Charter 2025 (8th Ed.)",
+   "url": "https://quezoncity.gov.ph/wp-content/uploads/2020/09/CCRD-Citizens-Charter-2025-8th-Ed-.pdf",
+   "office": "ccrd",
+   "edition": "2025 8th Ed.",
+   "sha256": "8ddf791a37b94564810edc76595ac42323ede8cf76134e86119bd6f4255adea5",
+   "pdf_pages": 49,
+   "local_file": "qc-charters/CCRD-Citizens-Charter-2025-8th-Ed-.pdf",
+   "accessed": "2026-11-18"
+  },
+  "ccrd-ctc-birth": {
+   "type": "pdf",
+   "file": "Request-and-Issuance-of-Certified-True-Copy-of-Birth-Certificate",
+   "title": "CCRD – Request and Issuance of CTC of Birth Certificate (service sheet)",
+   "url": "https://quezoncity.gov.ph/wp-content/uploads/2025/04/Request-and-Issuance-of-Certified-True-Copy-of-Birth-Certificate.pdf",
+   "office": "ccrd",
+   "edition": "2025/04 upload",
+   "sha256": "f153f4cb91c1249b816aac7d068afe8a891863ec5feb5a65b58b67e2631f3822",
+   "pdf_pages": 1,
+   "local_file": "qc-charters/Request-and-Issuance-of-Certified-True-Copy-of-Birth-Certificate.pdf",
+   "accessed": "2026-11-18"
+  },
+  "ccrd-ctc-online": {
+   "type": "pdf",
+   "file": "Request-for-Issuance-of-Certified-True-Copy-of-Birth-Marriage-and-Death-Cert.-via-Civil-Registry-Online-Services",
+   "title": "CCRD – CTC of Birth/Marriage/Death via Civil Registry Online Services",
+   "url": "https://quezoncity.gov.ph/wp-content/uploads/2025/04/Request-for-Issuance-of-Certified-True-Copy-of-Birth-Marriage-and-Death-Cert.-via-Civil-Registry-Online-Services.pdf",
+   "office": "ccrd",
+   "edition": "2025/04 upload",
+   "sha256": "629944d19dda34b692e877d6ab858343f641a4312823fcce576c8105fdc7d9a1",
+   "pdf_pages": 1,
+   "local_file": "qc-charters/Request-for-Issuance-of-Certified-True-Copy-of-Birth-Marriage-and-Death-Cert.-via-Civil-Registry-Online-Services.pdf",
+   "accessed": "2026-11-18"
+  },
+  "qc-guide-pwd-id": {
+   "type": "html",
+   "file": "qc-guide-pwd-id.txt",
+   "title": "QCitizen Guide – How to Apply for PWD ID",
+   "url": "https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-pwd-id/",
+   "office": "pdao",
+   "edition": "last updated 2026-05-13",
+   "sha256": "149a9d3e08358f26d4a4577d11a37fb29ae4e16327bd2dec5a063fee41864185",
+   "local_file": "extract/html/qc-guide-pwd-id.txt",
+   "accessed": "2026-11-18"
+  },
+  "qc-guide-senior-card": {
+   "type": "html",
+   "file": "qc-guide-senior-card.txt",
+   "title": "QCitizen Guide – How to Apply for Senior Citizen Card",
+   "url": "https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-senior-citizen-card/",
+   "office": "osca",
+   "edition": "last updated 2025-10-02",
+   "sha256": "0a120b00623c6a63421034a76a33f2c4126f96d84a7fdc9dceddc80878162175",
+   "local_file": "extract/html/qc-guide-senior-card.txt",
+   "accessed": "2026-11-18"
+  },
+  "qc-guide-renew-business-permit": {
+   "type": "html",
+   "file": "qc-guide-renew-business-permit.txt",
+   "title": "QCitizen Guide – How to Renew Business Permit",
+   "url": "https://quezoncity.gov.ph/qcitizen-guides/how-to-renew-business-permit/",
+   "office": "bpld",
+   "edition": "last updated 2026-01-06",
+   "sha256": "453f3152cebd40dfc5ea5c809047d2d550cbf0e4c6cb61df4edf894fe0bc5793",
+   "local_file": "extract/html/qc-guide-renew-business-permit.txt",
+   "accessed": "2026-11-18"
+  },
+  "qc-guide-building-permit": {
+   "type": "html",
+   "file": "qc-guide-building-permit.txt",
+   "title": "QCitizen Guide – How to Apply Online for a Building Permit",
+   "url": "https://quezoncity.gov.ph/qcitizen-guides/how-to-apply-for-a-building-permit/",
+   "office": "dbo",
+   "edition": "last updated 2025-10-02",
+   "sha256": "fa145b90c6c8ba09061a8e3d4e0551e464b8d024df8c2b737fa7683169f7717c",
+   "local_file": "extract/html/qc-guide-building-permit.txt",
+   "accessed": "2026-11-18"
+  },
+  "qc-contacts": {
+   "type": "html",
+   "file": "qc-contacts.txt",
+   "title": "QC department contact pages (OSCA, DBO, BPLD, CTO)",
+   "url": "https://quezoncity.gov.ph/departments/",
+   "office": "multi",
+   "edition": "read 2026-11-18",
+   "sha256": "6370486a288ee93ce7b6ad487a8cb744e234d2e327330b219d2b35f92333465a",
+   "local_file": "extract/html/qc-contacts.txt",
+   "accessed": "2026-11-18"
+  }
+ },
+ "offices": {
+  "pdao": {
+   "name": "Persons with Disability Affairs Office (PDAO)",
+   "address": "Ground Floor, Community Center Building, Gate 3, Kalayaan Ave., QC Hall Compound",
+   "phone": "8988-4242 loc 7809",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   }
+  },
+  "osca": {
+   "name": "Office for the Senior Citizens’ Affairs (OSCA)",
+   "address": "Ground Floor Community Center Building, Gate-3 Quezon City Hall Complex, Kalayaan Avenue, Quezon City",
+   "phone": "8988-4242 locals 1104, 8703-2843",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   }
+  },
+  "bpld": {
+   "name": "Business Permits and Licensing Department (BPLD)",
+   "address": "Ground Floor, Civic Center Building A, Quezon City Hall, Mayaman St., Barangay Central, Quezon City",
+   "phone": "8988-4242 local 8173",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   }
+  },
+  "cto": {
+   "name": "City Treasurer’s Office (CTO)",
+   "address": "Annex Building, Mayaman St. Brgy. Central, QC Hall Compound, Diliman, Quezon City",
+   "phone": "8988-4242 locals 8317, 8145, 8156, 8157",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   }
+  },
+  "dbo": {
+   "name": "Department of the Building Official (DBO)",
+   "address": "Ground to 3rd Floors, Civic Center D (BRO Bldg.), Mayaman Street, Quezon City Hall Compound",
+   "phone": "8988-4242 Local 8902, 8903, 8905, 8909, 8916, 1400, 1401",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   }
+  },
+  "ccrd": {
+   "name": "City Civil Registry Department (CCRD)",
+   "address": "Quezon City Hall Compound (1st Floor, Door 2, Civic Center)",
+   "phone": "8988-4242 local 1516 (Birth Registration Division)",
+   "channel": "in_person",
+   "map": {
+    "lat": null,
+    "lng": null,
+    "status": "needs_review"
+   }
+  },
+  "eservices": {
+   "name": "QC E-Services portal",
+   "address": null,
+   "url": "https://qceservices.quezoncity.gov.ph/",
+   "channel": "online",
+   "map": null
+  },
+  "barangay": {
+   "name": "Barangay hall (resident’s own barangay)",
+   "address": null,
+   "channel": "in_person",
+   "external": true,
+   "note": "Not covered by QC charters; confirm requirements and fees with your barangay.",
+   "map": null
+  },
+  "external-agency": {
+   "name": "Issuing agency or professional (outside QC charters)",
+   "address": null,
+   "channel": "varies",
+   "external": true,
+   "map": null
+  }
+ },
+ "requirements": {
+  "r-eservices-account": {
+   "name": "QC E-Services account",
+   "issuer_service": "s-eservices-register"
+  },
+  "r-cert-disability": {
+   "name": "Certificate of Disability (from a specialist doctor)",
+   "external": "external-agency",
+   "hint": "Must be signed by the specialist for your disability type, not a family doctor or general physician."
+  },
+  "r-med-cert-cancer-rare": {
+   "name": "Medical certificate (cancer / rare disease)",
+   "external": "external-agency"
+  },
+  "r-whole-body-photo": {
+   "name": "Whole-body photo showing the disability",
+   "external": null,
+   "applicant": true
+  },
+  "r-gov-id": {
+   "name": "Government-issued ID",
+   "external": "external-agency"
+  },
+  "r-barangay-cert": {
+   "name": "Barangay certificate / clearance",
+   "external": "barangay"
+  },
+  "r-id-photo-2x2": {
+   "name": "2x2 ID photo (and signature)",
+   "applicant": true
+  },
+  "r-valid-id-bd-address": {
+   "name": "Valid ID showing birth date and address",
+   "external": "external-agency"
+  },
+  "r-birth-certificate": {
+   "name": "Birth certificate",
+   "issuer_service": "s-birth-ctc"
+  },
+  "r-barangay-residency": {
+   "name": "Barangay Certificate of Residency",
+   "external": "barangay"
+  },
+  "r-marriage-cert": {
+   "name": "Marriage Certificate",
+   "external": "external-agency"
+  },
+  "r-prev-mayors-permit": {
+   "name": "Previous Mayor’s Permit",
+   "applicant": true
+  },
+  "r-business-tax-or": {
+   "name": "Official Receipt of business tax payment (current year)",
+   "issuer_service": "s-business-tax-payment"
+  },
+  "r-owner-valid-id": {
+   "name": "Valid ID of business owner",
+   "external": "external-agency"
+  },
+  "r-authorization": {
+   "name": "Authorization form + valid ID of representative",
+   "applicant": true
+  },
+  "r-tax-bill": {
+   "name": "Computerized Business Tax Bill",
+   "external": "cto"
+  },
+  "r-design-professional": {
+   "name": "Registered private design/building professional (with QC E-Services account)",
+   "external": "external-agency"
+  },
+  "r-tct": {
+   "name": "Certified True Copy of Transfer Certificate of Title (TCT)",
+   "external": "external-agency"
+  },
+  "r-legal-right": {
+   "name": "Legal document showing right to build (e.g., Deed of Absolute Sale) when applicant is not the registered owner",
+   "applicant": true
+  },
+  "r-affidavits": {
+   "name": "Notarized affidavits (forms printable from your QC E-Services account)",
+   "applicant": true
+  },
+  "r-building-plans": {
+   "name": "Building plans with wet signature and seal of the design professional",
+   "external": "external-agency"
+  },
+  "r-prev-building-permit": {
+   "name": "Previous building permit / certificate of occupancy and approved plans (renovation; permit issued before Nov 17, 2022)",
+   "applicant": true
+  },
+  "r-request-form-birth": {
+   "name": "Request form for birth certificate (Information Desk)",
+   "applicant": true
+  },
+  "r-id-ctc": {
+   "name": "Government-issued / valid ID",
+   "external": "external-agency"
+  },
+  "r-authorization-ctc": {
+   "name": "Authorization letter/SPA + photocopies of owner’s and representative’s IDs",
+   "applicant": true
+  },
+  "r-colb-4": {
+   "name": "Duly accomplished Certificate of Live Birth (4 copies)",
+   "external": "external-agency",
+   "hint": "From the hospital, maternity/lying-in clinic or birthing facility."
+  },
+  "r-parents-marriage-cert": {
+   "name": "Marriage Certificate of parents (PSA or local copy)",
+   "external": "external-agency"
+  },
+  "r-parents-ids": {
+   "name": "Copy of valid IDs of parents",
+   "external": "external-agency"
+  },
+  "r-aop-ausf": {
+   "name": "Notarized Affidavit of Admission of Paternity and/or Affidavit to Use the Surname of the Father",
+   "external": "external-agency"
+  }
+ },
+ "services": {
+  "s-eservices-register": {
+   "name": "QC E-Services account registration",
+   "goal": false,
+   "variants": [
+    {
+     "channel": "online",
+     "office": "eservices",
+     "fee": "not_listed",
+     "time": "not_listed",
+     "time_by_class": null,
+     "requires": [],
+     "url": "https://qceservices.quezoncity.gov.ph/",
+     "detail_steps": [
+      "Register at QC E-Services using a personal email (1 email per registrant)",
+      "Confirm and validate the E-Services account"
+     ],
+     "evidence": {
+      "fee": null,
+      "time": null
+     },
+     "note": "Fee and time not stated in the sources read."
+    }
+   ],
+   "question_keys": []
+  },
+  "s-pwd-id": {
+   "name": "PWD ID application (QCitizen PWD ID)",
+   "goal": true,
+   "variants": [
+    {
+     "channel": "online",
+     "office": "eservices",
+     "fee": "none",
+     "time": "3 days",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "r-eservices-account",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-whole-body-photo",
+       "when": {
+        "disability_type": "apparent"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "r-cert-disability",
+       "when": {
+        "disability_type": "non_apparent"
+       },
+       "skip_if": {
+        "has_med_cert": "yes"
+       }
+      },
+      {
+       "req": "r-med-cert-cancer-rare",
+       "when": {
+        "disability_type": "cancer_rare"
+       },
+       "skip_if": {
+        "has_med_cert": "yes"
+       }
+      },
+      {
+       "or_options": [
+        [
+         "r-gov-id"
+        ],
+        [
+         "r-barangay-cert"
+        ]
+       ],
+       "default": 1,
+       "when": {},
+       "skip_if": {
+        "has_gov_id": "yes"
+       },
+       "label": "Proof of residence"
+      },
+      {
+       "req": "r-id-photo-2x2",
+       "when": {},
+       "skip_if": {}
+      }
+     ],
+     "url": "https://qceservices.quezoncity.gov.ph/",
+     "detail_steps": [
+      "Log in and choose the QCitizen ID eApplication icon",
+      "Complete personal information and tick “Yes” for the Persons With Disability sector",
+      "Upload requirements; a virtual ID shows on submission, then agree and submit",
+      "Monitor application status in your E-Services account"
+     ],
+     "evidence": {
+      "fee": "svc:s-pwd-id:online:fee",
+      "time": "svc:s-pwd-id:online:time"
+     },
+     "note": "Non-apparent disability validation takes 2–3 days. Renewal of a white PWD ID is processed as a new application."
+    },
+    {
+     "channel": "in_person",
+     "office": "pdao",
+     "fee": "none",
+     "time": "40 minutes",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "r-whole-body-photo",
+       "when": {
+        "disability_type": "apparent"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "r-cert-disability",
+       "when": {
+        "disability_type": "non_apparent"
+       },
+       "skip_if": {
+        "has_med_cert": "yes"
+       }
+      },
+      {
+       "req": "r-med-cert-cancer-rare",
+       "when": {
+        "disability_type": "cancer_rare"
+       },
+       "skip_if": {
+        "has_med_cert": "yes"
+       }
+      },
+      {
+       "or_options": [
+        [
+         "r-gov-id"
+        ],
+        [
+         "r-barangay-cert"
+        ]
+       ],
+       "default": 1,
+       "when": {},
+       "skip_if": {
+        "has_gov_id": "yes"
+       },
+       "label": "Proof of residence"
+      },
+      {
+       "req": "r-id-photo-2x2",
+       "when": {},
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "Bring copies of requirements to PDAO for evaluation",
+      "Staff encode your information; it is approved and verified",
+      "Printed ID is given to you",
+      "Applicants with missing requirements are assisted and advised"
+     ],
+     "evidence": {
+      "fee": "svc:s-pwd-id:walkin:fee",
+      "time": "svc:s-pwd-id:walkin:time"
+     },
+     "note": null
+    }
+   ],
+   "question_keys": [
+    "channel",
+    "disability_type",
+    "has_eservices_account",
+    "has_gov_id",
+    "has_med_cert"
+   ]
+  },
+  "s-birth-ctc": {
+   "name": "Certified True Copy of Birth Certificate (QC-registered)",
+   "goal": true,
+   "variants": [
+    {
+     "channel": "in_person",
+     "office": "ccrd",
+     "fee": "PHP 65.00 per copy",
+     "time": "15 minutes if on database (1945–2015); 3 days if manual search",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "r-request-form-birth",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-id-ctc",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-authorization-ctc",
+       "when": {
+        "is_representative": "yes"
+       },
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "Submit filled-out request form and ID; receive order of payment",
+      "Pay at the City Treasurer’s cashier; receive claim stub",
+      "Receive the certified copy (Counter 5)"
+     ],
+     "evidence": {
+      "fee": "svc:s-birth-ctc:walkin:fee",
+      "time": "svc:s-birth-ctc:walkin:time"
+     },
+     "note": "For persons born in Quezon City; counters 1 & 2."
+    },
+    {
+     "channel": "online",
+     "office": "eservices",
+     "fee": "PHP 65.00 per copy",
+     "time": "1–3 days plus 5 minutes at pick-up",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "r-eservices-account",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-authorization-ctc",
+       "when": {
+        "is_representative": "yes"
+       },
+       "skip_if": {}
+      }
+     ],
+     "url": "https://qceservices.quezoncity.gov.ph/",
+     "detail_steps": [
+      "Log in, click “Civil Registry Online Services”, then “Request for a Certificate”",
+      "Wait for the email saying the copy is ready for pick-up",
+      "Pick up at CCRD and pay at the City Treasurer’s Office"
+     ],
+     "evidence": {
+      "fee": "svc:s-birth-ctc:online:fee",
+      "time": "svc:s-birth-ctc:online:time"
+     },
+     "note": null
+    }
+   ],
+   "question_keys": [
+    "channel",
+    "has_eservices_account",
+    "is_representative"
+   ]
+  },
+  "s-birth-registration": {
+   "name": "Registration of Certificate of Live Birth (within 30 days)",
+   "goal": true,
+   "exit_if": {
+    "within_30_days": "no"
+   },
+   "exit_message": "Registration after 30 days follows the delayed-registration process. Contact the City Civil Registry Department.",
+   "exit_office": "ccrd",
+   "variants": [
+    {
+     "channel": "in_person",
+     "office": "ccrd",
+     "fee": "none",
+     "time": "5 minutes",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "r-colb-4",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-parents-marriage-cert",
+       "when": {
+        "parents_married": "yes"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "r-parents-ids",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-aop-ausf",
+       "when": {
+        "parents_married": "no"
+       },
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "Submit the Certificate of Live Birth and all requirements at Counter 18",
+      "Receive the personal copy of the registered certificate"
+     ],
+     "evidence": {
+      "fee": "svc:s-birth-registration:walkin:fee",
+      "time": "svc:s-birth-registration:walkin:time"
+     },
+     "note": null
+    },
+    {
+     "channel": "online",
+     "office": "eservices",
+     "fee": "none",
+     "time": "1–3 days after submission, then submit originals",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "r-eservices-account",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-colb-4",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-parents-marriage-cert",
+       "when": {
+        "parents_married": "yes"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "r-parents-ids",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-aop-ausf",
+       "when": {
+        "parents_married": "no"
+       },
+       "skip_if": {}
+      }
+     ],
+     "url": "https://qceservices.quezoncity.gov.ph/",
+     "detail_steps": [
+      "Log in, “Civil Registry Online Services”, then “Birth Registration”",
+      "Upload digital copies of the requirements",
+      "After the email notice, submit the original documents at CCRD"
+     ],
+     "evidence": {
+      "fee": "svc:s-birth-registration:online:fee",
+      "time": "svc:s-birth-registration:online:time"
+     },
+     "note": null
+    }
+   ],
+   "question_keys": [
+    "channel",
+    "has_eservices_account",
+    "parents_married",
+    "within_30_days"
+   ]
+  },
+  "s-business-tax-payment": {
+   "name": "Pay business tax (City Treasurer’s Office)",
+   "goal": false,
+   "variants": [
+    {
+     "channel": "in_person",
+     "office": "cto",
+     "fee": "As stated in the Business Tax Bill",
+     "time": "10 minutes",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "r-tax-bill",
+       "when": {},
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "Present the approved Computerized Business Tax Bill at the payment counter",
+      "Pay; receive the computerized business tax official receipt"
+     ],
+     "evidence": {
+      "fee": "svc:s-business-tax-payment:fee",
+      "time": "svc:s-business-tax-payment:time"
+     },
+     "note": "Online payment is also offered via QC E-Services (per the BPLD charter); details not captured here."
+    }
+   ],
+   "question_keys": []
+  },
+  "s-business-permit-renewal": {
+   "name": "Business permit renewal",
+   "goal": true,
+   "variants": [
+    {
+     "channel": "online",
+     "office": "eservices",
+     "fee": "none",
+     "time": "not_listed",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "r-prev-mayors-permit",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-business-tax-or",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-owner-valid-id",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-authorization",
+       "when": {
+        "is_representative": "yes"
+       },
+       "skip_if": {}
+      }
+     ],
+     "url": "https://qceservices.quezoncity.gov.ph/",
+     "detail_steps": [
+      "Pay business tax",
+      "File renewal via QC E-Services portal or kiosks: Business One-Stop Shop → Apply for Mayor’s Permit (Business) → Renewal",
+      "Input Mayor’s Permit number and current-year business tax OR; submit requirements",
+      "Claim the renewed permit or have it delivered"
+     ],
+     "evidence": {
+      "fee": "svc:s-business-permit-renewal:fee",
+      "time": null
+     },
+     "note": "Charter lists 30 minutes per evaluation stage but no single total; the system can auto-renew if compliant."
+    }
+   ],
+   "question_keys": [
+    "has_business_tax_or",
+    "is_representative"
+   ]
+  },
+  "s-senior-id": {
+   "name": "Senior Citizen QC ID (OSCA)",
+   "goal": true,
+   "variants": [
+    {
+     "channel": "online",
+     "office": "eservices",
+     "fee": "not_listed",
+     "time": "not_listed",
+     "time_by_class": null,
+     "requires": [
+      {
+       "req": "r-eservices-account",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "or_options": [
+        [
+         "r-valid-id-bd-address"
+        ],
+        [
+         "r-birth-certificate",
+         "r-barangay-residency"
+        ]
+       ],
+       "default": 1,
+       "when": {},
+       "skip_if": {
+        "has_qcitizen_id": "yes"
+       },
+       "label": "Proof of birth date and address"
+      },
+      {
+       "req": "r-marriage-cert",
+       "when": {
+        "married_woman_diff_surname": "yes"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "r-id-photo-2x2",
+       "when": {},
+       "skip_if": {}
+      }
+     ],
+     "url": "https://qceservices.quezoncity.gov.ph/",
+     "detail_steps": [
+      "Create a profile and account with QC E-Services",
+      "Select QC ID e-Application (or Request for Sectoral Status Change if you already hold a resident QC ID)",
+      "Wait for the approval email",
+      "Wait for the physical ID to be delivered"
+     ],
+     "evidence": {
+      "fee": null,
+      "time": null
+     },
+     "note": "Fee and processing time are not stated in the guide."
+    },
+    {
+     "channel": "in_person",
+     "office": "osca",
+     "fee": "not_listed",
+     "time": "not_listed",
+     "time_by_class": null,
+     "requires": [
+      {
+       "or_options": [
+        [
+         "r-valid-id-bd-address"
+        ],
+        [
+         "r-birth-certificate",
+         "r-barangay-residency"
+        ]
+       ],
+       "default": 1,
+       "when": {},
+       "skip_if": {
+        "has_qcitizen_id": "yes"
+       },
+       "label": "Proof of birth date and address"
+      },
+      {
+       "req": "r-marriage-cert",
+       "when": {
+        "married_woman_diff_surname": "yes"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "r-id-photo-2x2",
+       "when": {},
+       "skip_if": {}
+      }
+     ],
+     "url": null,
+     "detail_steps": [
+      "Download or obtain the Senior Citizen QC ID Application Form from OSCA",
+      "Submit the accomplished form and all documents for OSCA verification",
+      "ID is sent to your home or can be picked up at OSCA"
+     ],
+     "evidence": {
+      "fee": null,
+      "time": null
+     },
+     "note": "Fee and processing time are not stated in the guide."
+    }
+   ],
+   "question_keys": [
+    "channel",
+    "has_birth_certificate",
+    "has_eservices_account",
+    "has_qcitizen_id",
+    "married_woman_diff_surname"
+   ]
+  },
+  "s-building-permit": {
+   "name": "Building / construction permit (new construction)",
+   "goal": true,
+   "variants": [
+    {
+     "channel": "online",
+     "office": "dbo",
+     "fee": "Refer to the Schedule of Fees (computed by DBO)",
+     "time": "by class: 3 / 7 / 20 working days",
+     "time_by_class": {
+      "simple": "3 working days",
+      "complex": "7 working days",
+      "highly_technical": "20 working days"
+     },
+     "requires": [
+      {
+       "req": "r-eservices-account",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-design-professional",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-tct",
+       "when": {
+        "is_owner": "yes"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "r-legal-right",
+       "when": {
+        "is_owner": "no"
+       },
+       "skip_if": {}
+      },
+      {
+       "req": "r-affidavits",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-building-plans",
+       "when": {},
+       "skip_if": {}
+      },
+      {
+       "req": "r-prev-building-permit",
+       "when": {
+        "is_renovation_pre2022": "yes"
+       },
+       "skip_if": {}
+      }
+     ],
+     "url": "https://qceservices.quezoncity.gov.ph/",
+     "detail_steps": [
+      "Log in to QC E-Services → Building Permit One-Stop Shop; generate application forms and checklist",
+      "Add or select building professionals; print checklist and forms",
+      "Electronically submit for pre-evaluation and schedule an appointment",
+      "Drop off documents at the DBO kiosk on your appointment date",
+      "Claim the Order of Payment (bring valid ID) and pay at the City Treasurer’s cashier",
+      "Return the OR; permit released"
+     ],
+     "evidence": {
+      "fee": "svc:s-building-permit:fee",
+      "time": "svc:s-building-permit:time"
+     },
+     "note": "Payment window differs between sources: charter says Treasurer windows 13 or 14; the QCitizen guide says Counter 12. Confirm with DBO."
+    }
+   ],
+   "question_keys": [
+    "has_eservices_account",
+    "is_owner",
+    "is_renovation_pre2022",
+    "permit_class"
+   ]
+  }
+ },
+ "intents": {
+  "pwd-id-application": {
+   "service": "s-pwd-id",
+   "aliases": [
+    "PWD ID",
+    "PWD card",
+    "disability ID",
+    "apply for PWD ID"
+   ],
+   "aliases_tl": [
+    "PWD ID",
+    "ID ng PWD",
+    "magparehistro bilang PWD"
+   ]
+  },
+  "senior-citizen-id": {
+   "service": "s-senior-id",
+   "aliases": [
+    "senior citizen ID",
+    "OSCA ID",
+    "senior ID",
+    "senior card"
+   ],
+   "aliases_tl": [
+    "ID ng senior",
+    "senior citizen card",
+    "OSCA ID"
+   ]
+  },
+  "business-permit-renewal": {
+   "service": "s-business-permit-renewal",
+   "aliases": [
+    "renew business permit",
+    "mayor’s permit renewal",
+    "business permit"
+   ],
+   "aliases_tl": [
+    "i-renew ang business permit",
+    "permit ng negosyo"
+   ]
+  },
+  "building-permit": {
+   "service": "s-building-permit",
+   "aliases": [
+    "building permit",
+    "construction permit",
+    "build a house"
+   ],
+   "aliases_tl": [
+    "building permit",
+    "permit para magpatayo ng bahay"
+   ]
+  },
+  "birth-certificate-copy": {
+   "service": "s-birth-ctc",
+   "aliases": [
+    "birth certificate copy",
+    "certified true copy of birth certificate",
+    "get birth certificate"
+   ],
+   "aliases_tl": [
+    "kopya ng birth certificate"
+   ]
+  },
+  "birth-registration": {
+   "service": "s-birth-registration",
+   "aliases": [
+    "register a birth",
+    "register newborn",
+    "certificate of live birth"
+   ],
+   "aliases_tl": [
+    "iparehistro ang bagong silang na sanggol"
+   ]
+  }
+ },
+ "questions": {
+  "channel": {
+   "key": "channel",
+   "text": "Do you want to apply online or in person?",
+   "text_tl": "Gusto mo bang mag-apply online o personal?",
+   "options": [
+    "online",
+    "in_person"
+   ]
+  },
+  "disability_type": {
+   "key": "disability_type",
+   "text": "What kind of disability do you have?",
+   "text_tl": "Anong uri ng disability?",
+   "options": [
+    "apparent",
+    "non_apparent",
+    "cancer_rare"
+   ]
+  },
+  "has_med_cert": {
+   "key": "has_med_cert",
+   "text": "Do you already have the certificate from your specialist?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "has_gov_id": {
+   "key": "has_gov_id",
+   "text": "Do you have a government-issued ID with your Quezon City address?",
+   "text_tl": "May government ID ka ba na may QC address?",
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "has_qcitizen_id": {
+   "key": "has_qcitizen_id",
+   "text": "Do you already have a QCitizen ID?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "married_woman_diff_surname": {
+   "key": "married_woman_diff_surname",
+   "text": "Are you a married woman whose surname differs from your valid ID?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "is_representative": {
+   "key": "is_representative",
+   "text": "Is someone applying on behalf of the owner?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "is_owner": {
+   "key": "is_owner",
+   "text": "Are you the registered owner of the lot (named on the TCT)?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "is_renovation_pre2022": {
+   "key": "is_renovation_pre2022",
+   "text": "Is this a renovation of a building whose permit was issued before Nov 17, 2022?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "permit_class": {
+   "key": "permit_class",
+   "text": "Is the project simple, complex or highly technical?",
+   "text_tl": null,
+   "options": [
+    "simple",
+    "complex",
+    "highly_technical"
+   ]
+  },
+  "parents_married": {
+   "key": "parents_married",
+   "text": "Were the child’s parents married at the time of birth?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "within_30_days": {
+   "key": "within_30_days",
+   "text": "Is the child less than 30 days old?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "has_eservices_account": {
+   "key": "has_eservices_account",
+   "text": "Do you already have a QC E-Services account?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "has_birth_certificate": {
+   "key": "has_birth_certificate",
+   "text": "Do you already have your birth certificate (PSA or CCRD copy)?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  },
+  "has_business_tax_or": {
+   "key": "has_business_tax_or",
+   "text": "Have you already paid this year’s business tax (do you have the official receipt)?",
+   "text_tl": null,
+   "options": [
+    "yes",
+    "no"
+   ]
+  }
+ },
+ "evidence": [
+  {
+   "ref": "office:pdao:address",
+   "source": "pdao-charter-2025",
+   "pdf_page": 42,
+   "quote": "Gate 3, Kalayaan Ave., QC Hall",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "office:pdao:phone",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 5,
+   "quote": "8988-4242 loc 7809",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "office:osca:address",
+   "source": "qc-contacts",
+   "pdf_page": 1,
+   "quote": "Gate-3 Quezon City Hall Complex, Kalayaan Avenue",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "office:bpld:address",
+   "source": "qc-contacts",
+   "pdf_page": 1,
+   "quote": "Civic Center Building A, Quezon City Hall, Mayaman St.",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "office:cto:address",
+   "source": "qc-contacts",
+   "pdf_page": 1,
+   "quote": "Annex Building, Mayaman St.",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "office:dbo:address",
+   "source": "qc-contacts",
+   "pdf_page": 1,
+   "quote": "Civic Center D (BRO Bldg.), Mayaman Street",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "office:ccrd:address",
+   "source": "ccrd-charter-2025",
+   "pdf_page": 49,
+   "quote": "Birth Registration Division 1st Floor, Door 2, Civic Center",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "office:eservices:url",
+   "source": "dbo-construction-permits",
+   "pdf_page": 2,
+   "quote": "https://qceservices.quezoncity.gov.ph/",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-cert-disability",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 1,
+   "quote": "Certificate of Disability Qualified Doctor /City Issuer",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-cert-disability:specialist",
+   "source": "qc-guide-pwd-id",
+   "pdf_page": 1,
+   "quote": "Certificate of disability from the specialist",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "req:r-cert-disability:not-gp",
+   "source": "qc-guide-pwd-id",
+   "pdf_page": 1,
+   "quote": "family doctors or general physicians are not encourage",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "req:r-med-cert-cancer-rare",
+   "source": "qc-guide-pwd-id",
+   "pdf_page": 1,
+   "quote": "medical certificate for Cancer and Rare diseases",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "req:r-whole-body-photo",
+   "source": "qc-guide-pwd-id",
+   "pdf_page": 1,
+   "quote": "Whole body photo that shows disability physically",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "req:r-gov-id",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 1,
+   "quote": "Barangay clearance or any other government-issued",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-barangay-cert",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 1,
+   "quote": "Barangay clearance or any other government-issued",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-id-photo-2x2",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 1,
+   "quote": "2 pcs. 2X2 I.D. picture / Signature",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-eservices-account",
+   "source": "qc-guide-pwd-id",
+   "pdf_page": 1,
+   "quote": "Register at QC E-Services using personal email",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "req:r-valid-id-bd-address",
+   "source": "qc-guide-senior-card",
+   "pdf_page": 1,
+   "quote": "valid ID with applicant’s birth date and address",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "req:r-birth-certificate",
+   "source": "qc-guide-senior-card",
+   "pdf_page": 1,
+   "quote": "Birth Certificate and Barangay Certificate of Residency",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "req:r-barangay-residency",
+   "source": "qc-guide-senior-card",
+   "pdf_page": 1,
+   "quote": "Barangay Certificate of Residency",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "req:r-marriage-cert",
+   "source": "qc-guide-senior-card",
+   "pdf_page": 1,
+   "quote": "Marriage Certificate (if the applicant is a married woman",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "req:r-prev-mayors-permit",
+   "source": "bpld-charter-2025",
+   "pdf_page": 6,
+   "quote": "Previous Mayor’s Permit",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-business-tax-or",
+   "source": "bpld-charter-2025",
+   "pdf_page": 6,
+   "quote": "Official Receipt of Business Tax Payment for the current year",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-owner-valid-id",
+   "source": "bpld-charter-2025",
+   "pdf_page": 6,
+   "quote": "Valid ID of Business Owner",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-authorization",
+   "source": "bpld-charter-2025",
+   "pdf_page": 6,
+   "quote": "If filed by a duly authorized representative",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-tax-bill",
+   "source": "cto-business-tax-2024",
+   "pdf_page": 1,
+   "quote": "Computerized Business Tax Bill",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-design-professional",
+   "source": "dbo-construction-permits",
+   "pdf_page": 2,
+   "quote": "A private design/building professional",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-tct",
+   "source": "dbo-construction-permits",
+   "pdf_page": 2,
+   "quote": "Land Registration Authority for the Certified",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-legal-right",
+   "source": "dbo-construction-permits",
+   "pdf_page": 2,
+   "quote": "Additional legal document showing right to",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-affidavits",
+   "source": "dbo-construction-permits",
+   "pdf_page": 2,
+   "quote": "Duly accomplished and notarized",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-building-plans",
+   "source": "dbo-construction-permits",
+   "pdf_page": 3,
+   "quote": "Building plans (with wet sign & seal of",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-prev-building-permit",
+   "source": "dbo-construction-permits",
+   "pdf_page": 3,
+   "quote": "Previous Building Permit or previous",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-prev-building-permit:date",
+   "source": "dbo-construction-permits",
+   "pdf_page": 3,
+   "quote": "November 17, 2022",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-request-form-birth",
+   "source": "ccrd-ctc-birth",
+   "pdf_page": 1,
+   "quote": "Request Form for Birth Certificate",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-id-ctc",
+   "source": "ccrd-ctc-birth",
+   "pdf_page": 1,
+   "quote": "Government-issued / Valid Identification Card",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-authorization-ctc",
+   "source": "ccrd-ctc-birth",
+   "pdf_page": 1,
+   "quote": "Authorization Letter/Special Power of Attorney",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-colb-4",
+   "source": "ccrd-charter-2025",
+   "pdf_page": 5,
+   "quote": "Duly accomplished Certificate of Live Birth (4",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-parents-marriage-cert",
+   "source": "ccrd-charter-2025",
+   "pdf_page": 5,
+   "quote": "Marriage Certificate of Parents",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-parents-ids",
+   "source": "ccrd-charter-2025",
+   "pdf_page": 5,
+   "quote": "Copy of valid IDs of parents",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "req:r-aop-ausf",
+   "source": "ccrd-charter-2025",
+   "pdf_page": 5,
+   "quote": "Notarized Affidavit to Use the Surname of the",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-eservices-register:steps",
+   "source": "qc-guide-pwd-id",
+   "pdf_page": 1,
+   "quote": "Confirm and validate E-Services account",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "svc:s-pwd-id:online:fee",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 1,
+   "quote": "None (2-3 days",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-pwd-id:online:time",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 5,
+   "quote": "ONLINE APPLICATION TOTAL : 3 Days",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-pwd-id:walkin:fee",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 1,
+   "quote": "None (2-3 days",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-pwd-id:walkin:time",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 5,
+   "quote": "WALK-IN APPLICATION TOTAL : 40 minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-pwd-id:walkin:steps",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 3,
+   "quote": "Bring copies of",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-pwd-id:renewal",
+   "source": "pdao-pwd-service-2025",
+   "pdf_page": 2,
+   "quote": "process will be considered as new applications",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-birth-ctc:walkin:fee",
+   "source": "ccrd-ctc-birth",
+   "pdf_page": 1,
+   "quote": "PHP 65.00",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-birth-ctc:walkin:time",
+   "source": "ccrd-ctc-birth",
+   "pdf_page": 1,
+   "quote": "15 Minutes -",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-birth-ctc:online:fee",
+   "source": "ccrd-ctc-online",
+   "pdf_page": 1,
+   "quote": "PHP 65.00",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-birth-ctc:online:time",
+   "source": "ccrd-ctc-online",
+   "pdf_page": 1,
+   "quote": "1-3 Days and",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-birth-ctc:manual",
+   "source": "ccrd-ctc-birth",
+   "pdf_page": 1,
+   "quote": "manual searching",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-birth-registration:walkin:fee",
+   "source": "ccrd-charter-2025",
+   "pdf_page": 5,
+   "quote": "TOTAL: None 5 Minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-birth-registration:walkin:time",
+   "source": "ccrd-charter-2025",
+   "pdf_page": 5,
+   "quote": "TOTAL: None 5 Minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-birth-registration:online:fee",
+   "source": "ccrd-charter-2025",
+   "pdf_page": 5,
+   "quote": "NONE",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-birth-registration:online:time",
+   "source": "ccrd-charter-2025",
+   "pdf_page": 6,
+   "quote": "1 - 3 Days",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-birth-registration:30days",
+   "source": "ccrd-charter-2025",
+   "pdf_page": 5,
+   "quote": "within thirty (30) days from the date of birth",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-business-tax-payment:fee",
+   "source": "cto-business-tax-2024",
+   "pdf_page": 1,
+   "quote": "As stated",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-business-tax-payment:time",
+   "source": "cto-business-tax-2024",
+   "pdf_page": 1,
+   "quote": "Total 10 minutes",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-business-tax-payment:online",
+   "source": "bpld-charter-2025",
+   "pdf_page": 7,
+   "quote": "Online Portal the choose Pay",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-business-permit-renewal:fee",
+   "source": "bpld-charter-2025",
+   "pdf_page": 7,
+   "quote": "None 30 mins.",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-business-permit-renewal:channels",
+   "source": "bpld-charter-2025",
+   "pdf_page": 7,
+   "quote": "QC e-Services Portal",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-business-permit-renewal:validity",
+   "source": "bpld-charter-2025",
+   "pdf_page": 6,
+   "quote": "one (1) year from the date of issue",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-business-permit-renewal:auto",
+   "source": "qc-guide-renew-business-permit",
+   "pdf_page": 1,
+   "quote": "capable of auto-renewing a business permit",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "svc:s-senior-id:qualification",
+   "source": "qc-guide-senior-card",
+   "pdf_page": 1,
+   "quote": "sixty (60) years of age or older",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "svc:s-senior-id:photo",
+   "source": "qc-guide-senior-card",
+   "pdf_page": 1,
+   "quote": "Latest digital or ID photo (2×2)",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "svc:s-senior-id:online",
+   "source": "qc-guide-senior-card",
+   "pdf_page": 1,
+   "quote": "Create a profile and account with QC E-Services",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "svc:s-senior-id:walkin",
+   "source": "qc-guide-senior-card",
+   "pdf_page": 1,
+   "quote": "Submit the Fully Accomplished Senior Citizen QC ID Application Form",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "svc:s-senior-id:pickup",
+   "source": "qc-guide-senior-card",
+   "pdf_page": 1,
+   "quote": "can be picked up at OSCA",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "svc:s-building-permit:fee",
+   "source": "dbo-construction-permits",
+   "pdf_page": 12,
+   "quote": "Schedule 5 at windows 13 or",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-building-permit:time",
+   "source": "dbo-construction-permits",
+   "pdf_page": 11,
+   "quote": "3 (simple permit applications)-7 (complex permit applications)",
+   "status": "needs_review",
+   "note": "Fee/time flagged for human check."
+  },
+  {
+   "ref": "svc:s-building-permit:appointment",
+   "source": "dbo-construction-permits",
+   "pdf_page": 2,
+   "quote": "Confirmed Online Appointment Visit",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-building-permit:form",
+   "source": "dbo-construction-permits",
+   "pdf_page": 2,
+   "quote": "Unified Building",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-building-permit:pay-charter",
+   "source": "dbo-construction-permits",
+   "pdf_page": 12,
+   "quote": "windows 13 or",
+   "status": "auto_verified",
+   "note": null
+  },
+  {
+   "ref": "svc:s-building-permit:pay-guide",
+   "source": "qc-guide-building-permit",
+   "pdf_page": 1,
+   "quote": "Counter 12 of the City Treasurer’s Office",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  },
+  {
+   "ref": "svc:s-building-permit:kiosk",
+   "source": "qc-guide-building-permit",
+   "pdf_page": 1,
+   "quote": "Schedule an appointment to physically submit",
+   "status": "auto_verified",
+   "note": "HTML page transcribed by Claude; reopen the URL to confirm."
+  }
+ ]
+}

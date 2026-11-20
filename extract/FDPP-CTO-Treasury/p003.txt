@@ -1,0 +1,64 @@
+                       CITY TREASURY OFFICE
+
+                     EXTERNAL SERVICES
+
+   1. COLLECTION OF REAL PROPERTY TAX
+      Real Property Tax payment is collected and validated through issuance of Official Receipts.
+
+Department/Office:            Real Property Tax Division
+Classification:                Simple
+Type of Transaction:       G2C – Government to Citizen
+Who may avail:                     All Marikina City Real Property Owners / Developers
+     CHECKLIST OF REQUIREMENTS                WHERE TO SECURE
+Account Number / Property                                 Previous Official Receipt of Owner
+Identification Number (PIN)                                Statement of Account from Teller
+                     AGENCY         FEES TO     PROCESSING    PERSON
+   CLIENT STEPS
+                       ACTIONS         BE PAID         TIME     RESPONSIBLE
+Walk-In
+1. Secures Queuing      Issues Queuing            None         30 seconds     Treasury Help
+   Number             number to taxpayers.                                      Desk
+
+2. Proceeds to Window   Inputs the              Based on the      3 minutes       Revenue
+   where queuing        PIN/Account # to the     Assessment of                          Collector
+   number was called     system and access      the Real Property
+   and presents the       payors account page
+   requirements
+
+3. Pays the billed         Issues Official           Based on the       1 minute        Assigned
+   amount               Receipt for successful    Assessment of                    Revenue
+                            online payment          the Real Property                         Collector
+                            transactions.
+RPT Online Services
+1. Create an account at
+payment.marikina.gov.ph
+
+2. Sign in using your
+username and
+password.
+
+3. Register your
+properties using the
+Property Identification
+Number (PIN) of each
+property.
+
+4. Compute tax by                             Based on the
+tagging the check box                           Assessment of
+beside the PIN, set the                            Business Tax
+year and quarter then
+click compute button.
+
+5. Upon completion for
+all properties, proceed to
+check out.
+
+6. Choose payment       For successful                                         Record Section
+method, agree on         payment, the Records                                     employee
+disclaimer and click Pay   Section shall print the
+Now button.                actual Official
+                         Receipts and the
+                          taxpayer may claim it,
+                                                  if they want
+
+                                                                                  85

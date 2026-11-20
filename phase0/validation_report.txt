@@ -8,4 +8,32 @@ PASS T6 Building permit, not owner, complex -> 7 working days
 PASS T7 Birth certificate copy, walk-in, representative
 PASS T8 Birth registration late -> not covered with office
 PASS T9 Unknown intent -> not covered
-== SUMMARY == errors=0 warnings=0 evidence=76 services=8 intents=6
+PASS M1 PWD ID, nothing owned
+PASS M2 PWD ID, has gov ID and medical certificate
+PASS M3 Senior ID, representative, no valid ID
+PASS M4 Senior ID, self, has valid ID -> no representative papers, no ID step
+PASS M5 Birth certificate copy, representative
+PASS M6 Birth registration, parents not married
+PASS M7 Birth registration, parents married
+PASS M8 Birth registration after 30 days -> not covered with CCRO
+PASS M9 Business renewal online, no portal account -> sign-up first
+PASS M10 Business renewal online, has portal account -> no sign-up step
+PASS M11 Business renewal walk-in, representative
+PASS M12 Building permit
+PASS M13 Unknown intent in Marikina -> not covered, City Hall named
+PASS X1 Same intent resolves to each city's own service (QC)
+PASS X2 Same intent resolves to each city's own service (Marikina)
+PASS X3 Unknown city -> not covered
+PASS X4 No city answered -> not covered
+PASS X5 Intent exists but not in this city -> not covered, City Hall named
+== QC REGRESSION vs pre-multi-city baseline ==
+SAME T1 PWD ID online, non-apparent, nothing owned
+SAME T2 PWD ID walk-in, apparent, has gov ID
+SAME T3 Senior ID online, no QC ID, no valid ID, no birth cert (cross-journey)
+SAME T4 Business renewal, tax unpaid -> tax payment before renewal
+SAME T5 Business renewal, tax paid -> no tax step
+SAME T6 Building permit, not owner, complex -> 7 working days
+SAME T7 Birth certificate copy, walk-in, representative
+SAME T8 Birth registration late -> not covered with office
+SAME T9 Unknown intent -> not covered
+== SUMMARY == errors=0 warnings=0 evidence=146 services=15 {'qc': 8, 'mkn': 7} intents=6 tests=27 passed=27

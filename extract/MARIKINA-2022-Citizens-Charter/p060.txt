@@ -1,0 +1,51 @@
+                                                Marikina Citizen’s Charter
+
+
+
+
+
+2. WEB and APPLICATIONS DEVELOPMENT
+
+
+   Provide  assistance  regarding  design,  development and  hosting  of web and systems
+    applications for LGU use
+
+
+
+Department/Office:     MANAGEMENT INFORMATION SYSTEM AND CALL CENTER
+
+Classification:
+
+Type of Transaction:    G2G – Government to Government
+
+Who may avail:        LGU Employees
+
+    CHECKLIST OF REQUIREMENTS             WHERE TO SECURE
+
+    Letter of request signed by head of office            c/o End User (Requesting Office)
+
+                                 FEES TO  PROCESSING    PERSON
+   CLIENT STEPS   AGENCY ACTIONS
+                                BE PAID      TIME      RESPONSIBLE
+1. Submit letter of       Receive and                       1 day        Receiving Staff
+request to MIS Office    endorse to head of                              Admin Asst
+                   MIS
+2. Wait for evaluation    Evaluate and                       1 day        WebApp
+results                 discuss details with                                  Developer
+                        the requesting office
+                       Design, document                   7-30 days       WebApp
+                    and prepare for                                       Developer,
+                           testing then endorse                                   Technical
+                           to end user for                                   Documentation
+                         evaluation                                                       Staff
+3. Test and evaluate        If no revisions,                      7-14 days         Technical
+for revisions           proceed to                                       Documentation
+                        launching and user                                             Staff
+                           training
+                                 TOTAL     16 - 46 days
+
+
+
+
+
+                                                                                    60

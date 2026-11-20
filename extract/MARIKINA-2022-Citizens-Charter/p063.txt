@@ -1,0 +1,53 @@
+                                                Marikina Citizen’s Charter
+
+3. LOST VACCINATION CARD REPLACEMENT
+
+
+    For lost vaccination passport or cards, records must be verified first if they are encoded in the system.
+    Only those vaccinated at Marikina LGU vaccination sites are encoded  in the system. For those
+    vaccinated outside these sites, they will have to coordinate with the hospital or concerned LGU where
+    they were vaccinated.
+
+
+
+Office or Division:       MANAGEMENT INFORMATION SYSTEM AND CALL CENTER
+
+Classification:
+
+Type of Transaction:      G2C – Government to Citizen
+
+Who may avail:                1. Individuals who are vaccinated under Marikina LGU
+
+    CHECKLIST OF REQUIREMENTS                WHERE TO SECURE
+
+1.  Government Issued ID                                               Applicant
+
+2.  Copy of Marikina Vaccination Card (if any)                            Applicant
+
+3.  Proof of vaccination (if any)                                          Applicant
+
+4.  Lost Vaccination Card Form                            MISCC Office
+
+                     AGENCY     FEES TO BE   PROCESSING      PERSON
+    CLIENT STEPS
+                       ACTIONS         PAID          TIME       RESPONSIBLE
+1.  Applicants must        Encoder will verify                  5 - 15 mins       VaxCert Encoder
+   proceed to MIS Office   the information
+   and present their        submitted on
+    valid ID and proof of     Marikina
+    vaccination (if any)                            Vaccination
+                         System.
+
+2.  Wait for the results.     Encoder will print                   0 - 5 mins       VaxCert Encoder
+                            the lost
+                             vaccination card
+                                  certificate or
+                     VAXCERT.
+
+                                      TOTAL   5 - 20 minutes
+
+
+
+
+
+                                                                                    63

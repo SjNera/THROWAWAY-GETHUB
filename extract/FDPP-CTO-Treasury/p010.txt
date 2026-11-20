@@ -1,0 +1,60 @@
+   14. COLLECTION OF PARKING FEES (MULTI-LEVEL PAY PARKING & LTO PARKING)
+
+Department/Office:          Parking Division
+Classification:              Simple
+Type of Transaction:      G2C – Government to Citizen
+Who may avail:            Anyone
+   CHECKLIST OF REQUIREMENTS               WHERE TO SECURE
+               None
+                   AGENCY      FEES TO     PROCESSING      PERSON
+  CLIENT STEPS
+                     ACTIONS      BE PAID         TIME        RESPONSIBLE
+1. Parks vehicle        Parking collector        none         10 seconds         Vehicle owner
+                       records time of
+                             arrival
+
+2. Pays parking fee    Computes total     Based on the     50 seconds      Parking Collector
+   due and waits for    amount of parking   computed
+   the parking ticket    fee due and issues   parking fees
+    to be issued         parking ticket upon
+                          receipt of payment
+
+
+
+
+   15. COLLECTION OF PARKING FEES (CENTRAL PARKING AREA)
+
+Department/Office:          Business Tax Division
+Classification:              Simple
+Type of Transaction:      G2C – Government to Citizen
+Who may avail:                  All vehicle owners willing to park at the Central Pay Parking Area
+   CHECKLIST OF REQUIREMENTS               WHERE TO SECURE
+              None                                      Not applicable
+                   AGENCY      FEES TO     PROCESSING      PERSON
+   CLIENT STEPS
+                     ACTIONS      BE PAID         TIME        RESPONSIBLE
+1. Pays corresponding   Accepts the       Based on the      10 seconds       Parking Collector
+   parking rate for the   payment for first     parking rate
+     first two (2) hours     2 hours parking
+   and receives          fee and issues
+   parking ticket issued   parking ticket.
+   and park your
+    vehicle
+
+2. Presents parking      Inspects parking   Based on the      40 seconds       Parking Collector
+    ticket issued at the     ticket presented     computed
+    exit                and computes       parking fee
+                               for fees for
+                       succeeding hour
+                                           (if any)
+
+3. Wait for the parking   Issues Parking    Based on the      10 seconds       Parking Collector
+    ticket to be issued if   Ticket for          computed
+   there is a            succeeding time     parking fee
+   succeeding charge       (if any)
+
+
+
+
+
+                                                                                  92
