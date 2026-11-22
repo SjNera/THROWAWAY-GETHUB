@@ -84,7 +84,7 @@ export function mapUrl(address: string | null | undefined): string | null {
 
 function formatFee(fee: string, lang: Lang): string {
   if (fee === "none") return t("fee_free", lang);
-  if (fee === "not_listed") return NOT_LISTED;
+  if (fee === "not_listed") return t("not_listed", lang);
   return fee;
 }
 
@@ -191,7 +191,7 @@ export function buildRoadmapView(g: Graph, intentId: string, answers: Answers, r
           step: numberOf.get(id) ?? null,
         })),
         fee: formatFee(s.fee, lang),
-        time: s.time,
+        time: s.time === NOT_LISTED ? t("not_listed", lang) : s.time,
         hint: null,
         note: s.note,
         howTo: variant.detail_steps ?? [],

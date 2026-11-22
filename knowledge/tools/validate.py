@@ -170,6 +170,9 @@ test('X5 Intent exists but not in this city -> not covered, City Hall named', 's
      lambda r: r['status'] == 'not_covered' and 'Marikina' in r['message'] and r['office'] == 'Marikina City Hall' or r, graph=g2,
      patch={'remove_service_by_city': ['senior-citizen-id', 'mkn']})
 
+# Filipino text: every question needs text_tl (the app falls back to English otherwise)
+for k, q in g['questions'].items():
+    if not q.get('text_tl'): W(f'question {k} has no Filipino text (text_tl)')
 lines.append('== ROADMAP TESTS ==')
 for n, ok, why, rm in T: lines.append(('PASS ' if ok else 'FAIL ') + n + ('' if ok else '  -> ' + why))
 for n, ok, why, rm in T:

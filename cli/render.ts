@@ -1,6 +1,7 @@
 // Renders brain events as terminal text. One function per event type, mirroring the Figma components.
 import { styleText } from "node:util";
 import type { Action, Event } from "../src/core/events";
+import { t, type Lang, type TextKey } from "../src/core/i18n";
 import type { QuestionView } from "../src/core/questions";
 import type { Citation, RoadmapView, StepCard } from "../src/core/view";
 
@@ -9,11 +10,14 @@ type Style = Parameters<typeof styleText>[0];
 export interface RenderOptions {
   width: number;
   color: boolean;
+  /** Current language; read on every render so a /lang switch applies at once. */
+  lang: () => Lang;
 }
 
 export function makeRenderer(opts: RenderOptions) {
   const W = Math.max(48, Math.min(opts.width, 84));
   const c = (style: Style, s: string) => (opts.color ? styleText(style, s) : s);
+  const tr = (key: TextKey, vars: Record<string, string> = {}) => t(key, opts.lang(), vars);
   // eslint-disable-next-line no-control-regex
   const visible = (s: string) => s.replace(/\x1b\[[0-9;]*m/g, "").length;
 
@@ -39,8 +43,8 @@ export function makeRenderer(opts: RenderOptions) {
     const inner = W - 4;
     const tail = right ? ` ${right} ─` : "─";
     const maxTitle = W - 6 - visible(tail);
-    const t = visible(title) > maxTitle ? `${title.slice(0, maxTitle - 1)}…` : title;
-    const head = `─ ${t} `;
+    const shown = visible(title) > maxTitle ? `${title.slice(0, maxTitle - 1)}…` : title;
+    const head = `─ ${shown} `;
     const fill = Math.max(1, W - 2 - visible(head) - visible(tail));
     const top = c("dim", "┌") + c("bold", head) + c("dim", "─".repeat(fill)) + c("dim", tail) + c("dim", "┐");
     const rows = body.flatMap((l) => (l === "" ? [""] : visible(l) <= inner ? [l] : wrapKeepIndent(l, inner)));
@@ -58,7 +62,12 @@ export function makeRenderer(opts: RenderOptions) {
   };
 
   const cite = (cs: Citation[]): string[] =>
-    cs.length ? [c("dim", "Sources:"), ...cs.map((x) => c("dim", `  [${x.id}] ${x.source}, p. ${x.page}${x.status === "needs_review" ? " (to be reviewed)" : ""}`))] : [];
+    cs.length
+      ? [
+          c("dim", `${tr("label_sources")}:`),
+          ...cs.map((x) => c("dim", `  [${x.id}] ${x.source}, ${tr("label_page", { n: String(x.page) })}${x.status === "needs_review" ? ` ${tr("to_review")}` : ""}`)),
+        ]
+      : [];
 
   const message = (text: string) => wrap(text, W - 2).map((l) => ` ${l}`).join("\n");
 
@@ -71,7 +80,7 @@ export function makeRenderer(opts: RenderOptions) {
       const b = cells[i + 1] ?? "";
       rows.push(`   ${a}${" ".repeat(Math.max(2, col - visible(a)))}${b}`);
     }
-    return [...rows, c("dim", "   …or type what you need")].join("\n");
+    return [...rows, c("dim", `   ${tr("or_type")}`)].join("\n");
   };
 
   const question = (q: QuestionView): string => {
@@ -86,7 +95,7 @@ export function makeRenderer(opts: RenderOptions) {
     const mark = done.includes(s.number) ? c("green", "✓") : s.number === current ? c("cyan", "▸") : " ";
     const meta =
       s.kind === "prepare"
-        ? ["Prepare", s.where.office].filter(Boolean).join(" · ")
+        ? [tr("prepare"), s.where.office].filter(Boolean).join(" · ")
         : [s.channelLabel, s.fee].filter(Boolean).join(" · ");
     const pad = "        "; // same width as the " ✓ 12   " prefix
     const title = wrap(s.title, W - 4 - pad.length).map((l, i) => (i === 0 ? ` ${mark} ${String(s.number).padStart(2)}   ${l}` : pad + l));
@@ -101,43 +110,47 @@ export function makeRenderer(opts: RenderOptions) {
       for (const s of g.steps) body.push(...stepLines(s, current, done));
     }
     body.push("", c("dim", v.disclaimer));
-    return box(v.title, `${done.length}/${v.totalSteps} done`, body);
+    return box(v.title, tr("n_done", { n: String(done.length), total: String(v.totalSteps) }), body);
   };
 
   const step = (s: StepCard, total: number, isDone: boolean, doneSteps: number[] = []): string => {
     const body: string[] = [];
-    const how = s.kind === "prepare" ? "Prepare this yourself" : s.channelLabel;
+    const how = s.kind === "prepare" ? tr("prepare_yourself") : s.channelLabel;
     body.push(c("dim", [how, s.where.office].filter(Boolean).join(" · ")));
-    if (s.where.address) body.push(`Address: ${s.where.address}`);
-    if (s.where.phone) body.push(`Phone: ${s.where.phone}`);
+    if (s.where.address) body.push(`${tr("label_address")}: ${s.where.address}`);
+    if (s.where.phone) body.push(`${tr("label_phone")}: ${s.where.phone}`);
     if (s.bring.length) {
-      body.push("", c("bold", "BRING"));
+      body.push("", c("bold", tr("label_bring")));
       for (const b of s.bring) {
         const ok = b.step !== null && doneSteps.includes(b.step);
-        body.push(`  ${ok ? c("green", "☑") : "☐"} ${b.label}${b.step !== null ? c("dim", `  (step ${b.step})`) : ""}`);
+        const ref = b.step !== null ? c("dim", `  (${tr("step_ref", { n: String(b.step) })})`) : "";
+        body.push(`  ${ok ? c("green", "☑") : "☐"} ${b.label}${ref}`);
       }
     }
     if (s.fee || s.time) {
+      // Pad FEE / TIME labels to the same width so the values line up in either language.
+      const w = Math.max(tr("label_fee").length, tr("label_time").length) + 2;
       body.push("");
-      if (s.fee) body.push(`${c("bold", "FEE")}   ${s.fee}`);
-      if (s.time) body.push(`${c("bold", "TIME")}  ${s.time}`);
+      if (s.fee) body.push(`${c("bold", tr("label_fee"))}${" ".repeat(w - tr("label_fee").length)}${s.fee}`);
+      if (s.time) body.push(`${c("bold", tr("label_time"))}${" ".repeat(w - tr("label_time").length)}${s.time}`);
     }
     if (s.howTo.length) {
-      body.push("", c("bold", "HOW"));
+      body.push("", c("bold", tr("label_how")));
       s.howTo.forEach((h, i) => body.push(`  ${i + 1}. ${h}`));
     }
-    if (s.hint) body.push("", `Tip: ${s.hint}`);
-    if (s.note) body.push("", `Note: ${s.note}`);
+    if (s.hint) body.push("", `${tr("label_tip")}: ${s.hint}`);
+    if (s.note) body.push("", `${tr("label_note")}: ${s.note}`);
     if (s.citations.length) body.push("", ...cite(s.citations));
     // Links go below the box, unbroken, so the terminal keeps them clickable.
-    const links = [s.where.url && ` Link: ${s.where.url}`, s.where.mapUrl && ` Map:  ${s.where.mapUrl}`].filter(Boolean) as string[];
-    return [box(`Step ${s.number} of ${total} · ${s.title}`, isDone ? c("green", "done") : "", body), ...links.map((l) => c("cyan", l))].join("\n");
+    const links = [s.where.url && ` ${tr("label_link")}: ${s.where.url}`, s.where.mapUrl && ` ${tr("label_map")}: ${s.where.mapUrl}`].filter(Boolean) as string[];
+    const title = `${tr("step_of", { n: String(s.number), total: String(total) })} · ${s.title}`;
+    return [box(title, isDone ? c("green", tr("done_badge")) : "", body), ...links.map((l) => c("cyan", l))].join("\n");
   };
 
   /** Terminal shortcut for each action (the web UI shows buttons instead). */
   const ACTION_KEYS: Record<Action["id"], string> = { restart: "s", show_roadmap: "r" };
   const actions = (items: Action[]) =>
-    message([...items.map((a) => `${c("bold", `[${ACTION_KEYS[a.id]}]`)} ${a.label}`), `${c("bold", "[q]")} Quit`].join("   "));
+    message([...items.map((a) => `${c("bold", `[${ACTION_KEYS[a.id]}]`)} ${a.label}`), `${c("bold", "[q]")} ${tr("action_quit")}`].join("   "));
 
   /** Render one event. `ctx.done` lets step cards tick off items from finished steps. */
   const render = (e: Event, ctx: { done: number[] } = { done: [] }): string => {
@@ -153,7 +166,7 @@ export function makeRenderer(opts: RenderOptions) {
       case "step":
         return step(e.step, e.total, e.done, ctx.done);
       case "not_covered":
-        return [message(c("yellow", e.message)), e.office ? message(c("dim", `Ask: ${e.office}`)) : ""].filter(Boolean).join("\n");
+        return [message(c("yellow", e.message)), e.office ? message(c("dim", tr("ask_office", { office: e.office }))) : ""].filter(Boolean).join("\n");
       case "answer":
         return [message(e.text), ...cite(e.citations).map((l) => ` ${l}`)].join("\n");
       case "actions":
@@ -163,7 +176,12 @@ export function makeRenderer(opts: RenderOptions) {
 
   /** One-line progress, used instead of re-printing the whole roadmap after each step change. */
   const progress = (v: RoadmapView, current: number | null, done: number[]) =>
-    message(c("dim", `Progress: ${done.length}/${v.totalSteps} done${current ? ` · on step ${current}` : ""}   (r = full roadmap)`));
+    message(
+      c(
+        "dim",
+        `${tr("cli_progress", { done: String(done.length), total: String(v.totalSteps) })}${current ? tr("cli_on_step", { n: String(current) }) : ""}   ${tr("cli_full_roadmap")}`,
+      ),
+    );
 
   return { render, message, progress };
 }

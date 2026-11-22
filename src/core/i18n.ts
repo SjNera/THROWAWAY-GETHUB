@@ -50,6 +50,61 @@ const TEXT = {
   ask_unavailable: { en: "I can't answer free-form questions yet. Use the steps, or start over.", fil: "Hindi pa ako makasagot ng ibang tanong. Gamitin ang mga hakbang, o magsimula ulit." },
   action_restart: { en: "Start over", fil: "Magsimula ulit" },
   action_show_roadmap: { en: "View roadmap", fil: "Tingnan ang roadmap" },
+  action_quit: { en: "Quit", fil: "Lumabas" },
+
+  // Fixed values the engine produces in English (kept English there for parity with engine.py)
+  not_listed: { en: "Not listed — confirm with the office", fil: "Hindi nakalista — kumpirmahin sa opisina" },
+  not_covered_service: { en: "This service isn't covered yet.", fil: "Hindi pa sakop ang serbisyong ito." },
+  not_covered_in_city: { en: "Not covered in {city} yet.", fil: "Hindi pa ito sakop sa {city}." },
+
+  // Labels for step cards and the roadmap (terminal now, web UI later)
+  or_type: { en: "…or type what you need", fil: "…o i-type ang kailangan mo" },
+  prepare: { en: "Prepare", fil: "Ihanda" },
+  prepare_yourself: { en: "Prepare this yourself", fil: "Ikaw mismo ang maghahanda nito" },
+  step_of: { en: "Step {n} of {total}", fil: "Hakbang {n} sa {total}" },
+  step_ref: { en: "step {n}", fil: "hakbang {n}" },
+  done_badge: { en: "done", fil: "tapos" },
+  n_done: { en: "{n}/{total} done", fil: "{n}/{total} tapos" },
+  label_bring: { en: "BRING", fil: "DALHIN" },
+  label_fee: { en: "FEE", fil: "BAYAD" },
+  label_time: { en: "TIME", fil: "TAGAL" },
+  label_how: { en: "HOW", fil: "PAANO" },
+  label_address: { en: "Address", fil: "Lokasyon" },
+  label_phone: { en: "Phone", fil: "Telepono" },
+  label_link: { en: "Link", fil: "Link" },
+  label_map: { en: "Map", fil: "Mapa" },
+  label_tip: { en: "Tip", fil: "Payo" },
+  label_note: { en: "Note", fil: "Paalala" },
+  label_sources: { en: "Sources", fil: "Pinagkunan" },
+  label_page: { en: "p. {n}", fil: "p. {n}" },
+  to_review: { en: "(to be reviewed)", fil: "(susuriin pa)" },
+  ask_office: { en: "Ask: {office}", fil: "Magtanong sa: {office}" },
+
+  // Terminal-only
+  cli_banner: { en: "GabAI · terminal   (/help for commands)", fil: "GabAI · terminal   (/help para sa mga utos)" },
+  cli_progress: { en: "Progress: {done}/{total} done", fil: "Progreso: {done}/{total} tapos" },
+  cli_on_step: { en: " · on step {n}", fil: " · nasa hakbang {n}" },
+  cli_full_roadmap: { en: "(r = full roadmap)", fil: "(r = buong roadmap)" },
+  cli_step_hints: {
+    en: "[n] next step   [r] roadmap   [<number>] open a step   [d] mark done   or ask a question",
+    fil: "[n] susunod   [r] roadmap   [<numero>] buksan ang hakbang   [d] tapos na   o magtanong",
+  },
+  cli_help: {
+    en: `Commands (anytime):
+  /next  /roadmap  /step <n>  /done <n>  /undo <n>  /restart  /lang en|fil  /help  /quit
+Whenever no question is open:
+  s = start over   q = quit   (or type "start over")
+Once your roadmap is showing (and no question is open):
+  n = next step   r = roadmap   <number> = open that step   d = mark this step done
+Anything else you type is sent to the guide.`,
+    fil: `Mga utos (kahit kailan):
+  /next  /roadmap  /step <n>  /done <n>  /undo <n>  /restart  /lang en|fil  /help  /quit
+Kapag walang bukas na tanong:
+  s = magsimula ulit   q = lumabas   (o i-type ang "magsimula ulit")
+Kapag nakikita na ang roadmap (at walang bukas na tanong):
+  n = susunod na hakbang   r = roadmap   <numero> = buksan ang hakbang   d = tapos na ang hakbang
+Ang iba pang i-type mo ay ipapadala sa gabay.`,
+  },
 } as const;
 
 export type TextKey = keyof typeof TEXT;

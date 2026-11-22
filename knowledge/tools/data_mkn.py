@@ -215,12 +215,12 @@ INTENTS = {
 
 QUESTIONS = {q['key']: q for q in [
  Q('channel', 'Do you want to apply online or in person?', ['online', 'in_person'], 'Gusto mo bang mag-apply online o personal?'),
- Q('is_representative', 'Is someone applying on behalf of the owner?', ['yes', 'no']),
- Q('parents_married', 'Were the child’s parents married at the time of birth?', ['yes', 'no']),
- Q('within_30_days', 'Is the child less than 30 days old?', ['yes', 'no']),
+ Q('is_representative', 'Will a representative (someone other than the applicant) file this for you?', ['yes', 'no'], 'May representative ba (ibang tao, hindi ang mismong aplikante) na magfa-file nito para sa iyo?'),
+ Q('parents_married', 'Were the child’s parents married at the time of birth?', ['yes', 'no'], 'Kasal ba ang mga magulang ng bata noong ipinanganak siya?'),
+ Q('within_30_days', 'Is the child less than 30 days old?', ['yes', 'no'], 'Wala pa bang 30 araw mula nang ipanganak ang bata?'),
  Q('has_gov_id', 'Do you have a valid government-issued ID?', ['yes', 'no'], 'May valid government ID ka ba?'),
- Q('has_med_cert', 'Do you already have the medical certificate (or certificate of non-apparent disability) from your doctor?', ['yes', 'no']),
- Q('has_valid_id', 'Do you have a valid ID or one of the accepted documents (e.g., birth certificate, barangay clearance)?', ['yes', 'no']),
- Q('has_portal_account', 'Do you already have a Marikina Online Services account?', ['yes', 'no']),
+ Q('has_med_cert', 'Do you already have the medical certificate (or certificate of non-apparent disability) from your doctor?', ['yes', 'no'], 'Mayroon ka na bang medical certificate (o certificate of non-apparent disability) mula sa iyong doktor?'),
+ Q('has_valid_id', 'Do you have a valid ID or one of the accepted documents (e.g., birth certificate, barangay clearance)?', ['yes', 'no'], 'Mayroon ka bang valid ID o isa sa mga tinatanggap na dokumento (hal. birth certificate, barangay clearance)?'),
+ Q('has_portal_account', 'Do you already have a Marikina Online Services account?', ['yes', 'no'], 'Mayroon ka na bang Marikina Online Services account?'),
 ]}
 compute_question_keys(SERVICES, REQ, QUESTIONS)

@@ -2,26 +2,20 @@
 // and prints the events. Usage:
 //   npm run chat              English
 //   npm run chat -- --fil     Filipino
-// Typed text goes to the brain as-is. Commands: see HELP below.
+// Typed text goes to the brain as-is. Commands: /help (text lives in src/core/i18n.ts, cli_help).
 import { createInterface } from "node:readline/promises";
 import { turn, type TurnDeps } from "../src/core/conversation";
 import { initialState, type Event, type Input, type State } from "../src/core/events";
+import { t } from "../src/core/i18n";
 import { makeRenderer } from "./render";
 
-const HELP = `
- Commands (anytime):
-   /next  /roadmap  /step <n>  /done <n>  /undo <n>  /restart  /lang en|fil  /help  /quit
- Whenever no question is open:
-   s = start over   q = quit   (or type "start over" / "magsimula ulit")
- Shortcuts once your roadmap is showing (and no question is open):
-   n = next step   r = roadmap   <number> = open that step   d = mark this step done
- Anything else you type is sent to the guide.`;
 
 const args = process.argv.slice(2);
 const interactive = Boolean(process.stdin.isTTY);
 const { render, message, progress } = makeRenderer({
   width: process.stdout.columns ?? 80,
   color: Boolean(process.stdout.isTTY) && !process.env.NO_COLOR,
+  lang: () => state.lang,
 });
 
 // Milestone 2 adds the AI helper here (guessIntent, ask).
@@ -87,7 +81,7 @@ function print(events: Event[], input: Input) {
   // Step hints while the journey is in progress; once it ends, the actions event shows the way out.
   const hasActions = events.some((e) => e.type === "actions");
   if (!hasActions && state.current !== null && state.pending === null && events.some((e) => e.type === "step" || e.type === "roadmap")) {
-    console.log(message("[n] next step   [r] roadmap   [<number>] open a step   [d] mark done   or ask a question") + "\n");
+    console.log(message(t("cli_step_hints", state.lang)) + "\n");
   }
 }
 
@@ -98,7 +92,7 @@ async function send(input: Input) {
 }
 
 async function main() {
-  console.log(`\n${message("GabAI · terminal   (/help for commands)")}\n`);
+  console.log(`\n${message(t("cli_banner", state.lang))}\n`);
   await send({ type: "start" });
 
   const rl = createInterface({ input: process.stdin, output: process.stdout, terminal: interactive });
@@ -109,7 +103,7 @@ async function main() {
     console.log();
     const input = toInput(line);
     if (input === "quit") break;
-    if (input === "help") console.log(`${HELP}\n`);
+    if (input === "help") console.log(`${t("cli_help", state.lang).replace(/^/gm, " ")}\n`);
     else await send(input);
     if (interactive) rl.prompt();
   }

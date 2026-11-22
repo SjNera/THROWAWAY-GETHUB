@@ -15,7 +15,7 @@ CITIES = {
              aliases=['Marikina', 'City of Marikina', 'Lungsod ng Marikina', 'Marikina, Metro Manila']),
 }
 offices, reqs, svcs, questions, intents = {}, {}, {}, {}, {}
-questions['city'] = dict(key='city', text='Which city is this for?', text_tl='Para saan na lungsod ito?', options=list(CITIES),
+questions['city'] = dict(key='city', text='Which city is this for?', text_tl='Saang lungsod ito?', options=list(CITIES),
                          option_labels={c: v['name'] for c, v in CITIES.items()}, city='all')
 for code, c in CITIES.items():
     n0 = len(EVID)

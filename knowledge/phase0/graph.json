@@ -2059,7 +2059,7 @@
   "city": {
    "key": "city",
    "text": "Which city is this for?",
-   "text_tl": "Para saan na lungsod ito?",
+   "text_tl": "Saang lungsod ito?",
    "options": [
     "qc",
     "mkn"
@@ -2094,7 +2094,7 @@
   "qc.has_med_cert": {
    "key": "qc.has_med_cert",
    "text": "Do you already have the certificate from your specialist?",
-   "text_tl": null,
+   "text_tl": "Mayroon ka na bang certificate mula sa iyong specialist?",
    "options": [
     "yes",
     "no"
@@ -2114,7 +2114,7 @@
   "qc.has_qcitizen_id": {
    "key": "qc.has_qcitizen_id",
    "text": "Do you already have a QCitizen ID?",
-   "text_tl": null,
+   "text_tl": "Mayroon ka na bang QCitizen ID?",
    "options": [
     "yes",
     "no"
@@ -2124,7 +2124,7 @@
   "qc.married_woman_diff_surname": {
    "key": "qc.married_woman_diff_surname",
    "text": "Are you a married woman whose surname differs from your valid ID?",
-   "text_tl": null,
+   "text_tl": "Ikaw ba ay babaeng may asawa na iba ang apelyido sa iyong valid ID?",
    "options": [
     "yes",
     "no"
@@ -2133,8 +2133,8 @@
   },
   "is_representative": {
    "key": "is_representative",
-   "text": "Is someone applying on behalf of the owner?",
-   "text_tl": null,
+   "text": "Will a representative (someone other than the applicant) file this for you?",
+   "text_tl": "May representative ba (ibang tao, hindi ang mismong aplikante) na magfa-file nito para sa iyo?",
    "options": [
     "yes",
     "no"
@@ -2144,7 +2144,7 @@
   "qc.is_owner": {
    "key": "qc.is_owner",
    "text": "Are you the registered owner of the lot (named on the TCT)?",
-   "text_tl": null,
+   "text_tl": "Ikaw ba ang rehistradong may-ari ng lote (nakapangalan sa TCT)?",
    "options": [
     "yes",
     "no"
@@ -2154,7 +2154,7 @@
   "qc.is_renovation_pre2022": {
    "key": "qc.is_renovation_pre2022",
    "text": "Is this a renovation of a building whose permit was issued before Nov 17, 2022?",
-   "text_tl": null,
+   "text_tl": "Renovation ba ito ng gusali na ang permit ay inilabas bago ang Nob. 17, 2022?",
    "options": [
     "yes",
     "no"
@@ -2164,7 +2164,7 @@
   "permit_class": {
    "key": "permit_class",
    "text": "Is the project simple, complex or highly technical?",
-   "text_tl": null,
+   "text_tl": "Ang proyekto ba ay simple, complex, o highly technical?",
    "options": [
     "simple",
     "complex",
@@ -2175,7 +2175,7 @@
   "parents_married": {
    "key": "parents_married",
    "text": "Were the child’s parents married at the time of birth?",
-   "text_tl": null,
+   "text_tl": "Kasal ba ang mga magulang ng bata noong ipinanganak siya?",
    "options": [
     "yes",
     "no"
@@ -2185,7 +2185,7 @@
   "within_30_days": {
    "key": "within_30_days",
    "text": "Is the child less than 30 days old?",
-   "text_tl": null,
+   "text_tl": "Wala pa bang 30 araw mula nang ipanganak ang bata?",
    "options": [
     "yes",
     "no"
@@ -2195,7 +2195,7 @@
   "qc.has_eservices_account": {
    "key": "qc.has_eservices_account",
    "text": "Do you already have a QC E-Services account?",
-   "text_tl": null,
+   "text_tl": "Mayroon ka na bang QC E-Services account?",
    "options": [
     "yes",
     "no"
@@ -2205,7 +2205,7 @@
   "qc.has_birth_certificate": {
    "key": "qc.has_birth_certificate",
    "text": "Do you already have your birth certificate (PSA or CCRD copy)?",
-   "text_tl": null,
+   "text_tl": "Mayroon ka na bang birth certificate (kopya mula sa PSA o CCRD)?",
    "options": [
     "yes",
     "no"
@@ -2215,7 +2215,7 @@
   "qc.has_business_tax_or": {
    "key": "qc.has_business_tax_or",
    "text": "Have you already paid this year’s business tax (do you have the official receipt)?",
-   "text_tl": null,
+   "text_tl": "Nabayaran mo na ba ang business tax ngayong taon (may official receipt ka na ba)?",
    "options": [
     "yes",
     "no"
@@ -2235,7 +2235,7 @@
   "mkn.has_med_cert": {
    "key": "mkn.has_med_cert",
    "text": "Do you already have the medical certificate (or certificate of non-apparent disability) from your doctor?",
-   "text_tl": null,
+   "text_tl": "Mayroon ka na bang medical certificate (o certificate of non-apparent disability) mula sa iyong doktor?",
    "options": [
     "yes",
     "no"
@@ -2245,7 +2245,7 @@
   "mkn.has_valid_id": {
    "key": "mkn.has_valid_id",
    "text": "Do you have a valid ID or one of the accepted documents (e.g., birth certificate, barangay clearance)?",
-   "text_tl": null,
+   "text_tl": "Mayroon ka bang valid ID o isa sa mga tinatanggap na dokumento (hal. birth certificate, barangay clearance)?",
    "options": [
     "yes",
     "no"
@@ -2255,7 +2255,7 @@
   "mkn.has_portal_account": {
    "key": "mkn.has_portal_account",
    "text": "Do you already have a Marikina Online Services account?",
-   "text_tl": null,
+   "text_tl": "Mayroon ka na bang Marikina Online Services account?",
    "options": [
     "yes",
     "no"

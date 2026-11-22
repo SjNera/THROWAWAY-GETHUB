@@ -209,9 +209,13 @@ THROWAWAY-GETHUB/
 | 6 | Terminal chat `npm run chat` | A person can go service → questions → roadmap → each step | ✅ 153 tests pass in total |
 
 Notes from Milestone 1:
-- The graph already has Tagalog text for questions (`text_tl`) and service names (`aliases_tl`), so step 10 starts with those.
+- The graph already had Tagalog text for some questions (`text_tl`) and service names (`aliases_tl`); the Filipino fix below completed the questions.
 - Each variant's evidence links in the graph lack the city prefix (`svc:s-pwd-id:…`); `view.ts` resolves both forms. Fix at the source when the Python data is next edited.
 - npm 12 blocks package install scripts by default; `workerd` and `esbuild` are approved in `package.json` (`allowScripts`).
+
+Fixes after review (2026-11-22):
+- **No dead ends.** New `actions` event: after the last step (Start over, View roadmap), after "not covered" (Start over), and after "coming soon" (Start over). Typed "start over" / "magsimula ulit" restarts (not while an option question is open). Once a journey ends, typing a service name starts a new one. Terminal: `s` start over, `q` quit.
+- **Filipino mode.** All 20 questions have Filipino text (`text_tl`); the validator warns if one is missing. All fixed labels (step cards, roadmap, terminal hints and help) and the engine's fixed English values ("Not listed…", "Not covered in…") come from `i18n.ts`. `is_representative` reworded for every service ("Will a representative … file this for you?").
 
 ### Milestone 2: AI and API
 
@@ -220,7 +224,7 @@ Notes from Milestone 1:
 | 7 | Search index over charter text | Searching "representative" returns the right charter passages |
 | 8 | AI helper via Groq (+ gateway if set) | Free-text service guess works; follow-up answers cite real sources |
 | 9 | API server: Hono on `wrangler dev` | Terminal chat runs against the local API instead of in-process |
-| 10 | Polish: Filipino text, rate limits, citation checks, size limits | Tests pass for each |
+| 10 | Polish: Filipino for graph content (notes, tips, how-to steps, "not covered" process messages), rate limits, citation checks, size limits | Tests pass for each |
 
 ### Later
 
@@ -329,7 +333,7 @@ All items below are decided (2026-11-22).
 | City aliases (`QC`, `Lungsod Quezon` ...) | **Approved.** Add an `aliases` list per city in the Python data, rebuild `graph.json` |
 | PH cities/municipalities list | **Approved.** From the PSA PSGC list, stored as a small JSON file. Tells "real city, coming soon" from "not a place" |
 | City `question` in the graph | **Approved.** The app asks it as a typed question, not as fixed options |
-| Filipino text | **Approved.** Fixed app text in `src/core/i18n.ts`; graph text gets a Filipino field next to each English one (e.g. `text_fil`) in the Python data. Drafted once at build time, reviewed by a Filipino speaker (listed in `review_list.md`). Fees, times and links are shared, never translated. Missing Filipino falls back to English and the validator lists it. Charter quotes stay in their original language. Done in step 10 |
+| Filipino text | **Approved.** Fixed app text in `src/core/i18n.ts`; graph text gets a Filipino field next to each English one, using the graph's existing `_tl` suffix (`text_tl`, `aliases_tl`, and e.g. `note_tl` later) in the Python data. Drafted once at build time, reviewed by a Filipino speaker (listed in `review_list.md`). Fees, times and links are shared, never translated. **Official office and document names stay in English** (they match what's printed on forms and signs); the explanations around them are translated. Missing Filipino falls back to English and the validator lists it. Charter quotes stay in their original language. **Done:** questions + all fixed UI text. **Step 10:** notes, tips, how-to steps, process messages |
 | `tools/__pycache__/*.pyc` tracked in git | **Approved.** Remove from git during the restructure |
 | Empty `_tmp/` folder | **Approved.** Delete |
 | Human review of the knowledge base | **Deferred.** Doesn't block the build. See `knowledge/phase0/review_list.md` |

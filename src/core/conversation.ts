@@ -111,7 +111,14 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
         : city && !g.intents[s.intent]!.service_by_city[city]
           ? "not_in_city"
           : "outside_process";
-      out.push({ type: "not_covered", reason, message: rm.message, office: rm.office });
+      // Engine messages are English; translate the fixed ones. Process-specific messages come from the graph (step 10).
+      const message =
+        reason === "unknown_service"
+          ? t("not_covered_service", lang())
+          : reason === "not_in_city"
+            ? t("not_covered_in_city", lang(), { city: g.cities[city!]!.name })
+            : rm.message;
+      out.push({ type: "not_covered", reason, message, office: rm.office });
       return offer("restart");
     }
     const v = buildRoadmapView(g, s.intent, s.answers, rm, lang())!;
