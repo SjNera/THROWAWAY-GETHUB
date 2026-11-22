@@ -6,7 +6,7 @@ import { graph as g } from "../src/core/graph";
 import { questionView } from "../src/core/questions";
 import { answerQuestion, buildAskPrompt, finalizeAnswer, gatherSources } from "../src/llm/ask";
 import { makeTurnDeps } from "../src/llm/deps";
-import type { Generate, GenerateRequest } from "../src/llm/generate";
+import { isRateLimit, type Generate, type GenerateRequest } from "../src/llm/generate";
 import { buildIntentPrompt, guessIntent } from "../src/llm/intent";
 
 /** A fake model that returns `reply` and records what it was asked. */
@@ -76,20 +76,28 @@ describe("ask: citation check", () => {
   it("keeps only sources that were actually sent, and strips [S#] from the text", async () => {
     const { ctx } = await atRoadmap("birth-certificate-copy", "qc");
     const sources = gatherSources(g, "authorization letter", ctx);
-    const r = finalizeAnswer(g, { found: true, answer: "Yes, with an authorization letter [S1].", sources: ["S1", "S99", "X"] }, sources, ctx);
+    const r = finalizeAnswer(g, { status: "answered", answer: "Yes, with an authorization letter [S1].", sources: ["S1", "S99", "X"] }, sources, ctx);
     expect(r.text).toBe("Yes, with an authorization letter.");
     expect(r.citations.length).toBeGreaterThan(0);
     for (const c of r.citations) expect(c.page).toBeGreaterThan(0);
+  });
+
+  it("'partial' answers (a rule, not the exact figure) are shown with their sources", async () => {
+    const { ctx } = await atRoadmap("building-permit", "qc");
+    const sources = gatherSources(g, "how much is the building permit", ctx);
+    const r = finalizeAnswer(g, { status: "partial", answer: "It depends on the Schedule of Fees.", sources: ["S1"] }, sources, ctx);
+    expect(r.text).toBe("It depends on the Schedule of Fees.");
+    expect(r.citations.length).toBeGreaterThan(0);
   });
 
   it("no valid source → 'couldn't find … ask <office>'", async () => {
     const { ctx } = await atRoadmap("birth-certificate-copy", "qc");
     const sources = gatherSources(g, "x", ctx);
     for (const raw of [
-      { found: true, answer: "Made up.", sources: ["S42"] },
-      { found: true, answer: "No sources.", sources: [] },
-      { found: false, answer: "Not in sources.", sources: ["S1"] },
-      { found: true, answer: "", sources: ["S1"] },
+      { status: "answered", answer: "Made up.", sources: ["S42"] },
+      { status: "answered", answer: "No sources.", sources: [] },
+      { status: "not_in_sources", answer: "Not in sources.", sources: ["S1"] },
+      { status: "answered", answer: "", sources: ["S1"] },
       "not json",
     ]) {
       const r = finalizeAnswer(g, raw, sources, ctx);
@@ -101,7 +109,7 @@ describe("ask: citation check", () => {
   it("S0 (the current step) maps to that step's own citations, content before office/contact evidence", async () => {
     const { ctx } = await atRoadmap("pwd-id-application", "marikina");
     const sources = gatherSources(g, "what do I bring", ctx);
-    const r = finalizeAnswer(g, { found: true, answer: "Bring these.", sources: ["S0"] }, sources, ctx);
+    const r = finalizeAnswer(g, { status: "answered", answer: "Bring these.", sources: ["S0"] }, sources, ctx);
     const own = new Set(ctx.currentStep!.citations.map((c) => c.id));
     expect(r.citations.length).toBeGreaterThan(0);
     for (const c of r.citations) expect(own.has(c.id)).toBe(true);
@@ -111,13 +119,13 @@ describe("ask: citation check", () => {
 
   it("never suggests asking an online portal", async () => {
     const { ctx } = await atRoadmap("business-permit-renewal", "qc"); // online-only, via QC E-Services
-    const r = finalizeAnswer(g, { found: false, answer: "", sources: [] }, gatherSources(g, "who is the mayor", ctx), ctx);
+    const r = finalizeAnswer(g, { status: "not_in_sources", answer: "", sources: [] }, gatherSources(g, "who is the mayor", ctx), ctx);
     expect(r.text).not.toMatch(/portal/i);
   });
 
   it("nothing relevant found → no model call at all", async () => {
     const { ctx } = await atRoadmap("pwd-id-application", "qc");
-    const { generate, calls } = fake({ found: true, answer: "x", sources: ["S1"] });
+    const { generate, calls } = fake({ status: "answered", answer: "x", sources: ["S1"] });
     // No service context either (the search adds the service name to the question).
     const r = await answerQuestion("the a of", { ...ctx, intent: null, roadmap: null, currentStep: null }, generate, g);
     expect(calls).toHaveLength(0);
@@ -130,7 +138,7 @@ describe("AI wired into the conversation (makeTurnDeps)", () => {
 
   it("a follow-up question after the roadmap → answer event with checked citations", async () => {
     const { state } = await atRoadmap("birth-certificate-copy", "qc");
-    const deps = makeTurnDeps(fake({ found: true, answer: "Yes, with an authorization letter.", sources: ["S1"] }).generate);
+    const deps = makeTurnDeps(fake({ status: "answered", answer: "Yes, with an authorization letter.", sources: ["S1"] }).generate);
     const { events } = await turn(state, { type: "text", text: "can my mom get it for me?" }, deps);
     const a = find(events, "answer")!;
     expect(a.text).toBe("Yes, with an authorization letter.");
@@ -155,4 +163,15 @@ describe("AI wired into the conversation (makeTurnDeps)", () => {
     expect(find(r2.events, "choices")).toBeTruthy(); // guess failed → service list
     expect(errors).toEqual(["ask", "guessIntent"]);
   });
+});
+
+describe("rate-limit detection (triggers the smaller-model fallback)", () => {
+  it.each([
+    [{ statusCode: 429, message: "x" }, true],
+    [{ lastError: { statusCode: 429 }, message: "Failed after 2 attempts" }, true],
+    [new Error("Rate limit reached for model `openai/gpt-oss-120b` … tokens per day (TPD)"), true],
+    [new Error("Too Many Requests"), true],
+    [new Error("Failed to generate JSON"), false],
+    [new Error("network down"), false],
+  ])("%j → %s", (err, expected) => expect(isRateLimit(err)).toBe(expected));
 });

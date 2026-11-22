@@ -61,8 +61,8 @@ function factCards(g: Graph): Passage[] {
         const names = itemReqIds(it).map((r) => g.requirements[r]!.name);
         const alt = "or_options" in it ? ` (one of: ${it.or_options.map((o) => o.map((r) => g.requirements[r]!.name).join(" + ")).join(" / ")})` : "";
         const cond = [
-          ...Object.entries(it.when ?? {}).map(([k, val]) => `only if ${k} = ${Array.isArray(val) ? val.join("/") : val}`),
-          ...Object.entries(it.skip_if ?? {}).map(([k, val]) => `not needed if ${k} = ${val}`),
+          ...Object.entries(it.when ?? {}).map(([k, val]) => `only if the answer to "${g.questions[k]?.text ?? k}" is ${Array.isArray(val) ? val.join(" or ") : val}`),
+          ...Object.entries(it.skip_if ?? {}).map(([k, val]) => `not needed if the answer to "${g.questions[k]?.text ?? k}" is ${val}`),
         ];
         return `${"label" in it ? `${it.label}: ` : ""}${names.join(" + ")}${alt}${cond.length ? ` [${cond.join("; ")}]` : ""}`;
       });

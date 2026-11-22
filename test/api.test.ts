@@ -6,7 +6,7 @@ import type { Generate } from "../src/llm/generate";
 import { createApp, MAX_BODY_BYTES, type Env } from "../src/worker/app";
 
 const fakeGenerate: Generate = async (req) =>
-  req.kind === "intent" ? { intent: "senior-citizen-id" } : { found: true, answer: "Yes, with an authorization letter.", sources: ["S1"] };
+  req.kind === "intent" ? { intent: "senior-citizen-id" } : { status: "answered", answer: "Yes, with an authorization letter.", sources: ["S1"] };
 
 /** A rate limiter that allows `n` calls per key. */
 function limiter(n: number): RateLimit {

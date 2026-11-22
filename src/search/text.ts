@@ -58,6 +58,11 @@ const SYNONYMS: Record<string, string[]> = {
   tagal: ["time", "minutes", "days"],
   gaano: ["time"],
   long: ["time", "minutes", "days", "total"],
+  old: ["age", "years", "sixty", "older"],
+  age: ["age", "years", "older"],
+  edad: ["age", "years", "older"],
+  taon: ["years", "age", "year"],
+  gulang: ["age", "years", "older"],
   araw: ["days"],
   oras: ["hours", "time"],
   // places and contact

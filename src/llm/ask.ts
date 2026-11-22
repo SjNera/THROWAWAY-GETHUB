@@ -11,8 +11,12 @@ import { search, type Hit } from "../search/search";
 import type { Generate } from "./generate";
 
 export const AnswerSchema = z.object({
-  /** false when the sources don't answer the question (or it's off-topic). */
-  found: z.boolean(),
+  /**
+   * answered: the sources answer the question.
+   * partial: the sources give a rule or related fact but not the exact thing asked (e.g. "based on the Schedule of Fees").
+   * not_in_sources: the sources don't answer it, or it isn't about these city services.
+   */
+  status: z.enum(["answered", "partial", "not_in_sources"]),
   answer: z.string().max(2000),
   /** Source ids used, e.g. ["S1", "S3"]. */
   sources: z.array(z.string().max(10)).max(10),
@@ -31,8 +35,9 @@ export interface PromptSource {
   hit?: Hit;
 }
 
-const MAX_SOURCES = 6;
-const MAX_SOURCE_CHARS = 1500;
+const MAX_SOURCES = 8;
+/** Fact cards are curated and dense (their last lines hold steps and due dates); raw pages are noisier. */
+const MAX_CHARS = { fact: 2200, evidence: 600, page: 1000 } as const;
 const MAX_CITATIONS = 4;
 
 /** Services in the journey: boosts search results about them. */
@@ -61,7 +66,7 @@ export function gatherSources(g: Graph, question: string, ctx: AskContext): Prom
     // Listed last, so charter passages lead; the prompt says to cite it only for questions about this step.
     sources.push({ id: "S0", title: `The person's current roadmap step (step ${step.number})`, text: facts.join(". ") });
   }
-  return [...hits.map((h, i) => ({ id: `S${i + 1}`, title: h.passage.title, text: h.passage.text.slice(0, MAX_SOURCE_CHARS), hit: h })), ...sources];
+  return [...hits.map((h, i) => ({ id: `S${i + 1}`, title: h.passage.title, text: h.passage.text.slice(0, MAX_CHARS[h.passage.kind]), hit: h })), ...sources];
 }
 
 export function buildAskPrompt(g: Graph, question: string, ctx: AskContext, sources: PromptSource[]): { system: string; prompt: string } {
@@ -70,13 +75,15 @@ export function buildAskPrompt(g: Graph, question: string, ctx: AskContext, sour
     "You are GabAI, a guide to city government services in the Philippines.",
     "Answer the person's question using ONLY the numbered sources provided. Rules:",
     "1. Answer only what a source EXPLICITLY states. Never guess or generalise fees, times, requirements, offices, schedules or eligibility.",
-    "2. If no source clearly answers the exact question, or it isn't about these city services, set found=false and keep the answer to one short sentence.",
-    "3. Questions about someone else (a parent, child, relative, friend) going or filing for the person are about representatives: answer only if a source says representatives are allowed or what they must bring; otherwise found=false.",
+    '2. If no source answers the question or gives related facts, or it isn\'t about these city services, set status="not_in_sources" and keep the answer to one short sentence.',
+    '3. Questions about someone else (a parent, child, relative, friend) going or filing for the person are about representatives: answer only if a source says representatives are allowed or what they must bring; otherwise status="not_in_sources".',
     '4. List every source you used in "sources" by its id (e.g. "S2"). Do not put source ids or brackets in the answer text.',
     "5. Be brief and plain: at most 3 short sentences. No markdown, lists or tables.",
     `6. Write the answer in ${language}.`,
     "7. Source text from PDF tables may be jumbled into columns; read carefully and don't invent connections.",
     "8. [S0], if present, describes the person's current roadmap step. Use and cite it only when the answer is about that step itself.",
+    "9. If a source gives a rule instead of an amount or time (e.g. 'based on the Schedule of Fees', 'computed by the portal'), say that rule and set status=\"partial\". Use \"partial\" whenever the sources give related facts but not the exact thing asked.",
+    "10. Never state consequences, refusals, exceptions or alternatives (e.g. 'cannot be processed', 'you will be rejected') unless a source says so. If the question asks what happens in a case the sources don't cover, set status=\"not_in_sources\".",
   ].join("\n");
   const where = [ctx.city ? `City: ${g.cities[ctx.city]?.name}` : "", ctx.intent ? `Service: ${intentLabel(g, ctx.intent)}` : ""].filter(Boolean).join(". ");
   const body = sources.map((s) => `[${s.id}] ${s.title}\n${s.text}`).join("\n\n");
@@ -138,7 +145,7 @@ export function finalizeAnswer(g: Graph, raw: unknown, sources: PromptSource[], 
   const sent = new Map(sources.map((s) => [s.id, s]));
   const used = [...new Set(parsed.data.sources.map((s) => s.trim().toUpperCase()))].filter((id) => sent.has(id));
   const text = parsed.data.answer.replace(/\s*\[S\d+\]/g, "").trim();
-  if (!parsed.data.found || used.length === 0 || !text) return notFound(g, ctx);
+  if (parsed.data.status === "not_in_sources" || used.length === 0 || !text) return notFound(g, ctx);
   // One citation per source page, at most MAX_CITATIONS.
   const seen = new Set<string>();
   const citations = used
