@@ -22,3 +22,21 @@ export function optionLabel(value: string, lang: Lang = "en"): string {
   const s = value.replace(/_/g, " ");
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
+
+const TEXT = {
+  channel_online: { en: "Online", fil: "Online" },
+  channel_in_person: { en: "In person", fil: "Personal" },
+  group_any_order: { en: "Any order", fil: "Kahit anong pagkakasunod" },
+  group_then: { en: "Then", fil: "Pagkatapos" },
+  group_last: { en: "Last", fil: "Huli" },
+  fee_free: { en: "Free", fil: "Libre" },
+  roadmap_title: { en: "{name} roadmap", fil: "Roadmap: {name}" },
+  confirm_with_office: { en: "Confirm with the office before you go.", fil: "Kumpirmahin muna sa opisina bago pumunta." },
+} as const;
+
+export type TextKey = keyof typeof TEXT;
+
+/** Fixed app text. `{name}`-style placeholders are filled from `vars`. */
+export function t(key: TextKey, lang: Lang = "en", vars: Record<string, string> = {}): string {
+  return TEXT[key][lang].replace(/\{(\w+)\}/g, (_, k: string) => vars[k] ?? `{${k}}`);
+}
