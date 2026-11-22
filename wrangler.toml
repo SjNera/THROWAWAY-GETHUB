@@ -4,5 +4,22 @@ main = "src/worker/index.ts"
 compatibility_date = "2026-11-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Per-visitor rate limits (Workers Rate Limiting). period must be 10 or 60 seconds.
+# RL_API: every API call. RL_AI: calls that may reach the AI model (typed text, /api/ask, /api/intent).
+[[ratelimits]]
+name = "RL_API"
+namespace_id = "1001"
+  [ratelimits.simple]
+  limit = 60
+  period = 60
+
+[[ratelimits]]
+name = "RL_AI"
+namespace_id = "1002"
+  [ratelimits.simple]
+  limit = 20
+  period = 60
+
 # Secrets are NOT set here. Locally they come from .dev.vars;
-# deployed, set them with: npx wrangler secret put GROQ_API_KEY
+# deployed, set them with: npx wrangler secret put GROQ_API_KEY  (and CF_ACCOUNT_ID, CF_AIG_GATEWAY, CF_AIG_TOKEN)
+# Optional plain variable: ALLOWED_ORIGINS = "https://your-site.example" (extra origins allowed by CORS).

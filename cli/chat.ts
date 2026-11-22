@@ -3,10 +3,11 @@
 //   npm run chat              English
 //   npm run chat -- --fil     Filipino
 //   npm run chat -- --offline no AI helper, even if .dev.vars has a Groq key
+//   npm run chat -- --api [url] go through the HTTP API (default http://localhost:8787; start it with npm run dev)
 // Typed text goes to the brain as-is. Commands: /help (text lives in src/core/i18n.ts, cli_help).
 import { createInterface } from "node:readline/promises";
 import { turn, type TurnDeps } from "../src/core/conversation";
-import { initialState, type Event, type Input, type State } from "../src/core/events";
+import { initialState, type Event, type Input, type State, type TurnResult } from "../src/core/events";
 import { t } from "../src/core/i18n";
 import { makeModels } from "../src/llm/client";
 import { makeTurnDeps } from "../src/llm/deps";
@@ -22,8 +23,12 @@ const { render, message, progress } = makeRenderer({
   lang: () => state.lang,
 });
 
-// AI helper: on when .dev.vars has a Groq key (via AI Gateway if configured), unless --offline.
-const models = args.includes("--offline") ? null : makeModels(loadDevVars());
+// --api [url]: send each turn to the HTTP API instead of running the brain in this process.
+const apiAt = args.indexOf("--api");
+const api = apiAt >= 0 ? (args[apiAt + 1]?.startsWith("http") ? args[apiAt + 1]! : "http://localhost:8787").replace(/\/$/, "") : null;
+
+// AI helper (in-process mode): on when .dev.vars has a Groq key (via AI Gateway if configured), unless --offline.
+const models = api || args.includes("--offline") ? null : makeModels(loadDevVars());
 const deps: TurnDeps = models
   ? makeTurnDeps(groqGenerate(models), {
       onError: (where, err) => {
@@ -31,7 +36,19 @@ const deps: TurnDeps = models
       },
     })
   : {};
-const aiStatus = models ? `AI: on (${models.route})` : "AI: off";
+let aiStatus = models ? `AI: on (${models.route})` : "AI: off";
+
+/** One turn through the HTTP API. */
+async function apiTurn(input: Input): Promise<TurnResult> {
+  const res = await fetch(`${api}/api/turn`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ state, input }),
+  });
+  const body = (await res.json()) as TurnResult | { error: string };
+  if (!res.ok || "error" in body) throw new Error(`API ${res.status}: ${"error" in body ? body.error : "unexpected response"}`);
+  return body;
+}
 
 let state: State = initialState(args.includes("--fil") ? "fil" : "en");
 
@@ -99,14 +116,32 @@ function print(events: Event[], input: Input) {
 
 async function send(input: Input) {
   // A typed line may go to the AI helper; show that something is happening.
-  if (interactive && models && input.type === "text") process.stdout.write(" …\r");
-  const r = await turn(state, input, deps);
-  if (interactive && models && input.type === "text") process.stdout.write("  \r");
+  const busy = interactive && (models || api) && input.type === "text";
+  if (busy) process.stdout.write(" …\r");
+  let r: TurnResult;
+  try {
+    r = api ? await apiTurn(input) : await turn(state, input, deps);
+  } catch (err) {
+    if (busy) process.stdout.write("  \r");
+    console.log(message(`(${(err as Error).message})`) + "\n");
+    return;
+  }
+  if (busy) process.stdout.write("  \r");
   state = r.state;
   print(r.events, input);
 }
 
 async function main() {
+  if (api) {
+    // Ask the API whether its AI helper is on, so the banner is accurate.
+    try {
+      const h = (await (await fetch(`${api}/api/health`)).json()) as { ai: string };
+      aiStatus = `API: ${api} · AI: ${h.ai}`;
+    } catch {
+      console.error(`Can't reach the API at ${api}. Start it with: npm run dev`);
+      process.exit(1);
+    }
+  }
   console.log(`\n${message(`${t("cli_banner", state.lang)}   ${aiStatus}`)}\n`);
   await send({ type: "start" });
 

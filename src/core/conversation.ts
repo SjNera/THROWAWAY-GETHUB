@@ -59,6 +59,21 @@ export function parseChoice(text: string, q: QuestionView): string | null {
   return null;
 }
 
+/** What the AI helper gets to know about where the person is (also used by the /api/ask endpoint). */
+export function askContext(state: State, g: Graph = defaultGraph): AskContext {
+  const ready = state.intent !== null && !state.pending && nextQuestionKey(g, state.intent, state.answers) === null;
+  const v = ready ? buildRoadmapView(g, state.intent!, state.answers, roadmap(g, state.intent!, state.answers), state.lang) : null;
+  const currentStep = v && state.current ? (v.groups.flatMap((x) => x.steps).find((x) => x.number === state.current) ?? null) : null;
+  return {
+    lang: state.lang,
+    intent: state.intent,
+    city: state.answers.city ?? null,
+    answers: { ...state.answers } as Record<string, string>,
+    roadmap: v,
+    currentStep,
+  };
+}
+
 export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: Graph = defaultGraph): Promise<TurnResult> {
   const s: State = structuredClone(state);
   const out: Event[] = [];
@@ -224,16 +239,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     if (!deps.ask) {
       say(t("ask_unavailable", lang()));
     } else {
-      const v = view();
-      const currentStep = v && s.current ? (v.groups.flatMap((x) => x.steps).find((x) => x.number === s.current) ?? null) : null;
-      const r = await deps.ask(text, {
-        lang: lang(),
-        intent: s.intent,
-        city: s.answers.city ?? null,
-        answers: { ...s.answers } as Record<string, string>,
-        roadmap: v,
-        currentStep,
-      });
+      const r = await deps.ask(text, askContext(s, g));
       out.push({ type: "answer", text: r.text, citations: r.citations });
     }
     // Then return to where the journey was.
