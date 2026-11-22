@@ -22,7 +22,7 @@ npm run dev                   # terminal 1: API on http://localhost:8787
 npm run chat -- --api         # terminal 2: the same chat, through the API
 ```
 
-In the chat: type a service or pick a number, then answer the questions. Not sure how to answer? Type `?` or "not sure" to see what each answer changes. `b` (or "back") undoes the last answer. Once the roadmap shows: `n` next step, `r` roadmap, a number opens that step, `d` marks it done, `s` starts over, `q` quits, anything else is a question for the guide. `/help` lists everything.
+In the chat: type a service or pick a number, then answer the questions, by number or in your own words ("wala pa", "sa personal na lang"; with the AI on, a small model works out what you meant and says how it understood it). Not sure how to answer? Type `?` or "not sure" to see what each answer changes. `b` (or "back") undoes the last answer. Once the roadmap shows: `n` next step, `r` roadmap, a number opens that step, `d` marks it done, `s` starts over, `q` quits, anything else is a question for the guide. `/help` lists everything.
 
 ## Check it
 

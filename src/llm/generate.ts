@@ -4,7 +4,8 @@ import type { z } from "zod";
 import { CALL, type Models } from "./client";
 
 export interface GenerateRequest {
-  kind: "intent" | "ask";
+  /** intent: service guess; route: the front door (both small model); ask: cited answers. */
+  kind: "intent" | "route" | "ask";
   system: string;
   prompt: string;
   schema: z.ZodType;
@@ -56,7 +57,7 @@ export function groqGenerate(models: Models, opts: GroqGenerateOptions = {}): Ge
         return (await call(model, false)).output;
       }
     };
-    if (kind === "intent") return withJsonFallback(models.intent);
+    if (kind === "intent" || kind === "route") return withJsonFallback(models.intent);
     try {
       return await withJsonFallback(models.ask);
     } catch (err) {

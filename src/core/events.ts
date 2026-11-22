@@ -23,6 +23,8 @@ export const StateSchema = z.object({
   suggest: z.object({ intent: z.string().max(100), text: z.string().max(1000) }).nullable().default(null),
   /** Answer keys in the order they were given, so "back" knows which to undo. */
   order: z.array(z.string().max(100)).max(50).default([]),
+  /** The last few messages (person and guide), so the AI front door understands follow-ups like "how about in QC?". */
+  history: z.array(z.object({ role: z.enum(["user", "guide"]), text: z.string().max(300) })).max(6).default([]),
 });
 export type State = z.infer<typeof StateSchema>;
 
@@ -82,5 +84,5 @@ export interface TurnResult {
 }
 
 export function initialState(lang: z.infer<typeof LangSchema> = "en"): State {
-  return { v: 1, lang, intent: null, answers: {}, pending: null, current: null, done: [], suggest: null, order: [] };
+  return { v: 1, lang, intent: null, answers: {}, pending: null, current: null, done: [], suggest: null, order: [], history: [] };
 }

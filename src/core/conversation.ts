@@ -1,8 +1,11 @@
 // The conversation brain: turn(state, input) → { state, events }.
 // Stateless: everything needed to continue is in `state`, which the client keeps and sends back.
-// Deterministic without `deps`. The AI helper (Milestone 2) plugs in through `deps`:
-//   deps.guessIntent — when typed text doesn't match a service by its names
+// Deterministic without `deps`. The AI helper plugs in through `deps`:
+//   deps.route       — the front door: what a typed message means (an action, checked by code), Milestone 3
 //   deps.ask         — free-form questions, answered from the charters with citations
+//   deps.guessIntent — older service guess, used only when there's no `route`
+// Typed text: plain code first (numbers, exact option words, "back", "not sure", service and city names),
+// then the front door, then (AI off or failed) the plain-code fallback.
 import { findCityInText, matchCity, normalize } from "./city";
 import { roadmap } from "./engine";
 import { explainQuestion } from "./explain";
@@ -22,7 +25,30 @@ export interface AskContext {
   currentStep: StepCard | null;
 }
 
+/** What the AI front door sees about where the conversation is. */
+export interface RouteContext {
+  lang: Lang;
+  stage: "choosing_service" | "answering_questions" | "walking_the_roadmap" | "journey_finished";
+  intent: { id: string; label: string } | null;
+  /** City name, if given. */
+  city: string | null;
+  /** The open question (incl. the "is it this service?" confirmation), if any. */
+  pending: QuestionView | null;
+  /** Title of the roadmap step on screen, if any. */
+  currentStep: string | null;
+  history: State["history"];
+}
+
+/** What a typed message means, as decided by the front door (already checked against the graph). */
+export type Route =
+  | { action: "answer_option"; option: string }
+  | { action: "pick_service"; intent: string }
+  | { action: "set_city"; city: string }
+  | { action: "ask"; question: string; intent?: string }
+  | { action: "unsure" | "back" | "restart" | "out_of_scope_service" | "chitchat" };
+
 export interface TurnDeps {
+  route?: (text: string, ctx: RouteContext) => Promise<Route | null>;
   guessIntent?: (text: string, ctx: { lang: Lang; choices: Choice[] }) => Promise<string | null>;
   ask?: (question: string, ctx: AskContext) => Promise<{ text: string; citations: Citation[] }>;
 }
@@ -107,7 +133,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     key === CONFIRM_INTENT
       ? {
           key,
-          text: t("suggest_intent", lang(), { name: intentLabel(g, s.suggest?.intent ?? "", lang()) }),
+          text: t(s.intent ? "switch_service" : "suggest_intent", lang(), { name: intentLabel(g, s.suggest?.intent ?? "", lang()) }),
           input: "choice",
           options: ["yes", "no"].map((value) => ({ value, label: optionLabel(value, lang()) })),
         }
@@ -233,6 +259,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       s.suggest = null;
       s.pending = null;
       if (yes === "yes" && sug) return startJourney(sug.intent, sug.text);
+      if (s.intent) return rerender(); // declined a switch: carry on where we were
       say(t("service_unknown", lang()));
       out.push({ type: "choices", items: choices() });
       return;
@@ -257,6 +284,11 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
 
   /** Undo the last answer and ask that question again; with no answers left, go back to picking a service. */
   const back = () => {
+    if (s.pending === CONFIRM_INTENT && s.intent) {
+      // Waiting on "switch service?": going back means staying on the current one.
+      Object.assign(s, { pending: null, suggest: null });
+      return rerender();
+    }
     const given = Object.keys(s.answers);
     // Older states have no `order`: their answers (in the order given) come first.
     const keys = [...given.filter((k) => !s.order.includes(k)), ...s.order.filter((k) => k in s.answers)];
@@ -299,7 +331,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     const keys = Object.keys(g.intents);
     const sure = (/^\d+$/.test(text) ? keys[Number(text) - 1] : undefined) ?? matchIntent(g, text);
     if (sure) return startJourney(sure, text);
-    const guess = deps.guessIntent ? await deps.guessIntent(text, { lang: lang(), choices: choices() }) : null;
+    const guess = deps.guessIntent && !deps.route ? await deps.guessIntent(text, { lang: lang(), choices: choices() }) : null;
     if (guess && g.intents[guess]) {
       s.suggest = { intent: guess, text: text.slice(0, 1000) };
       s.pending = CONFIRM_INTENT;
@@ -322,6 +354,132 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     advance();
   };
 
+  const restart = () => {
+    Object.assign(s, initialState(lang()));
+    say(t("greeting", lang()));
+    showChoices();
+  };
+
+  /** Plain-code answers that need no AI: numbers, exact option words, "not sure", service and city names. */
+  const quick = (text: string): boolean => {
+    if (s.pending === "city") {
+      if (matchCity(text, g).kind === "unknown") return false;
+      answer("city", text);
+      return true;
+    }
+    if (s.pending) {
+      const v = parseChoice(text, questionFor(s.pending));
+      if (v) answer(s.pending, v);
+      else if (isUnsureText(text) && s.pending !== CONFIRM_INTENT) explain();
+      else return false;
+      return true;
+    }
+    const keys = Object.keys(g.intents);
+    const named = (!s.intent && /^[0-9]+$/.test(text) ? keys[Number(text) - 1] : undefined) ?? matchIntent(g, text);
+    // A service name starts it, before a journey or after one ends (mid-journey it may be a question about it).
+    if (named && (!s.intent || ended())) {
+      startJourney(named, text);
+      return true;
+    }
+    return false;
+  };
+
+  /** Where the conversation is, for the AI front door. */
+  const routeContext = (): RouteContext => {
+    const v = view();
+    const step = v && s.current ? v.groups.flatMap((x) => x.steps).find((x) => x.number === s.current) : undefined;
+    return {
+      lang: lang(),
+      stage: !s.intent ? "choosing_service" : s.pending ? "answering_questions" : ended() ? "journey_finished" : v ? "walking_the_roadmap" : "answering_questions",
+      intent: s.intent ? { id: s.intent, label: intentLabel(g, s.intent, lang()) } : null,
+      city: s.answers.city ? (g.cities[s.answers.city]?.name ?? null) : null,
+      pending: s.pending ? questionFor(s.pending) : null,
+      currentStep: step?.title ?? null,
+      history: s.history,
+    };
+  };
+
+  /** Offer an AI-picked service: always confirmed by the person (switching also says the answers will be cleared). */
+  const suggest = (intent: string, text: string) => {
+    s.suggest = { intent, text: text.slice(0, 1000) };
+    s.pending = CONFIRM_INTENT;
+    showQuestion(CONFIRM_INTENT);
+  };
+
+  /** Carry out the front door's decision. Fields were checked against the graph; options are checked again here. */
+  const follow = async (r: Route, text: string): Promise<unknown> => {
+    switch (r.action) {
+      case "answer_option": {
+        const key = s.pending;
+        const opt = key ? questionFor(key).options.find((o) => o.value === r.option) : undefined;
+        if (!key || !opt) return fallback(text);
+        if (key !== CONFIRM_INTENT) say(t("understood_as", lang(), { label: opt.label }));
+        return answer(key, opt.value);
+      }
+      case "unsure":
+        return explain();
+      case "ask":
+        if (!s.intent && !s.pending) {
+          // Questions before a journey are answered from step 10f; for now, offer the service it's about.
+          if (r.intent) return suggest(r.intent, text);
+          say(t("service_unknown", lang()));
+          out.push({ type: "choices", items: choices() });
+          return;
+        }
+        return ask(r.question);
+      case "pick_service":
+        if (r.intent === s.intent) {
+          say(t("already_on_service", lang(), { name: intentLabel(g, r.intent, lang()) }));
+          if (s.pending) showQuestion(s.pending);
+          return;
+        }
+        return suggest(r.intent, text);
+      case "set_city": {
+        if (!s.intent) return showChoices();
+        const m = matchCity(r.city, g);
+        if (m.kind === "covered" && m.city === s.answers.city) {
+          say(t("got_city", lang(), { city: m.name }));
+          if (s.pending) showQuestion(s.pending);
+          return;
+        }
+        // A different city: its answers may not apply, so start this service's questions again from the city.
+        Object.assign(s, { answers: {}, order: [], current: null, done: [], suggest: null, pending: "city" });
+        return answer("city", r.city);
+      }
+      case "back":
+        return back();
+      case "restart":
+        return restart();
+      case "out_of_scope_service":
+        say(t("not_covered_service", lang()));
+        if (s.pending) return showQuestion(s.pending);
+        if (!s.intent) {
+          say(t("i_can_help_with", lang()));
+          out.push({ type: "choices", items: choices() });
+        }
+        return;
+      case "chitchat":
+        say(t("chitchat", lang()));
+        if (s.pending) return showQuestion(s.pending);
+        if (!s.intent) out.push({ type: "choices", items: choices() });
+        return;
+    }
+  };
+
+  /** No AI (or it failed): the plain-code behaviour from Milestone 2. */
+  const fallback = async (text: string): Promise<unknown> => {
+    if (s.pending === "city") return answer("city", text);
+    if (s.pending === CONFIRM_INTENT) {
+      // Not yes / no: a new request (or, while switching, stay where we were).
+      const switching = Boolean(s.intent);
+      Object.assign(s, { pending: null, suggest: null });
+      return switching ? rerender() : serviceFromText(text);
+    }
+    if (s.pending) return ask(text); // a question about the open question; it's asked again after
+    if (!s.intent) return serviceFromText(text);
+    return ask(text);
+  };
+
   switch (input.type) {
     case "start":
       say(t("greeting", lang()));
@@ -329,9 +487,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       break;
 
     case "restart":
-      Object.assign(s, initialState(lang()));
-      say(t("greeting", lang()));
-      showChoices();
+      restart();
       break;
 
     case "set_lang":
@@ -362,34 +518,12 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
         break;
       }
       // "start over" works anywhere except while an option question is open (so answers are never mistaken for it).
-      if (isRestartText(text) && (s.pending === null || s.pending === "city" || s.pending === CONFIRM_INTENT)) {
-        Object.assign(s, initialState(lang()));
-        say(t("greeting", lang()));
-        showChoices();
-      } else if (isBackText(text)) {
-        back();
-      } else if (s.pending === "city") {
-        answer("city", text);
-      } else if (s.pending === CONFIRM_INTENT) {
-        // yes / no to the guess; anything else is a new request
-        if (parseChoice(text, questionFor(CONFIRM_INTENT))) answer(CONFIRM_INTENT, text);
-        else {
-          s.pending = null;
-          s.suggest = null;
-          await serviceFromText(text);
-        }
-      } else if (s.pending) {
-        const v = parseChoice(text, questionFor(s.pending));
-        if (v) answer(s.pending, v);
-        else if (isUnsureText(text)) explain();
-        else await ask(text); // not an option: treat it as a question, then re-ask
-      } else if (!s.intent) {
-        await serviceFromText(text);
-      } else if (ended() && matchIntent(g, text)) {
-        // Journey finished: a new service name starts a new journey.
-        startJourney(matchIntent(g, text)!, text);
-      } else {
-        await ask(text);
+      if (isRestartText(text) && (s.pending === null || s.pending === "city" || s.pending === CONFIRM_INTENT)) restart();
+      else if (isBackText(text)) back();
+      else if (!quick(text)) {
+        const r = deps.route ? await deps.route(text, routeContext()) : null;
+        if (r) await follow(r, text);
+        else await fallback(text);
       }
       break;
     }
@@ -452,5 +586,23 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     }
   }
 
+  remember(s, input, out, g);
   return { state: s, events: out };
+}
+
+/** Keep the last few messages for the front door (the person's words, and what the guide said or asked). */
+function remember(s: State, input: Input, out: Event[], g: Graph) {
+  const clip = (x: string) => x.replace(/[ \t\r\n]+/g, " ").trim().slice(0, 300);
+  const user = input.type === "text" ? input.text : input.type === "answer" ? input.value : input.type === "choose_intent" ? intentLabel(g, input.intent, s.lang) : null;
+  const said = out
+    .flatMap((e) => {
+      if (e.type === "message" || e.type === "answer") return [e.text];
+      if (e.type === "question") return [e.question.text];
+      if (e.type === "not_covered") return [e.message];
+      if (e.type === "step") return [`Step ${e.step.number}: ${e.step.title}`];
+      return [];
+    })
+    .join(" ");
+  const add = [...(user && clip(user) ? [{ role: "user" as const, text: clip(user) }] : []), ...(clip(said) ? [{ role: "guide" as const, text: clip(said) }] : [])];
+  if (add.length) s.history = [...s.history, ...add].slice(-6);
 }

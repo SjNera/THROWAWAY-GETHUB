@@ -77,6 +77,11 @@ const TEXT = {
   explain_continues: { en: "We continue with your steps.", fil: "Tuloy tayo sa iyong mga hakbang." },
   explain_same: { en: "Your steps stay the same.", fil: "Pareho lang ang iyong mga hakbang." },
   explain_unavailable: { en: "Just pick the answer that fits you.", fil: "Piliin lang ang sagot na akma sa iyo." },
+  understood_as: { en: "Got it: {label}. (Type 'back' to change it.)", fil: "Sige: {label}. (I-type ang 'bumalik' para palitan.)" },
+  switch_service: { en: "Switch to {name}? Your answers so far will be cleared.", fil: "Lumipat sa {name}? Mabubura ang mga sagot mo sa ngayon." },
+  already_on_service: { en: "We're already on {name}.", fil: "Nasa {name} na tayo." },
+  chitchat: { en: "I'm GabAI. I help with city government services, one step at a time.", fil: "Ako si GabAI. Tumutulong ako sa mga serbisyo ng lungsod, isa-isang hakbang." },
+  i_can_help_with: { en: "Here's what I can help with:", fil: "Ito ang maitutulong ko:" },
   went_back: { en: "Okay, let's go back.", fil: "Sige, balikan natin." },
   nothing_to_undo: { en: "There's nothing to go back to.", fil: "Wala nang mababalikan." },
 

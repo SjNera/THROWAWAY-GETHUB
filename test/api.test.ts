@@ -6,7 +6,11 @@ import type { Generate } from "../src/llm/generate";
 import { createApp, MAX_BODY_BYTES, type Env } from "../src/worker/app";
 
 const fakeGenerate: Generate = async (req) =>
-  req.kind === "intent" ? { intent: "senior-citizen-id" } : { status: "answered", answer: "Yes, with an authorization letter.", sources: ["S1"] };
+  req.kind === "route"
+    ? { action: "pick_service", option: "none", intent: "senior-citizen-id", city: "", question: "" }
+    : req.kind === "intent"
+      ? { intent: "senior-citizen-id" }
+      : { status: "answered", answer: "Yes, with an authorization letter.", sources: ["S1"] };
 
 /** A rate limiter that allows `n` calls per key. */
 function limiter(n: number): RateLimit {
@@ -36,7 +40,7 @@ describe("/api/turn", () => {
     const r = await post("/api/turn", { input: { type: "start" } });
     expect(r.status).toBe(200);
     const j = (await r.json()) as { state: State; events: Event[] };
-    expect(j.state).toEqual(initialState());
+    expect({ ...j.state, history: [] }).toEqual(initialState());
     expect(types(j.events)).toEqual(["message", "message", "choices"]);
   });
 
@@ -54,7 +58,7 @@ describe("/api/turn", () => {
     expect(state!.current).toBe(1);
   });
 
-  it("uses the AI helper for unclear text (guess → confirm)", async () => {
+  it("uses the AI front door for unclear text (pick a service → confirm)", async () => {
     const { post } = setup();
     const j = (await (await post("/api/turn", { input: { type: "text", text: "my lola needs an ID" } })).json()) as { state: State };
     expect(j.state).toMatchObject({ pending: "confirm_intent", suggest: { intent: "senior-citizen-id" } });

@@ -11,7 +11,7 @@ export interface LlmConfig {
 }
 
 export interface Models {
-  /** Fast, cheap: guesses the service from free text. */
+  /** Fast, cheap: the front door (what a message means) and service guesses. */
   intent: LanguageModel;
   /** Stronger: answers questions from the charters. */
   ask: LanguageModel;
@@ -42,6 +42,7 @@ export function makeModels(cfg: LlmConfig): Models | null {
 /** Shared call settings: short reasoning, bounded output, no long waits. */
 export const CALL = {
   intent: { maxOutputTokens: 400, timeoutMs: 10_000 },
+  route: { maxOutputTokens: 500, timeoutMs: 10_000 },
   ask: { maxOutputTokens: 1_200, timeoutMs: 25_000 },
   providerOptions: { groq: { reasoningEffort: "low" as const, structuredOutputs: true } },
   maxRetries: 1,

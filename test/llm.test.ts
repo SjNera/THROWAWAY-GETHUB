@@ -156,12 +156,12 @@ describe("AI wired into the conversation (makeTurnDeps)", () => {
     );
     const r = await turn(state, { type: "text", text: "can my mom get it for me?" }, deps);
     expect(find(r.events, "answer")!.text).toBe("I can't answer questions right now. The steps still work.");
-    expect(r.state).toEqual(state);
-    expect(errors).toEqual(["ask"]);
+    expect({ ...r.state, history: state.history }).toEqual(state); // only the message history moved on
+    expect(errors).toEqual(["route", "ask"]); // the front door failed → plain code → the answer failed too
 
     const r2 = await turn(initialState(), { type: "text", text: "my lola needs an ID" }, deps);
-    expect(find(r2.events, "choices")).toBeTruthy(); // guess failed → service list
-    expect(errors).toEqual(["ask", "guessIntent"]);
+    expect(find(r2.events, "choices")).toBeTruthy(); // front door failed → service list (no second AI call)
+    expect(errors).toEqual(["route", "ask", "route"]);
   });
 });
 

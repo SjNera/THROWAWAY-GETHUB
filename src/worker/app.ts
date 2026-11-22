@@ -108,7 +108,7 @@ export function createApp(opts: AppOptions = {}) {
   /** Calls that may use the AI model get the tighter limit. */
   const aiLimited = async (c: Context<HonoEnv>) => {
     const deps = c.get("deps");
-    if (!deps.ask && !deps.guessIntent) return false; // AI off: nothing to protect
+    if (!deps.ask && !deps.guessIntent && !deps.route) return false; // AI off: nothing to protect
     return limited(c.env?.RL_AI, visitor(c));
   };
 

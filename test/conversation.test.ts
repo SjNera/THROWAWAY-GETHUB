@@ -267,7 +267,7 @@ describe("after the roadmap", () => {
   it("restart clears the journey but keeps the language", async () => {
     const s = { ...(await atRoadmap()), lang: "fil" as const };
     const { state } = await turn(s, { type: "restart" });
-    expect(state).toEqual(initialState("fil"));
+    expect({ ...state, history: [] }).toEqual(initialState("fil"));
   });
 });
 
@@ -338,14 +338,14 @@ describe("ways out (no dead ends)", () => {
   it.each(["start over", "Start Over!", "restart", "magsimula ulit", "ulit"])("typing %j after the journey ends starts over", async (text) => {
     const { state: done } = await allStepsDone();
     const { state, events } = await turn(done, { type: "text", text });
-    expect(state).toEqual(initialState());
+    expect({ ...state, history: [] }).toEqual(initialState());
     expect(find(events, "choices")).toBeTruthy();
   });
 
   it("typing 'start over' after 'not covered' or at the city question starts over", async () => {
     for (const { state: s } of [await notCovered(), await run([{ type: "choose_intent", intent: "pwd-id-application" }])]) {
       const { state } = await turn(s, { type: "text", text: "start over" });
-      expect(state).toEqual(initialState());
+      expect({ ...state, history: [] }).toEqual(initialState());
     }
   });
 
