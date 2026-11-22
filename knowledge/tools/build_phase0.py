@@ -8,8 +8,11 @@ from phase0_lib import SOURCES, EVID, ERR, OUT, TODAY, SHARED_Q
 os.makedirs(OUT, exist_ok=True)
 
 CITIES = {
- 'qc': dict(name='Quezon City', module='data_qc', fallback_office=None),
- 'mkn': dict(name='Marikina City', module='data_mkn', fallback_office='mkn.cityhall'),
+ # aliases: other names people type for the city (matched case- and accent-insensitively by the app)
+ 'qc': dict(name='Quezon City', module='data_qc', fallback_office=None,
+            aliases=['QC', 'Quezon', 'Q.C.', 'Kyusi', 'Lungsod Quezon', 'Lungsod ng Quezon', 'Quezon City, Metro Manila']),
+ 'mkn': dict(name='Marikina City', module='data_mkn', fallback_office='mkn.cityhall',
+             aliases=['Marikina', 'City of Marikina', 'Lungsod ng Marikina', 'Marikina, Metro Manila']),
 }
 offices, reqs, svcs, questions, intents = {}, {}, {}, {}, {}
 questions['city'] = dict(key='city', text='Which city is this for?', text_tl='Para saan na lungsod ito?', options=list(CITIES),
@@ -35,7 +38,7 @@ for code, c in CITIES.items():
             if a not in t['aliases']: t['aliases'].append(a)
         for a in i.get('aliases_tl', []):
             if a not in t['aliases_tl']: t['aliases_tl'].append(a)
-cities = {code: dict(name=c['name'], fallback_office=c['fallback_office']) for code, c in CITIES.items()}
+cities = {code: dict(name=c['name'], fallback_office=c['fallback_office'], aliases=c.get('aliases', [])) for code, c in CITIES.items()}
 
 L.finalize_status(EVID)
 L.finalize_sources()

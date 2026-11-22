@@ -13,11 +13,26 @@
  "cities": {
   "qc": {
    "name": "Quezon City",
-   "fallback_office": null
+   "fallback_office": null,
+   "aliases": [
+    "QC",
+    "Quezon",
+    "Q.C.",
+    "Kyusi",
+    "Lungsod Quezon",
+    "Lungsod ng Quezon",
+    "Quezon City, Metro Manila"
+   ]
   },
   "mkn": {
    "name": "Marikina City",
-   "fallback_office": "mkn.cityhall"
+   "fallback_office": "mkn.cityhall",
+   "aliases": [
+    "Marikina",
+    "City of Marikina",
+    "Lungsod ng Marikina",
+    "Marikina, Metro Manila"
+   ]
   }
  },
  "sources": {
