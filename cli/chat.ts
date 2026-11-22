@@ -86,13 +86,13 @@ function toInput(line: string): Input | "help" | "quit" {
   }
   // b = back one answer, anytime; ? = "what does each answer change?" while an option question is open.
   if (text.toLowerCase() === "b") return { type: "back" };
+  // g = "Get the full step-by-step guide" after a consultation answer.
+  if (text.toLowerCase() === "g" && !state.intent && state.consult?.intent)
+    return { type: "choose_intent", intent: state.consult.intent, ...(state.consult.city ? { city: state.consult.city } : {}) };
   if (text === "?" && state.pending !== null) return { type: "explain" };
-  // s / q whenever no question is waiting (so a typed answer is never taken as a command).
-  if (state.pending === null) {
-    const k = text.toLowerCase();
-    if (k === "s") return { type: "restart" };
-    if (k === "q") return "quit";
-  }
+  // q quits anytime (never a valid answer); s starts over whenever no question is waiting.
+  if (text.toLowerCase() === "q") return "quit";
+  if (state.pending === null && text.toLowerCase() === "s") return { type: "restart" };
   // Step shortcuts only when the roadmap is showing and no question is waiting (so "n" can still mean "no").
   if (state.current !== null && state.pending === null) {
     const k = text.toLowerCase();

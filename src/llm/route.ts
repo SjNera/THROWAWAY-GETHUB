@@ -46,12 +46,12 @@ export function buildRoutePrompt(g: Graph, text: string, ctx: RouteContext): { s
     "Actions:",
     '- answer_option: the message answers the open question. Put the matching option value in "option" (e.g. "not yet" / "wala pa" → no; "meron na ako" → yes; "sa personal na lang" → in_person).',
     "- unsure: they don't know how to answer the open question, or ask what it or its options mean.",
-    '- ask: a question about a service, requirement, fee, office, schedule or process. Rewrite it in "question" as ONE complete standalone question in the person\'s language, filling in the service and city from the conversation (e.g. "how about in QC?" → "What do I need for a PWD ID in Quezon City?").',
+    '- ask: a question about a service, requirement, fee, office, schedule or process. Rewrite it in "question" as ONE complete standalone question in the person\'s language, filling in the service and city from the conversation (e.g. "how about in QC?" → "What do I need for a PWD ID in Quezon City?"). Also put the service id it\'s about in "intent" (or "none"), and the city or municipality it\'s about in "city" (or "") — from the message or the conversation.',
     '- pick_service: they want one of the services listed below, other than the current one. Put its id in "intent".',
     `- set_city: they say which city or municipality it's for. Put the place name as written in "city". Covered cities: ${cities}.`,
     "- back: they want to change or undo their previous answer.",
     "- restart: they want to start over from the beginning.",
-    "- out_of_scope_service: they want a government service that is NOT listed below (e.g. cedula, passport, driver's license, police clearance).",
+    "- out_of_scope_service: they want a government service that is NOT listed below (e.g. cedula, passport, driver's license, police clearance). But asking whether such a document is needed FOR a listed service is ask.",
     "- chitchat: greetings, thanks, small talk, or anything unrelated to city government services.",
     "",
     "Rules:",
@@ -95,7 +95,12 @@ export function validateRoute(g: Graph, raw: unknown, text: string, ctx: RouteCo
     case "set_city":
       return city.trim() ? { action, city: city.trim().slice(0, 100) } : asIs;
     case "ask":
-      return { action, question: (question.trim() || text).slice(0, 1000), ...(intent !== "none" && g.intents[intent] ? { intent } : {}) };
+      return {
+        action,
+        question: (question.trim() || text).slice(0, 1000),
+        ...(intent !== "none" && g.intents[intent] ? { intent } : {}),
+        ...(city.trim() ? { city: city.trim().slice(0, 100) } : {}),
+      };
     default:
       return { action };
   }

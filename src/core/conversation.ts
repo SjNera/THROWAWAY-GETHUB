@@ -28,7 +28,7 @@ export interface AskContext {
 /** What the AI front door sees about where the conversation is. */
 export interface RouteContext {
   lang: Lang;
-  stage: "choosing_service" | "answering_questions" | "walking_the_roadmap" | "journey_finished";
+  stage: "choosing_service" | "consulting" | "answering_questions" | "walking_the_roadmap" | "journey_finished";
   intent: { id: string; label: string } | null;
   /** City name, if given. */
   city: string | null;
@@ -44,7 +44,7 @@ export type Route =
   | { action: "answer_option"; option: string }
   | { action: "pick_service"; intent: string }
   | { action: "set_city"; city: string }
-  | { action: "ask"; question: string; intent?: string }
+  | { action: "ask"; question: string; intent?: string; city?: string }
   | { action: "unsure" | "back" | "restart" | "out_of_scope_service" | "chitchat" };
 
 export interface TurnDeps {
@@ -63,6 +63,13 @@ const SYNONYMS: Record<string, string[]> = {
 
 /** Pending-question key while an AI service guess waits for a yes/no. */
 export const CONFIRM_INTENT = "confirm_intent";
+/** Pending-question key while a consultation question waits for the city. */
+export const CONSULT_CITY = "consult_city";
+
+/** Looks like a question (not just a service name), so it should be answered rather than start a journey. */
+const QUESTION_START =
+  /^(what|whats|how|hows|where|when|who|which|why|can|could|do|does|is|are|will|should|may|magkano|ano|anong|ano ang|paano|saan|kailan|sino|ilan|ilang|gaano|bakit|pwede|puwede|kailangan ba|meron bang|may bayad)\b/;
+export const isQuestionLike = (text: string) => /[?]\s*$/.test(text) || QUESTION_START.test(normalize(text));
 
 /** Typed phrases that mean "start over", in English and Filipino (matched on the whole message). */
 const RESTART_PHRASES = new Set([
@@ -100,6 +107,10 @@ export function parseChoice(text: string, q: QuestionView): string | null {
 
 /** What the AI helper gets to know about where the person is (also used by the /api/ask endpoint). */
 export function askContext(state: State, g: Graph = defaultGraph): AskContext {
+  if (!state.intent && state.consult) {
+    // A consultation: no roadmap, but the service and city the questions are about.
+    return { lang: state.lang, intent: state.consult.intent, city: state.consult.city, answers: state.consult.city ? { city: state.consult.city } : {}, roadmap: null, currentStep: null };
+  }
   const ready = state.intent !== null && !state.pending && nextQuestionKey(g, state.intent, state.answers) === null;
   const v = ready ? buildRoadmapView(g, state.intent!, state.answers, roadmap(g, state.intent!, state.answers), state.lang) : null;
   const currentStep = v && state.current ? (v.groups.flatMap((x) => x.steps).find((x) => x.number === state.current) ?? null) : null;
@@ -137,7 +148,9 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
           input: "choice",
           options: ["yes", "no"].map((value) => ({ value, label: optionLabel(value, lang()) })),
         }
-      : questionView(g, key, lang());
+      : key === CONSULT_CITY
+        ? { ...questionView(g, "city", lang()), key }
+        : questionView(g, key, lang());
   const showQuestion = (key: string) => out.push({ type: "question", question: questionFor(key) });
 
   /** The roadmap view, if the journey has reached it. */
@@ -151,10 +164,14 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
   };
   const roadmapEvent = (v: RoadmapView): Event => ({ type: "roadmap", roadmap: v, current: s.current, done: [...s.done].sort((a, b) => a - b) });
 
-  const action = (id: Action["id"]): Action =>
-    id === "restart"
-      ? { id, label: t("action_restart", lang()), input: { type: "restart" } }
-      : { id, label: t("action_show_roadmap", lang()), input: { type: "show_roadmap" } };
+  const action = (id: Action["id"]): Action => {
+    if (id === "restart") return { id, label: t("action_restart", lang()), input: { type: "restart" } };
+    if (id === "start_journey" && s.consult?.intent) {
+      const { intent, city } = s.consult;
+      return { id, label: t("action_start_journey", lang(), { name: intentLabel(g, intent, lang()) }), input: { type: "choose_intent", intent, ...(city ? { city } : {}) } };
+    }
+    return { id: "show_roadmap", label: t("action_show_roadmap", lang()), input: { type: "show_roadmap" } };
+  };
   const offer = (...ids: Action["id"][]) => out.push({ type: "actions", items: ids.map(action) });
 
   /** The journey has ended: every step done, or the result was "not covered". */
@@ -222,16 +239,18 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     return false;
   };
 
-  const startJourney = (intent: string, text?: string) => {
+  /** Start a journey. The city comes from the sentence ("PWD ID in Marikina"), else `city` (e.g. from a consultation). */
+  const startJourney = (intent: string, text?: string, city?: string | null) => {
     if (!g.intents[intent]) {
       say(t("service_unknown", lang()));
       out.push({ type: "choices", items: choices() });
       return;
     }
-    Object.assign(s, { intent, answers: {}, pending: null, current: null, done: [], suggest: null });
+    Object.assign(s, { intent, answers: {}, order: [], pending: null, current: null, done: [], suggest: null, consult: null });
     say(t("got_service", lang(), { name: intentLabel(g, intent, lang()) }));
-    // "PWD ID in Marikina" — the city is already in the sentence.
-    const m = text ? findCityInText(text, g) : null;
+    const inText = text ? findCityInText(text, g) : null;
+    const known = city ? (g.cities[city] ? { kind: "covered" as const, city, name: g.cities[city]!.name } : matchCity(city, g)) : null;
+    const m = inText ?? (known?.kind === "covered" ? known : null);
     if (m?.kind === "covered") {
       setAnswer("city", m.city);
       say(t("got_city", lang(), { city: m.name }));
@@ -258,12 +277,13 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       const sug = s.suggest;
       s.suggest = null;
       s.pending = null;
-      if (yes === "yes" && sug) return startJourney(sug.intent, sug.text);
+      if (yes === "yes" && sug) return startJourney(sug.intent, sug.text, s.consult?.city);
       if (s.intent) return rerender(); // declined a switch: carry on where we were
       say(t("service_unknown", lang()));
       out.push({ type: "choices", items: choices() });
       return;
     }
+    if (key === CONSULT_CITY) return consultCity(value);
     if (key === "city") {
       if (takeCity(value)) {
         s.pending = null;
@@ -284,6 +304,12 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
 
   /** Undo the last answer and ask that question again; with no answers left, go back to picking a service. */
   const back = () => {
+    if (s.pending === CONSULT_CITY) {
+      // Waiting on the city for a question: drop the question.
+      Object.assign(s, { pending: null, consult: s.consult ? { ...s.consult, question: null } : null });
+      say(t("went_back", lang()));
+      return showChoices();
+    }
     if (s.pending === CONFIRM_INTENT && s.intent) {
       // Waiting on "switch service?": going back means staying on the current one.
       Object.assign(s, { pending: null, suggest: null });
@@ -309,7 +335,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
   /** "Not sure?": what each option of the open question changes, then the question again. */
   const explain = () => {
     if (!s.pending) return rerender();
-    const e = s.intent && s.pending !== "city" && s.pending !== CONFIRM_INTENT ? explainQuestion(g, s.intent, s.answers, s.pending, lang()) : null;
+    const e = s.intent && s.pending !== "city" && s.pending !== CONFIRM_INTENT && s.pending !== CONSULT_CITY ? explainQuestion(g, s.intent, s.answers, s.pending, lang()) : null;
     if (e) out.push({ type: "explain", ...e });
     else say(t("explain_unavailable", lang()));
     showQuestion(s.pending);
@@ -377,8 +403,9 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     const keys = Object.keys(g.intents);
     const named = (!s.intent && /^[0-9]+$/.test(text) ? keys[Number(text) - 1] : undefined) ?? matchIntent(g, text);
     // A service name starts it, before a journey or after one ends (mid-journey it may be a question about it).
-    if (named && (!s.intent || ended())) {
-      startJourney(named, text);
+    // With the AI on, a question that names a service ("what do I need for a PWD ID?") is answered instead.
+    if (named && (!s.intent || ended()) && !(deps.route && deps.ask && isQuestionLike(text))) {
+      startJourney(named, text, s.consult?.city);
       return true;
     }
     return false;
@@ -387,12 +414,14 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
   /** Where the conversation is, for the AI front door. */
   const routeContext = (): RouteContext => {
     const v = view();
+    const topic = s.intent ?? s.consult?.intent ?? null;
+    const place = s.answers.city ?? s.consult?.city ?? null;
     const step = v && s.current ? v.groups.flatMap((x) => x.steps).find((x) => x.number === s.current) : undefined;
     return {
       lang: lang(),
-      stage: !s.intent ? "choosing_service" : s.pending ? "answering_questions" : ended() ? "journey_finished" : v ? "walking_the_roadmap" : "answering_questions",
-      intent: s.intent ? { id: s.intent, label: intentLabel(g, s.intent, lang()) } : null,
-      city: s.answers.city ? (g.cities[s.answers.city]?.name ?? null) : null,
+      stage: !s.intent ? (s.consult ? "consulting" : "choosing_service") : s.pending ? "answering_questions" : ended() ? "journey_finished" : v ? "walking_the_roadmap" : "answering_questions",
+      intent: topic ? { id: topic, label: intentLabel(g, topic, lang()) } : null,
+      city: place ? (g.cities[place]?.name ?? null) : null,
       pending: s.pending ? questionFor(s.pending) : null,
       currentStep: step?.title ?? null,
       history: s.history,
@@ -404,6 +433,59 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     s.suggest = { intent, text: text.slice(0, 1000) };
     s.pending = CONFIRM_INTENT;
     showQuestion(CONFIRM_INTENT);
+  };
+
+  /**
+   * A question with no journey: answer it for the city it's about (asking the city first if we don't know it),
+   * then offer the full step-by-step guide for its service.
+   */
+  const consult = async (r: Extract<Route, { action: "ask" }>) => {
+    const prev = s.consult;
+    let city = prev?.city ?? null;
+    if (r.city) {
+      const m = matchCity(r.city, g);
+      if (m.kind === "coming_soon") {
+        out.push({ type: "not_covered", reason: "city_coming_soon", message: t("city_soon", lang(), { city: m.name }), office: null });
+        say(t("i_can_help_with", lang()));
+        out.push({ type: "choices", items: choices() });
+        return;
+      }
+      if (m.kind === "covered") city = m.city;
+    }
+    s.consult = { question: r.question, intent: r.intent ?? prev?.intent ?? null, city };
+    s.pending = null;
+    if (!city) {
+      s.pending = CONSULT_CITY;
+      return showQuestion(CONSULT_CITY);
+    }
+    return answerConsult();
+  };
+
+  /** The city for a waiting consultation question. */
+  const consultCity = async (text: string) => {
+    const m = matchCity(text, g);
+    if (m.kind === "covered") {
+      say(t("got_city", lang(), { city: m.name }));
+      s.consult = { question: s.consult?.question ?? null, intent: s.consult?.intent ?? null, city: m.city };
+      s.pending = null;
+      return answerConsult();
+    }
+    if (m.kind === "coming_soon") {
+      out.push({ type: "not_covered", reason: "city_coming_soon", message: t("city_soon", lang(), { city: m.name }), office: null });
+      say(t("city_try_another", lang()));
+    } else say(t("city_unknown", lang()));
+    s.pending = CONSULT_CITY;
+    showQuestion(CONSULT_CITY);
+  };
+
+  const answerConsult = async () => {
+    const q = s.consult?.question;
+    if (!q) return showChoices();
+    s.consult = { ...s.consult!, question: null };
+    if (!deps.ask) return say(t("ask_unavailable", lang()));
+    const r = await deps.ask(q, askContext(s, g));
+    out.push({ type: "answer", text: r.text, citations: r.citations });
+    if (s.consult.intent) offer("start_journey");
   };
 
   /** Carry out the front door's decision. Fields were checked against the graph; options are checked again here. */
@@ -419,13 +501,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       case "unsure":
         return explain();
       case "ask":
-        if (!s.intent && !s.pending) {
-          // Questions before a journey are answered from step 10f; for now, offer the service it's about.
-          if (r.intent) return suggest(r.intent, text);
-          say(t("service_unknown", lang()));
-          out.push({ type: "choices", items: choices() });
-          return;
-        }
+        if (!s.intent && (s.pending === null || s.pending === CONSULT_CITY)) return consult(r);
         return ask(r.question);
       case "pick_service":
         if (r.intent === s.intent) {
@@ -435,7 +511,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
         }
         return suggest(r.intent, text);
       case "set_city": {
-        if (!s.intent) return showChoices();
+        if (!s.intent) return consultCity(r.city);
         const m = matchCity(r.city, g);
         if (m.kind === "covered" && m.city === s.answers.city) {
           say(t("got_city", lang(), { city: m.name }));
@@ -496,7 +572,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       break;
 
     case "choose_intent":
-      startJourney(input.intent);
+      startJourney(input.intent, undefined, input.city);
       break;
 
     case "answer":
@@ -520,6 +596,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       // "start over" works anywhere except while an option question is open (so answers are never mistaken for it).
       if (isRestartText(text) && (s.pending === null || s.pending === "city" || s.pending === CONFIRM_INTENT)) restart();
       else if (isBackText(text)) back();
+      else if (s.pending === CONSULT_CITY && matchCity(text, g).kind !== "unknown") await consultCity(text);
       else if (!quick(text)) {
         const r = deps.route ? await deps.route(text, routeContext()) : null;
         if (r) await follow(r, text);

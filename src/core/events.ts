@@ -25,6 +25,14 @@ export const StateSchema = z.object({
   order: z.array(z.string().max(100)).max(50).default([]),
   /** The last few messages (person and guide), so the AI front door understands follow-ups like "how about in QC?". */
   history: z.array(z.object({ role: z.enum(["user", "guide"]), text: z.string().max(300) })).max(6).default([]),
+  /**
+   * A consultation: questions asked without walking a roadmap. Remembers the service and city they were about,
+   * so follow-ups ("how about the senior ID?") stay in the same city. `question` waits here while we ask the city.
+   */
+  consult: z
+    .object({ question: z.string().max(1000).nullable(), intent: z.string().max(100).nullable(), city: z.string().max(100).nullable() })
+    .nullable()
+    .default(null),
 });
 export type State = z.infer<typeof StateSchema>;
 
@@ -32,7 +40,8 @@ export const InputSchema = z.discriminatedUnion("type", [
   /** Begin (or show the start again). */
   z.object({ type: z.literal("start") }),
   /** Tapped a service tile. */
-  z.object({ type: z.literal("choose_intent"), intent: z.string().max(100) }),
+  /** Tapped a service tile, or "Get the full guide" after a consultation (with the city already known). */
+  z.object({ type: z.literal("choose_intent"), intent: z.string().max(100), city: z.string().max(100).optional() }),
   /** Tapped an option, or typed the city. */
   z.object({ type: z.literal("answer"), key: z.string().max(100), value: z.string().max(200) }),
   /** Anything typed in the text box. */
@@ -59,7 +68,7 @@ export type NotCoveredReason = "city_coming_soon" | "not_in_city" | "outside_pro
 
 /** Something the person can do now. Screens show it as a button (web) or a shortcut (terminal). */
 export interface Action {
-  id: "restart" | "show_roadmap";
+  id: "restart" | "show_roadmap" | "start_journey";
   label: string;
   /** The input to send when the person picks this action. */
   input: Input;
@@ -84,5 +93,5 @@ export interface TurnResult {
 }
 
 export function initialState(lang: z.infer<typeof LangSchema> = "en"): State {
-  return { v: 1, lang, intent: null, answers: {}, pending: null, current: null, done: [], suggest: null, order: [], history: [] };
+  return { v: 1, lang, intent: null, answers: {}, pending: null, current: null, done: [], suggest: null, order: [], history: [], consult: null };
 }

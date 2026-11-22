@@ -82,6 +82,7 @@ const TEXT = {
   already_on_service: { en: "We're already on {name}.", fil: "Nasa {name} na tayo." },
   chitchat: { en: "I'm GabAI. I help with city government services, one step at a time.", fil: "Ako si GabAI. Tumutulong ako sa mga serbisyo ng lungsod, isa-isang hakbang." },
   i_can_help_with: { en: "Here's what I can help with:", fil: "Ito ang maitutulong ko:" },
+  action_start_journey: { en: "Get the full step-by-step guide for {name}", fil: "Kunin ang buong gabay para sa {name}" },
   went_back: { en: "Okay, let's go back.", fil: "Sige, balikan natin." },
   nothing_to_undo: { en: "There's nothing to go back to.", fil: "Wala nang mababalikan." },
 
@@ -126,22 +127,26 @@ const TEXT = {
     en: `Commands (anytime):
   /next  /roadmap  /step <n>  /done <n>  /undo <n>  /back  /restart  /lang en|fil  /help  /quit
 Anytime:
-  b = go back one answer (or type "back")
+  b = go back one answer (or type "back")   q = quit
 While a question is open:
   ? = what each answer changes (or type "not sure")
+After an answer to a question:
+  g = get the full step-by-step guide for that service
 Whenever no question is open:
-  s = start over   q = quit   (or type "start over")
+  s = start over   (or type "start over")
 Once your roadmap is showing (and no question is open):
   n = next step   r = roadmap   <number> = open that step   d = mark this step done
 Anything else you type is sent to the guide.`,
     fil: `Mga utos (kahit kailan):
   /next  /roadmap  /step <n>  /done <n>  /undo <n>  /back  /restart  /lang en|fil  /help  /quit
 Kahit kailan:
-  b = bumalik ng isang sagot (o i-type ang "bumalik")
+  b = bumalik ng isang sagot (o i-type ang "bumalik")   q = lumabas
 Habang may bukas na tanong:
   ? = ano ang nagbabago sa bawat sagot (o i-type ang "hindi ko alam")
+Pagkatapos ng sagot sa isang tanong:
+  g = kunin ang buong gabay para sa serbisyong iyon
 Kapag walang bukas na tanong:
-  s = magsimula ulit   q = lumabas   (o i-type ang "magsimula ulit")
+  s = magsimula ulit   (o i-type ang "magsimula ulit")
 Kapag nakikita na ang roadmap (at walang bukas na tanong):
   n = susunod na hakbang   r = roadmap   <numero> = buksan ang hakbang   d = tapos na ang hakbang
 Ang iba pang i-type mo ay ipapadala sa gabay.`,

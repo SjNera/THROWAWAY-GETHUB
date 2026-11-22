@@ -160,7 +160,7 @@ export function makeRenderer(opts: RenderOptions) {
   };
 
   /** Terminal shortcut for each action (the web UI shows buttons instead). */
-  const ACTION_KEYS: Record<Action["id"], string> = { restart: "s", show_roadmap: "r" };
+  const ACTION_KEYS: Record<Action["id"], string> = { restart: "s", show_roadmap: "r", start_journey: "g" };
   const actions = (items: Action[]) =>
     message([...items.map((a) => `${c("bold", `[${ACTION_KEYS[a.id]}]`)} ${a.label}`), `${c("bold", "[q]")} ${tr("action_quit")}`].join("   "));
 
