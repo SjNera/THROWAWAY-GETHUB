@@ -34,7 +34,7 @@ Every fact in the graph points to a quote and a PDF page, so a person can check 
 | `tools/` | Scripts that build and check everything (see section 8) | Maintainers |
 | `extract/` | Page-by-page text from the PDFs, plus web-page transcriptions (`extract/html/`) | Maintainers |
 | `qc-charters/`, `mkn-charters/` | The downloaded source files per city (`mkn-charters/web-raw/` has raw HTML) | Reference |
-| `_backup_pre_multicity/` | Copy of the QC-only scripts and outputs from before the change | Safety net |
+| `archive/` (was `_backup_pre_multicity/`) | Copy of the QC-only scripts and outputs from before the change | Safety net |
 
 ## 3. What the graph covers
 
@@ -155,7 +155,7 @@ python -I tools/validate.py         # check it, run the 27 tests
 python -I tools/build_reference.py  # refresh reference.html and review_list.md
 ```
 
-Run them in that order from the `THROWAWAY-GETHUB` folder. `extract_fast.py` and `extract.py` are the older QC extractors (they need `pdfinfo` / `pdftoppm`, which are not installed on this machine).
+Run them in that order from the `knowledge/` folder (all Phase 0 files live there since 2026-11-22; paths in this guide are relative to it). `extract_fast.py` and `extract.py` are the older QC extractors (they need `pdfinfo` / `pdftoppm`, which are not installed on this machine).
 
 Quirks: each PDF in `qc-charters/` and `mkn-charters/` must keep its filename, or its hash check fails. In the Marikina PDFs, the text extractor turns apostrophes into a replacement character; quotes are normalised for it, but keep quotes short and avoid apostrophes and bullet symbols.
 
