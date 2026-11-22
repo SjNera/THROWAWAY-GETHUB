@@ -244,4 +244,20 @@ QUESTIONS = {q['key']: q for q in [
 ]}
 
 SERVICES['s-building-permit']['extra_question_keys'] = ['permit_class']
+
+# Where each service's whole process is written (the search index uses these pages, nothing else).
+# Combined charters that repeat a service sheet word for word are left out to avoid duplicate passages:
+# PDAO charter pp. 6-11 = the PWD ID service sheet; CCRD charter pp. 25 and 28 = the two CTC service sheets.
+set_sections(SERVICES, {
+ 's-eservices-register': [S('qc-guide-pwd-id')],
+ 's-pwd-id': [S('pdao-pwd-service-2025', 1, 5), S('qc-guide-pwd-id')],
+ 's-birth-ctc': [S('ccrd-ctc-birth', 1, 1), S('ccrd-ctc-online', 1, 1)],
+ # pp. 5-7: on-time registration (walk-in, online); pp. 29-30: Admission of Paternity / RA 9255 (parents not married)
+ 's-birth-registration': [S('ccrd-charter-2025', 5, 7), S('ccrd-charter-2025', 29, 30)],
+ # BPLD p. 7 (renewal) also describes paying the business tax online
+ 's-business-tax-payment': [S('cto-business-tax-2024', 1, 1), S('bpld-charter-2025', 7, 7)],
+ 's-business-permit-renewal': [S('bpld-charter-2025', 6, 7), S('qc-guide-renew-business-permit')],
+ 's-senior-id': [S('qc-guide-senior-card')],
+ 's-building-permit': [S('dbo-construction-permits', 1, 12), S('qc-guide-building-permit')],
+})
 compute_question_keys(SERVICES, REQ, QUESTIONS)

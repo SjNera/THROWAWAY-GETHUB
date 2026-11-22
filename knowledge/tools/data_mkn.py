@@ -224,3 +224,17 @@ QUESTIONS = {q['key']: q for q in [
  Q('has_portal_account', 'Do you already have a Marikina Online Services account?', ['yes', 'no'], 'Mayroon ka na bang Marikina Online Services account?'),
 ]}
 compute_question_keys(SERVICES, REQ, QUESTIONS)
+
+# Older editions: cross-check only (never searched, never a section).
+superseded('mkn-charter-2022', 'mkn-bplo-2021')
+
+# Where each service's whole process is written (the search index uses these pages, nothing else).
+set_sections(SERVICES, {
+ 's-portal-register': [S('mkn-bplo-faq')],
+ 's-pwd-id': [S('mkn-cswdo-2024', 10, 10)],
+ 's-senior-id': [S('mkn-osca-2024', 3, 3)],
+ 's-birth-ctc': [S('mkn-ccro-2024', 16, 16)],
+ 's-birth-registration': [S('mkn-ccro-2024', 5, 5)],
+ 's-business-permit-renewal': [S('mkn-bplo-2026', 7, 9), S('mkn-bplo-faq')],
+ 's-building-permit': [S('mkn-obo-2024', 3, 3)],
+})

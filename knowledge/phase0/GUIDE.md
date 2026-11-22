@@ -83,14 +83,18 @@ graph.json
 │                    issuer_service → you get it from another service in the graph (has owned_key)
 │                    external       → you prepare it yourself
 ├─ services{15}    what the person actually does
-│   └─ variants    one per channel (online / in_person), each with:
-│                  office, fee, time, requires[], url, detail_steps[], note
+│   ├─ variants    one per channel (online / in_person), each with:
+│   │              office, fee, time, requires[], url, detail_steps[], note
+│   └─ sections    where the whole process is written: [{source, from_page, to_page}]
+│                  (the app's search index uses these pages only)
 ├─ intents{6}      what the user says → service_by_city {qc: qc.s-..., mkn: mkn.s-...}. English and Tagalog aliases
 ├─ questions{20}   what the app can ask, with options. Shared ones have city "all"
 └─ evidence[146]   quote + PDF page + status for every fee, time and requirement
 ```
 
 **City rule.** Every city-specific id is prefixed with its city (`qc.`, `mkn.`). A service may only use offices, requirements, issuer services and questions of its own city (or shared questions). The validator checks this, and also that each evidence record cites a source from the same city.
+
+**Sections rule.** Every service lists its `sections` (set with `set_sections(...)` at the end of each `data_<city>.py`). The validator checks that each section uses a current source of the same city and stays within its pages, and that every page the graph cites (except office contact details) falls inside some section. Older editions are marked with `superseded(...)`: they stay as cross-checks but are never searched. Adding a new service means adding its sections too.
 
 **Reading one requirement line** (Marikina PWD ID):
 

@@ -34,10 +34,15 @@ A chat guide for city government services. A person says what they need ("PWD ID
 
 **The AI helper** handles the fuzzy parts only: guessing the service from a sentence ("my lola needs an ID" → Senior ID) and answering questions in natural language, using retrieved charter text.
 
+From Milestone 3 the AI is the **front door for typed text**: every typed message (except numbers and exact option words) goes to a small model that decides *what the person wants* (answer the open question, ask something, switch service, go back, …). Plain code then carries that out. People can also just consult ("what do I need for a PWD ID in Marikina?") without walking the roadmap.
+
 Why split it this way:
 - **Facts can't be invented.** The AI never decides a fee or a requirement.
-- **Cheap.** Most of the chat needs no AI call at all.
+- **Nothing gets left out.** Guard rails catch made-up facts but not missing ones; the rulebook lists every requirement.
+- **Cheap.** Taps, numbers and plain "yes/no" need no AI call.
 - **Testable.** The rulebook has exact expected outputs (27 test journeys already exist).
+
+**Why not pure RAG (AI builds the roadmap from the charters)?** It feels flexible, but it can silently omit a requirement, varies run to run, can't reliably produce step cards, and at ~4–5K tokens per message fits only ~2 messages a minute on the Groq free tier. Decision (2026-11-22): mixed mode. Answers are scoped to the **covered services only**; a new service is added by adding it to the graph.
 
 ---
 
@@ -55,6 +60,26 @@ Why split it this way:
 | — | Outside scope | Service not offered in that city → say so, name the city's office to ask | Rulebook | `not_covered` |
 
 The person can ask a question (stage 7) at any point; the chat then returns to where it was.
+
+### Typed text (Milestone 3)
+
+```
+typed text
+  ├─ number / exact option word ("2", "yes", "oo")  → plain code, no AI
+  └─ anything else → AI front door (small model) → one action, checked by code:
+       answer_option   "not yet, doctor hasn't signed"   → "Got it: No", continue
+       unsure          "maybe", "ewan"                   → explain what each option changes
+       ask             "what do I need in Marikina?"     → cited answer (works with no journey too)
+       pick_service    "actually I need a senior ID"     → start / confirm switching
+       set_city        "we're in Marikina"               → set the city
+       back / restart                                    → undo last answer / start over
+       out_of_scope_service  "how do I get a cedula?"    → fixed "not covered yet" + services list
+       chitchat        "hi", "thanks"                    → fixed friendly text
+```
+
+- Code checks every AI field: options must exist, services must be in the graph, cities go through city matching.
+- AI down or rate limited → the Milestone 1 plain-code behaviour.
+- The open question is always shown again after a side-trip.
 
 ### How the typed city is understood
 
@@ -83,6 +108,10 @@ The brain never prints text or draws UI. It returns a list of **events**. Each s
 | `step` | One step in detail | Step box | Step card + "Next step" |
 | `answer` | AI answer + sources | Text + `[source, page]` | Answer bubble + citation links |
 | `not_covered` | Outside what we know: "&lt;City&gt; will be covered soon.", or a service a city doesn't offer (+ office to ask) | Message (+ office) | Same |
+| `actions` | Buttons: start over, view roadmap, (M3) get the full guide | `[s] start over` hints | Buttons |
+| `explain` (M3) | What each option of the open question changes | Small box | Card under the question |
+
+New inputs in Milestone 3: `back` (undo the last answer). New action: `start_journey { intent, city }`.
 
 **Why this matters:** the brain is built and tested once. The terminal and the web UI are two thin "screens" over the same events.
 
@@ -226,7 +255,7 @@ Fixes after review (2026-11-22):
 | 9 | API server: Hono on `wrangler dev` | Terminal chat runs against the local API instead of in-process | ✅ `/api/turn`, `/api/intent`, `/api/roadmap`, `/api/ask`, `/api/health`; Zod checks, 16 KB limit, rate limits, CORS. Bundle 413 KB gzipped |
 | 10 | Polish: Filipino for graph content, rate limits, citation checks, size limits | Tests pass for each | ✅ 98 Filipino entries; evidence-link fix at the source; fallbacks; 40-case real-model check; README |
 
-Decisions made for Milestone 2 (2026-11-22): search only what the graph cites (plus neighbouring pages); complete answers first, streaming later with the web UI; real-AI checks only via `npm run eval`, never in `npm test`; always confirm an AI service guess.
+Decisions made for Milestone 2 (2026-11-22): search only what the graph cites (plus neighbouring pages; replaced by whole service sections in step 10c); complete answers first, streaming later with the web UI; real-AI checks only via `npm run eval`, never in `npm test`; always confirm an AI service guess.
 
 Notes from Milestone 2:
 - **Answers are grounded in three layers:** (1) search returns only same-city passages; (2) the prompt allows only facts the sources state, with three statuses: `answered`, `partial` (a rule like "based on the Schedule of Fees"), `not_in_sources`; (3) the server keeps only citations it actually sent. No valid source → "I couldn't find that … please ask <office>" (never an online portal).
@@ -234,6 +263,20 @@ Notes from Milestone 2:
 - **Real-model check (`npm run eval`):** last full run before the daily limit: 38/40, with the two remaining cases since fixed and confirmed individually (via the fallback model). Re-run the full set once the limit resets.
 - `.dev.vars` is read by the terminal tools; `wrangler dev` reads it too.
 - Translations live in `knowledge/translations/tl.json` (each entry keeps the English it came from; stale ones are dropped at build and listed by the validator).
+
+### Milestone 3: conversational chat — in progress
+
+Decisions (2026-11-22): AI front door for all typed text; numbers and exact option words skip the AI; chitchat replies are fixed text; answers only for covered services, but from their **whole** charter sections.
+
+| Step | Build | Done when | Status |
+|---|---|---|---|
+| 10c | **Complete passages for covered services.** Each service in the Python data gets `sections: [{source, from_page, to_page}]` (where its process starts and ends in the charter). The validator checks every cited page falls inside a section and no section uses an old edition. The search index uses whole sections instead of cited pages ±2 | Every passage belongs to a covered service; later parts of a process (e.g. claiming the ID) are found | ✅ 230 passages (was 294): off-topic neighbour pages and the superseded editions dropped; whole sections added (e.g. QC Admission of Paternity, DBO pp. 6–8). Validator 0 errors, 0 warnings, 27/27; 258 tests |
+| 10d | **Explain + back (no AI).** `explain.ts` compares the roadmap under each option; `explain` event; `back` input; unsure words ("maybe", "ewan") explain offline | Every question gets an explanation; back works anywhere | |
+| 10e | **AI front door.** `llm/route.ts` (small model) → checked action; `State.history` (last 6 messages, 300 chars each); fallbacks to plain code | Every action tested with a fake model; "yes" makes no AI call | |
+| 10f | **Consultation mode.** Questions work with no journey; service and city taken from the message; asks the city when needed; "Get the full guide" action; uncovered services get the fixed "not covered yet" | Consultation, follow-ups and out-of-scope tested | |
+| 10g | **Eval + docs.** ~20 routing cases, ~6 out-of-scope cases, 2 later-in-process cases (EN + FIL); PLAN and README | `npm test` passes; eval ≥ 90% | |
+
+Watch-outs: a typed question costs 2 AI calls (quota matters more for launch); ~1 s added per typed message; section page ranges are drafted by hand and checked by the validator.
 
 ### Later
 
@@ -353,7 +396,7 @@ All items below are decided (2026-11-22).
 | `tools/__pycache__/*.pyc` tracked in git | **Approved.** Remove from git during the restructure |
 | Empty `_tmp/` folder | **Approved.** Delete |
 | Human review of the knowledge base | **Deferred.** Doesn't block the build. See `knowledge/phase0/review_list.md` |
-| AI quota for launch | **Open.** Groq free tier's daily token limit was reached during testing. Options: Workers AI as a third fallback, a paid Groq tier, AI Gateway caching (on). Decide before public launch |
+| AI quota for launch | **Open, more pressing from Milestone 3** (each typed message uses the AI). Groq free tier's daily token limit was reached during testing. Options: Workers AI as a third fallback, a paid Groq tier, AI Gateway caching (on). Decide before public launch |
 | Full `npm run eval` re-run | **Open.** Re-run once the Groq daily limit resets (last full run 38/40; both failures since fixed and checked individually) |
 | Streaming answers | **Later**, with the web UI (`useChat`). Answers are complete JSON for now so the citation check is simple |
 

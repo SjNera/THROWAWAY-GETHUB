@@ -22,6 +22,17 @@ def register_sources(city, d):
     for k, v in d.items():
         assert k not in SOURCES, 'duplicate source ' + k
         v['city'] = city; SOURCES[k] = v
+def superseded(*ids):
+    """Older editions kept only to cross-check: never searched or used for sections."""
+    for k in ids: SOURCES[k]['superseded'] = True
+
+def S(src, from_page=1, to_page=None):
+    """Where a service's process is written in a source: pages from_page..to_page (web pages: page 1 = the whole page)."""
+    return dict(source=src, from_page=from_page, to_page=to_page or from_page)
+def set_sections(SERVICES, sections):
+    missing = set(SERVICES) - set(sections)
+    assert not missing, f'services without sections: {sorted(missing)}'
+    for sid, secs in sections.items(): SERVICES[sid]['sections'] = secs
 
 def norm(s):
     s = s.replace('�', "'").replace('’', "'").replace('‘', "'").replace('“', '"').replace('”', '"')

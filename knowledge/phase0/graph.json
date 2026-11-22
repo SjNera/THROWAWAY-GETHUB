@@ -208,6 +208,7 @@
    "office": "multi",
    "edition": "2022 (cross-check only; superseded by 2024 office charters)",
    "city": "mkn",
+   "superseded": true,
    "sha256": "21e4d8611345bab81d3b8c26a98aaf0de0fe7268a4cd504102d7ce032f41223e",
    "pdf_pages": 364,
    "local_file": "mkn-charters/MARIKINA-2022-Citizens-Charter.pdf",
@@ -286,6 +287,7 @@
    "office": "bplo",
    "edition": "2021 1st Ed. (superseded by 2026)",
    "city": "mkn",
+   "superseded": true,
    "sha256": "608db41d29ee21e03ee6cc087677b7664cfc68502060d8e757119fc16bb8a821",
    "pdf_pages": 29,
    "local_file": "mkn-charters/BPLO-CITIZENS-CHARTER-2021-1st-Ed.pdf",
@@ -948,6 +950,13 @@
      ]
     }
    ],
+   "sections": [
+    {
+     "source": "qc-guide-pwd-id",
+     "from_page": 1,
+     "to_page": 1
+    }
+   ],
    "question_keys": [],
    "city": "qc"
   },
@@ -1108,6 +1117,18 @@
      ]
     }
    ],
+   "sections": [
+    {
+     "source": "pdao-pwd-service-2025",
+     "from_page": 1,
+     "to_page": 5
+    },
+    {
+     "source": "qc-guide-pwd-id",
+     "from_page": 1,
+     "to_page": 1
+    }
+   ],
    "question_keys": [
     "channel",
     "qc.disability_type",
@@ -1200,6 +1221,18 @@
       "Hintayin ang email na nagsasabing handa nang kunin ang kopya",
       "Kunin sa CCRD at magbayad sa City Treasurer’s Office"
      ]
+    }
+   ],
+   "sections": [
+    {
+     "source": "ccrd-ctc-birth",
+     "from_page": 1,
+     "to_page": 1
+    },
+    {
+     "source": "ccrd-ctc-online",
+     "from_page": 1,
+     "to_page": 1
     }
    ],
    "question_keys": [
@@ -1320,6 +1353,18 @@
      ]
     }
    ],
+   "sections": [
+    {
+     "source": "ccrd-charter-2025",
+     "from_page": 5,
+     "to_page": 7
+    },
+    {
+     "source": "ccrd-charter-2025",
+     "from_page": 29,
+     "to_page": 30
+    }
+   ],
    "question_keys": [
     "channel",
     "qc.has_eservices_account",
@@ -1361,6 +1406,18 @@
       "Ipakita ang aprubadong Computerized Business Tax Bill sa payment counter",
       "Magbayad; tanggapin ang computerized business tax official receipt"
      ]
+    }
+   ],
+   "sections": [
+    {
+     "source": "cto-business-tax-2024",
+     "from_page": 1,
+     "to_page": 1
+    },
+    {
+     "source": "bpld-charter-2025",
+     "from_page": 7,
+     "to_page": 7
     }
    ],
    "question_keys": [],
@@ -1419,6 +1476,18 @@
       "Ilagay ang Mayor’s Permit number at ang OR ng business tax ngayong taon; isumite ang mga requirement",
       "Kunin ang na-renew na permit o ipa-deliver ito"
      ]
+    }
+   ],
+   "sections": [
+    {
+     "source": "bpld-charter-2025",
+     "from_page": 6,
+     "to_page": 7
+    },
+    {
+     "source": "qc-guide-renew-business-permit",
+     "from_page": 1,
+     "to_page": 1
     }
    ],
    "question_keys": [
@@ -1549,6 +1618,13 @@
      ]
     }
    ],
+   "sections": [
+    {
+     "source": "qc-guide-senior-card",
+     "from_page": 1,
+     "to_page": 1
+    }
+   ],
    "question_keys": [
     "channel",
     "qc.has_birth_certificate",
@@ -1640,6 +1716,18 @@
      ]
     }
    ],
+   "sections": [
+    {
+     "source": "dbo-construction-permits",
+     "from_page": 1,
+     "to_page": 12
+    },
+    {
+     "source": "qc-guide-building-permit",
+     "from_page": 1,
+     "to_page": 1
+    }
+   ],
    "question_keys": [
     "qc.has_eservices_account",
     "qc.is_owner",
@@ -1679,6 +1767,13 @@
     }
    ],
    "question_keys": [],
+   "sections": [
+    {
+     "source": "mkn-bplo-faq",
+     "from_page": 1,
+     "to_page": 1
+    }
+   ],
    "city": "mkn"
   },
   "mkn.s-pwd-id": {
@@ -1742,6 +1837,13 @@
     "mkn.has_gov_id",
     "mkn.has_med_cert"
    ],
+   "sections": [
+    {
+     "source": "mkn-cswdo-2024",
+     "from_page": 10,
+     "to_page": 10
+    }
+   ],
    "city": "mkn"
   },
   "mkn.s-senior-id": {
@@ -1801,6 +1903,13 @@
     "mkn.has_valid_id",
     "is_representative"
    ],
+   "sections": [
+    {
+     "source": "mkn-osca-2024",
+     "from_page": 3,
+     "to_page": 3
+    }
+   ],
    "city": "mkn"
   },
   "mkn.s-birth-ctc": {
@@ -1853,6 +1962,13 @@
    ],
    "question_keys": [
     "is_representative"
+   ],
+   "sections": [
+    {
+     "source": "mkn-ccro-2024",
+     "from_page": 16,
+     "to_page": 16
+    }
    ],
    "city": "mkn"
   },
@@ -1921,6 +2037,13 @@
    "question_keys": [
     "parents_married",
     "within_30_days"
+   ],
+   "sections": [
+    {
+     "source": "mkn-ccro-2024",
+     "from_page": 5,
+     "to_page": 5
+    }
    ],
    "city": "mkn",
    "exit_message_tl": "Ang pagpaparehistro lampas sa 30 araw ay dumadaan sa late-registration na proseso. Makipag-ugnayan sa City Civil Registry Office (Window 5)."
@@ -2026,6 +2149,18 @@
     "mkn.has_portal_account",
     "is_representative"
    ],
+   "sections": [
+    {
+     "source": "mkn-bplo-2026",
+     "from_page": 7,
+     "to_page": 9
+    },
+    {
+     "source": "mkn-bplo-faq",
+     "from_page": 1,
+     "to_page": 1
+    }
+   ],
    "city": "mkn"
   },
   "mkn.s-building-permit": {
@@ -2096,6 +2231,13 @@
     }
    ],
    "question_keys": [],
+   "sections": [
+    {
+     "source": "mkn-obo-2024",
+     "from_page": 3,
+     "to_page": 3
+    }
+   ],
    "city": "mkn"
   }
  },

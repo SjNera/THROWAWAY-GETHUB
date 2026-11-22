@@ -2,10 +2,11 @@
 // What goes in (decided 2026-11-22):
 //   - fact cards: one per service option, from the graph (name, office, fee, time, what to bring, steps, notes)
 //   - evidence quotes: the graph's checked quotes, labelled with what they support
-//   - charter pages: pages the graph cites, plus 2 pages either side (cited pages only for cross-check sources);
-//     short service sheets and web guides in full. Long pages are split into overlapping parts.
+//   - charter pages: every page of each covered service's sections (graph `services[*].sections`: where the whole
+//     process is written), so later parts of a process are found too. Nothing outside the covered services, and
+//     never a superseded edition. Long pages are split into overlapping parts.
 import { createHash } from "node:crypto";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import MiniSearch from "minisearch";
 import { itemReqIds } from "../core/engine";
@@ -13,9 +14,6 @@ import type { Graph } from "../core/graph";
 import type { Corpus, Passage } from "./corpus";
 import { MINI_OPTIONS, squash } from "./text";
 
-/** Sources only used to cross-check another source: index the cited pages only, no neighbours. */
-const CROSS_CHECK_ONLY = new Set(["mkn-charter-2022"]);
-const NEIGHBOURS = 2;
 const PART_CHARS = 1400;
 const PART_OVERLAP = 250;
 
@@ -46,7 +44,9 @@ function labelForRef(g: Graph, ref: string): string {
 
 function factCards(g: Graph): Passage[] {
   const evByRef = new Map<string, number[]>();
-  g.evidence.forEach((e, i) => evByRef.set(e.ref, [...(evByRef.get(e.ref) ?? []), i]));
+  g.evidence.forEach((e, i) => {
+    if (!isSuperseded(g, e.source)) evByRef.set(e.ref, [...(evByRef.get(e.ref) ?? []), i]);
+  });
   const evFor = (prefix: string) => [...evByRef].filter(([r]) => r === prefix || r.startsWith(`${prefix}:`)).flatMap(([, ids]) => ids);
   const aliases = (sid: string) =>
     Object.values(g.intents)
@@ -111,8 +111,12 @@ function factCards(g: Graph): Passage[] {
   return out;
 }
 
+/** Older editions kept only to cross-check the current ones: never searched or cited in answers. */
+const isSuperseded = (g: Graph, source: string) => g.sources[source]?.superseded === true;
+
 function evidencePassages(g: Graph): Passage[] {
-  return g.evidence.map((e, i) => ({
+  // Ids stay E<index in graph.evidence> (citations rely on it), so filter after mapping.
+  return g.evidence.flatMap((e, i): Passage[] => isSuperseded(g, e.source) ? [] : [{
     id: `E${i}`,
     kind: "evidence",
     city: e.city,
@@ -122,47 +126,38 @@ function evidencePassages(g: Graph): Passage[] {
     page: e.pdf_page,
     services: servicesForRef(g, e.ref),
     evidence: [i],
-  }));
+  }]);
+}
+
+/** Every (source, page) inside a service section, with the services whose sections include it. */
+export function sectionPages(g: Graph): Map<string, Map<number, Set<string>>> {
+  const out = new Map<string, Map<number, Set<string>>>();
+  for (const [sid, s] of Object.entries(g.services))
+    for (const sec of s.sections ?? []) {
+      if (isSuperseded(g, sec.source)) continue;
+      const pages = out.get(sec.source) ?? new Map<number, Set<string>>();
+      for (let p = sec.from_page; p <= sec.to_page; p++) pages.set(p, (pages.get(p) ?? new Set<string>()).add(sid));
+      out.set(sec.source, pages);
+    }
+  return out;
 }
 
 function pagePassages(g: Graph, knowledgeDir: string): Passage[] {
-  // Which pages each source cites, and which services those citations are about.
-  const cited = new Map<string, Map<number, Set<string>>>();
-  for (const e of g.evidence) {
-    const pages = cited.get(e.source) ?? new Map<number, Set<string>>();
-    const svcs = pages.get(e.pdf_page) ?? new Set<string>();
-    for (const s of servicesForRef(g, e.ref)) svcs.add(s);
-    pages.set(e.pdf_page, svcs);
-    cited.set(e.source, pages);
-  }
-
   const out: Passage[] = [];
-  for (const [sourceId, pages] of [...cited].sort(([a], [b]) => a.localeCompare(b))) {
+  for (const [sourceId, pages] of [...sectionPages(g)].sort(([a], [b]) => a.localeCompare(b))) {
     const src = g.sources[sourceId]!;
     const title = typeof src.title === "string" ? src.title : sourceId;
     const texts = new Map<number, string>();
-    if (src.type === "pdf") {
-      const dir = join(knowledgeDir, "extract", src.file);
-      const files = readdirSync(dir).filter((f) => /^p\d+\.txt$/.test(f));
-      const total = files.length;
-      const want = new Set<number>();
-      const n = CROSS_CHECK_ONLY.has(sourceId) ? 0 : NEIGHBOURS;
-      for (const p of pages.keys()) for (let q = p - n; q <= p + n; q++) if (q >= 1 && q <= total) want.add(q);
-      for (const p of want) {
-        const f = join(dir, `p${String(p).padStart(3, "0")}.txt`);
-        if (existsSync(f)) texts.set(p, readFileSync(f, "utf-8"));
-      }
-    } else {
-      const f = join(knowledgeDir, "extract", "html", src.file);
-      if (existsSync(f)) texts.set(1, readFileSync(f, "utf-8"));
+    for (const p of pages.keys()) {
+      const f = src.type === "pdf" ? join(knowledgeDir, "extract", src.file, `p${String(p).padStart(3, "0")}.txt`) : join(knowledgeDir, "extract", "html", src.file);
+      if (!existsSync(f)) throw new Error(`Section page missing: ${sourceId} p. ${p} (${f})`);
+      texts.set(p, readFileSync(f, "utf-8"));
     }
 
     for (const [p, raw] of [...texts].sort(([a], [b]) => a - b)) {
       const text = squash(raw);
       if (text.length < 40) continue;
-      // Services: from citations on this page or its neighbours.
-      const svcs = new Set<string>();
-      for (const [cp, s] of pages) if (Math.abs(cp - p) <= NEIGHBOURS) for (const x of s) svcs.add(x);
+      const svcs = pages.get(p)!;
       const parts: string[] = [];
       if (text.length <= PART_CHARS + PART_OVERLAP) parts.push(text);
       else for (let i = 0; i < text.length; i += PART_CHARS - PART_OVERLAP) parts.push(text.slice(i, i + PART_CHARS));

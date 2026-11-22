@@ -62,6 +62,28 @@ for sid, s in g['services'].items():
         if k not in g['questions']: E(f'{sid}: exit_if uses unknown question {k}')
 for qk, q in g['questions'].items():
     if q.get('city') not in ('all', *CITIES): E(f'question {qk}: bad city tag')
+
+# 1b sections: where each service's process is written (the search index is built from these pages only)
+in_section = {}   # (source, page) -> services whose sections include it
+for sid, s in g['services'].items():
+    secs = s.get('sections') or []
+    if not secs: E(f'{sid}: no sections')
+    for x in secs:
+        src = g['sources'].get(x['source'])
+        if not src: E(f'{sid}: section uses unknown source {x["source"]}'); continue
+        if src['city'] != s['city']: E(f'{sid}: section source {x["source"]} belongs to another city')
+        if src.get('superseded'): E(f'{sid}: section uses superseded source {x["source"]}')
+        last = src.get('pdf_pages', 1) if src['type'] == 'pdf' else 1
+        if not (1 <= x['from_page'] <= x['to_page'] <= last): E(f'{sid}: section {x["source"]} pp. {x["from_page"]}-{x["to_page"]} outside 1-{last}')
+        for p in range(x['from_page'], x['to_page'] + 1): in_section.setdefault((x['source'], p), set()).add(sid)
+# Every page the graph cites (except office contact details and superseded cross-checks) must be inside a section.
+for e in g['evidence']:
+    src = g['sources'].get(e['source'])
+    if e['ref'].startswith('office:') or not src or src.get('superseded') or e['pdf_page'] is None: continue
+    if (e['source'], e['pdf_page']) not in in_section: E(f'evidence {e["ref"]}: {e["source"]} p. {e["pdf_page"]} is not inside any service section')
+    elif e['ref'].startswith('svc:'):
+        sid = e['ref'].split(':')[1]
+        if sid not in in_section[(e['source'], e['pdf_page'])]: W(f'evidence {e["ref"]}: {e["source"]} p. {e["pdf_page"]} is in another service\'s section')
 # 2 cycles
 def cyc(n, path):
     if n in path: E('cycle: ' + ' > '.join(path + [n])); return

@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { graph as g } from "../src/core/graph";
-import { buildCorpus } from "../src/search/build";
+import { buildCorpus, sectionPages } from "../src/search/build";
 import { corpusInfo, search } from "../src/search/search";
 
 /**
@@ -30,6 +30,9 @@ const CASES: { q: string; city: string; ok: string[] }[] = [
   { q: "how old do I need to be for a senior citizen ID", city: "qc", ok: ["E64", "F:qc.s-senior-id"] },
   { q: "PWD ID medical certificate from a doctor", city: "mkn", ok: ["E88", "P:mkn-cswdo-2024:10", "F:mkn.s-pwd-id"] },
   { q: "what is the phone number of the PWD office", city: "qc", ok: ["E1", "F:qc.s-pwd-id"] },
+  // Pages the graph doesn't cite but that are inside a covered service's section (step 10c)
+  { q: "how much does admission of paternity cost", city: "qc", ok: ["P:ccrd-charter-2025:29", "P:ccrd-charter-2025:30"] },
+  { q: "supporting technical documents signed and sealed", city: "qc", ok: ["P:dbo-construction-permits:6", "P:dbo-construction-permits:7", "P:dbo-construction-permits:8"] },
 ];
 
 const matches = (id: string, ok: string[]) => ok.some((o) => id === o || id.startsWith(`${o}:`));
@@ -73,6 +76,33 @@ describe("search: behaviour", () => {
         expect(g.sources[p.source!], p.id).toBeTruthy();
         expect(p.page).toBeGreaterThan(0);
       }
+  });
+});
+
+describe("search: scope (covered services only)", () => {
+  const all = buildCorpus(g, join(import.meta.dirname, "..", "knowledge")).passages;
+  const inSection = sectionPages(g);
+
+  it("every charter page passage lies inside a section of each service it's tagged with", () => {
+    for (const p of all.filter((x) => x.kind === "page")) {
+      expect(p.services.length, p.id).toBeGreaterThan(0);
+      for (const sid of p.services) expect(inSection.get(p.source!)?.get(p.page!)?.has(sid), `${p.id} → ${sid}`).toBe(true);
+    }
+  });
+
+  it("every passage is about a service in the graph", () => {
+    for (const p of all.filter((x) => x.kind !== "evidence")) for (const sid of p.services) expect(g.services[sid], p.id).toBeTruthy();
+  });
+
+  it("never indexes a superseded edition", () => {
+    const old = Object.entries(g.sources).filter(([, s]) => s.superseded).map(([id]) => id);
+    expect(old.length).toBeGreaterThan(0); // the 2022 Marikina omnibus charter and the 2021 BPLO charter
+    for (const p of all) expect(old, p.id).not.toContain(p.source);
+    for (const p of all.filter((x) => x.kind === "fact")) for (const i of p.evidence) expect(old, p.id).not.toContain(g.evidence[i]!.source);
+  });
+
+  it("every service has at least one section", () => {
+    for (const [sid, s] of Object.entries(g.services)) expect(s.sections.length, sid).toBeGreaterThan(0);
   });
 });
 

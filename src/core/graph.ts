@@ -70,6 +70,14 @@ export interface Service {
   exit_message?: string;
   exit_message_tl?: string;
   exit_office?: string;
+  /** Where the whole process is written in the charters (the search index uses these pages only). */
+  sections: Section[];
+}
+
+export interface Section {
+  source: string;
+  from_page: number;
+  to_page: number;
 }
 
 export interface Intent {
@@ -102,6 +110,8 @@ export interface Source {
   file: string;
   title?: string;
   url?: string;
+  /** An older edition kept only to cross-check: never searched. */
+  superseded?: boolean;
   [key: string]: unknown;
 }
 

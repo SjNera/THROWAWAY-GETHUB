@@ -157,6 +157,7 @@ mkn-charter-2022:
   office: multi
   edition: 2022 (cross-check only; superseded by 2024 office charters)
   city: mkn
+  superseded: true
   sha256: 21e4d8611345bab81d3b8c26a98aaf0de0fe7268a4cd504102d7ce032f41223e
   pdf_pages: 364
   local_file: mkn-charters/MARIKINA-2022-Citizens-Charter.pdf
@@ -229,6 +230,7 @@ mkn-bplo-2021:
   office: bplo
   edition: 2021 1st Ed. (superseded by 2026)
   city: mkn
+  superseded: true
   sha256: 608db41d29ee21e03ee6cc087677b7664cfc68502060d8e757119fc16bb8a821
   pdf_pages: 29
   local_file: mkn-charters/BPLO-CITIZENS-CHARTER-2021-1st-Ed.pdf
