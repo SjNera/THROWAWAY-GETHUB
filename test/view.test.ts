@@ -50,6 +50,7 @@ describe("buildRoadmapView", () => {
     expect(goal.citations.length).toBeGreaterThan(0);
     expect(goal.citations[0]!.url).toMatch(/#page=\d+$/);
     expect(goal.after).toEqual(goal.bring.map((b) => steps(v).find((s) => s.id === b.id)!.number).sort((a, b) => a - b));
+    for (const b of goal.bring) expect(b.step).toBe(steps(v).find((s) => s.id === b.id)!.number);
   });
 
   it("M9 Marikina online renewal: portal sign-up comes before the renewal", () => {

@@ -18,6 +18,8 @@ export interface Citation {
 export interface BringItem {
   id: string;
   label: string;
+  /** The roadmap step that gets you this item. */
+  step: number | null;
 }
 
 export interface Where {
@@ -186,6 +188,7 @@ export function buildRoadmapView(g: Graph, intentId: string, answers: Answers, r
         bring: s.needs.map((id) => ({
           id,
           label: g.requirements[id] ? g.requirements[id]!.name : issuedItemName(g, id),
+          step: numberOf.get(id) ?? null,
         })),
         fee: formatFee(s.fee, lang),
         time: s.time,
