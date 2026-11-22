@@ -260,11 +260,11 @@ Decisions made for Milestone 2 (2026-11-22): search only what the graph cites (p
 Notes from Milestone 2:
 - **Answers are grounded in three layers:** (1) search returns only same-city passages; (2) the prompt allows only facts the sources state, with three statuses: `answered`, `partial` (a rule like "based on the Schedule of Fees"), `not_in_sources`; (3) the server keeps only citations it actually sent. No valid source → "I couldn't find that … please ask <office>" (never an online portal).
 - **Groq free tier has a daily token limit** for `gpt-oss-120b`. It was reached after several full `npm run eval` runs in one day. Fallbacks: JSON-mode retry when strict output fails; the smaller `gpt-oss-20b` (separate quota) when the answer model is rate limited; and if both fail, "I can't answer questions right now" while the steps keep working. For launch, consider Workers AI as a third fallback or a paid Groq tier, and keep AI Gateway caching on.
-- **Real-model check (`npm run eval`):** last full run before the daily limit: 38/40, with the two remaining cases since fixed and confirmed individually (via the fallback model). Re-run the full set once the limit resets.
+- **Real-model check (`npm run eval`):** last full run before the daily limit: 38/40, with the two remaining cases since fixed and confirmed individually (via the fallback model). Re-run in Milestone 3, step 10g.
 - `.dev.vars` is read by the terminal tools; `wrangler dev` reads it too.
 - Translations live in `knowledge/translations/tl.json` (each entry keeps the English it came from; stale ones are dropped at build and listed by the validator).
 
-### Milestone 3: conversational chat — in progress
+### Milestone 3: conversational chat — ✅ done 2026-11-23
 
 Decisions (2026-11-22): AI front door for all typed text; numbers and exact option words skip the AI; chitchat replies are fixed text; answers only for covered services, but from their **whole** charter sections.
 
@@ -274,7 +274,9 @@ Decisions (2026-11-22): AI front door for all typed text; numbers and exact opti
 | 10d | **Explain + back (no AI).** `explain.ts` compares the roadmap under each option; `explain` event; `back` input; unsure words ("maybe", "ewan") explain offline | Every question gets an explanation; back works anywhere | ✅ Effects worked out from the graph (later yes/no questions assumed "no" so nothing needed is hidden; only the main application and extra offices are listed). `back` uses a new `State.order`; works from the roadmap and back to the service list. Terminal: `b`, `?`, `/back`. 285 tests |
 | 10e | **AI front door.** `llm/route.ts` (small model) → checked action; `State.history` (last 6 messages, 300 chars each); fallbacks to plain code | Every action tested with a fake model; "yes" makes no AI call | ✅ 311 tests. Real model: 10/10 sample messages routed right (EN + FIL), ~1 s each. Plain code still handles numbers, exact option words, "not sure", "back", city and service names. AI-picked services are still confirmed; switching says the answers will be cleared. A failed call falls back to plain code with no second AI call |
 | 10f | **Consultation mode.** Questions work with no journey; service and city taken from the message; asks the city when needed; "Get the full guide" action; uncovered services get the fixed "not covered yet" | Consultation, follow-ups and out-of-scope tested | ✅ New `State.consult` (question, service, city) keeps follow-ups in the same city; `consult_city` typed question when the city is unknown; `start_journey` action skips the city question. With the AI on, a question naming a service is answered instead of starting the journey (offline it still starts it). 321 tests. Live: PWD ID → senior ID follow-up in Marikina, both cited; guide started with the city filled in |
-| 10g | **Eval + docs.** ~20 routing cases, ~6 out-of-scope cases, 2 later-in-process cases (EN + FIL); PLAN and README | `npm test` passes; eval ≥ 90% | |
+| 10g | **Eval + docs.** ~20 routing cases, ~6 out-of-scope cases, 2 later-in-process cases (EN + FIL); PLAN and README | `npm test` passes; eval ≥ 90% | ✅ `npm run eval` has a new **Talk** section: 31 whole-turn cases through the real front door (23 routing, 6 out-of-scope, 2 later-in-process), plus `--section`. Full run: **65/71 (92%)**, with every answer on the fallback model (the 120b daily quota ran out mid-run). Fixes found by the eval: with the AI on, only an exact service name skips the AI ("renew my passport" no longer starts business permit renewal); an "out of scope" message that names a covered service ("do I need a cedula for my business permit?") becomes a question about it; prompt hints for situation answers, consultation follow-ups, and alternatives the charter itself lists. 323 tests |
+
+Eval misses left (2026-11-23): "I have stage 2 breast cancer" is read as unsure (safe: it shows the explanation); Marikina "What if I don't have a valid ID?" is declined although OSCA p. 3 lists other documents (untested on the 120b model since the prompt change); QC senior ID fee is answered as "not listed" with sources instead of a plain decline; 2 routing calls timed out under rate limiting.
 
 Watch-outs: a typed question costs 2 AI calls (quota matters more for launch); ~1 s added per typed message; section page ranges are drafted by hand and checked by the validator.
 
@@ -397,7 +399,7 @@ All items below are decided (2026-11-22).
 | Empty `_tmp/` folder | **Approved.** Delete |
 | Human review of the knowledge base | **Deferred.** Doesn't block the build. See `knowledge/phase0/review_list.md` |
 | AI quota for launch | **Open, more pressing from Milestone 3** (each typed message uses the AI). Groq free tier's daily token limit was reached during testing. Options: Workers AI as a third fallback, a paid Groq tier, AI Gateway caching (on). Decide before public launch |
-| Full `npm run eval` re-run | **Open.** Re-run once the Groq daily limit resets (last full run 38/40; both failures since fixed and checked individually) |
+| Full `npm run eval` re-run | **Done 2026-11-23:** 65/71 (92%). The answer cases ran on the fallback model, because the 120b daily quota ran out mid-run. Re-run `--section answers` on a fresh quota to confirm them on the 120b model |
 | Streaming answers | **Later**, with the web UI (`useChat`). Answers are complete JSON for now so the citation check is simple |
 
 ### Working rules for this build

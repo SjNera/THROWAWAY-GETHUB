@@ -4,6 +4,7 @@
 import { z } from "zod";
 import type { Route, RouteContext } from "../core/conversation";
 import type { Graph } from "../core/graph";
+import { matchIntent } from "../core/intent";
 import type { Generate } from "./generate";
 
 export const ROUTE_ACTIONS = [
@@ -44,7 +45,7 @@ export function buildRoutePrompt(g: Graph, text: string, ctx: RouteContext): { s
     "You NEVER answer the person. You only decide what their latest message means, as one action. Messages may be in English, Filipino or Taglish.",
     "",
     "Actions:",
-    '- answer_option: the message answers the open question. Put the matching option value in "option" (e.g. "not yet" / "wala pa" → no; "meron na ako" → yes; "sa personal na lang" → in_person).',
+    '- answer_option: the message answers the open question. Put the matching option value in "option" (e.g. "not yet" / "wala pa" → no; "meron na ako" → yes; "sa personal na lang" → in_person; "I have breast cancer" → cancer_rare when that is an option).',
     "- unsure: they don't know how to answer the open question, or ask what it or its options mean.",
     '- ask: a question about a service, requirement, fee, office, schedule or process. Rewrite it in "question" as ONE complete standalone question in the person\'s language, filling in the service and city from the conversation (e.g. "how about in QC?" → "What do I need for a PWD ID in Quezon City?"). Also put the service id it\'s about in "intent" (or "none"), and the city or municipality it\'s about in "city" (or "") — from the message or the conversation.',
     '- pick_service: they want one of the services listed below, other than the current one. Put its id in "intent".',
@@ -55,9 +56,9 @@ export function buildRoutePrompt(g: Graph, text: string, ctx: RouteContext): { s
     "- chitchat: greetings, thanks, small talk, or anything unrelated to city government services.",
     "",
     "Rules:",
-    "1. If a question is open and the message answers it (even with extra words), choose answer_option.",
+    "1. If a question is open and the message answers it (even with extra words, or by describing their situation in a way that clearly fits one option), choose answer_option.",
     "2. If torn between answer_option and ask, choose ask. Never guess an answer the person didn't give.",
-    '3. A question that only mentions a service ("what do I need for a PWD ID?") is ask, not pick_service. Use pick_service when they say they want or need to do it.',
+    '3. A question that only mentions a service ("what do I need for a PWD ID?") is ask, not pick_service. Use pick_service when they say they want or need to do it. While consulting, a follow-up like "how about the senior ID?" / "eh yung PWD ID?" is ask (fill in the city from the conversation).',
     '4. Fill unused fields with "none" (option, intent) or "" (city, question).',
     "",
     "Services:",
@@ -101,6 +102,11 @@ export function validateRoute(g: Graph, raw: unknown, text: string, ctx: RouteCo
         ...(intent !== "none" && g.intents[intent] ? { intent } : {}),
         ...(city.trim() ? { city: city.trim().slice(0, 100) } : {}),
       };
+    case "out_of_scope_service": {
+      // "Do I need a cedula for my business permit?" names a covered service: it's a question about that service.
+      const named = matchIntent(g, text, { exact: true });
+      return named ? { action: "ask", question: text.slice(0, 1000), intent: named } : { action };
+    }
     default:
       return { action };
   }

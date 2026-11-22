@@ -401,7 +401,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       return true;
     }
     const keys = Object.keys(g.intents);
-    const named = (!s.intent && /^[0-9]+$/.test(text) ? keys[Number(text) - 1] : undefined) ?? matchIntent(g, text);
+    const named = (!s.intent && /^[0-9]+$/.test(text) ? keys[Number(text) - 1] : undefined) ?? matchIntent(g, text, { exact: Boolean(deps.route) });
     // A service name starts it, before a journey or after one ends (mid-journey it may be a question about it).
     // With the AI on, a question that names a service ("what do I need for a PWD ID?") is answered instead.
     if (named && (!s.intent || ended()) && !(deps.route && deps.ask && isQuestionLike(text))) {

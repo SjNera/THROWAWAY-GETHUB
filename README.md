@@ -29,7 +29,8 @@ In the chat: type a service or pick a number, then answer the questions, by numb
 ```
 npm test                      # all tests, offline, no AI calls, free
 npm run typecheck
-npm run eval                  # quality check against the real AI model (uses Groq tokens; ~40 calls)
+npm run eval                  # quality check against the real AI model (uses Groq tokens; ~90 calls)
+npm run eval -- --section talk     # one section: answers (cited answers), talk (how typed messages are read), guesses
 npm run eval -- --only "magkano"   # just matching cases
 npm run ai:ping               # is the AI connection working?
 npm run search -- "can my mom get it for me" --city qc   # try the charter search

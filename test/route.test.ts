@@ -81,6 +81,15 @@ describe("front door: checking the model's output", () => {
     expect(validateRoute(g, raw({ action: "set_city" }), "x", ctxAt(null))).toEqual({ action: "ask", question: "x" });
   });
 
+  it("out_of_scope_service for a message naming a covered service → a question about that service", () => {
+    expect(validateRoute(g, raw({ action: "out_of_scope_service" }), "Do I need a cedula for my business permit?", ctxAt(null))).toEqual({
+      action: "ask",
+      question: "Do I need a cedula for my business permit?",
+      intent: "business-permit-renewal",
+    });
+    expect(validateRoute(g, raw({ action: "out_of_scope_service" }), "how do I get a cedula?", ctxAt(null))).toEqual({ action: "out_of_scope_service" });
+  });
+
   it("garbage → null", () => {
     expect(validateRoute(g, { hello: 1 }, "x", ctxAt(null))).toBeNull();
     expect(validateRoute(g, raw({ action: "launch_rockets" }), "x", ctxAt(null))).toBeNull();
@@ -117,6 +126,15 @@ describe("front door in the conversation", () => {
     const { deps, calls } = door({ action: "chitchat" });
     await run([{ type: "text", text: "PWD ID" }, { type: "text", text: "QC" }, { type: "text", text: "not sure" }, { type: "text", text: "2" }, { type: "text", text: "Apparent (visible)" }, { type: "text", text: "yes" }], deps);
     expect(calls).toEqual([]);
+  });
+
+  it("a loose word match ('renew my passport') goes to the AI; offline it still guesses from the words", async () => {
+    const { deps, calls } = door({ action: "out_of_scope_service" });
+    const on = await run([{ type: "start" }, { type: "text", text: "I want to renew my passport" }], deps);
+    expect(calls).toHaveLength(1);
+    expect(on.state.intent).toBeNull();
+    const off = await run([{ type: "start" }, { type: "text", text: "I want to renew my passport" }]);
+    expect(off.state.intent).toBe("business-permit-renewal");
   });
 
   it("answer_option: says how it understood the reply, then moves on", async () => {

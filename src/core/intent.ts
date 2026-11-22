@@ -16,7 +16,11 @@ const STOP = new Set(
 
 const words = (s: string) => normalize(s).split(" ").filter(Boolean);
 
-export function matchIntent(g: Graph, text: string): string | null {
+/**
+ * The service a text names. `exact` accepts only a whole alias: with the AI front door on, loose word matches
+ * ("renew my passport" → business permit renewal) are left to the AI.
+ */
+export function matchIntent(g: Graph, text: string, opts: { exact?: boolean } = {}): string | null {
   const t = ` ${words(text).join(" ")} `;
   if (!t.trim()) return null;
 
@@ -29,6 +33,7 @@ export function matchIntent(g: Graph, text: string): string | null {
     }
   }
   if (best) return best.intent;
+  if (opts.exact) return null;
 
   // 2. Distinctive words: "senior" → senior ID. Only if exactly one service scores best.
   const tw = new Set(words(text).filter((w) => !STOP.has(w)));

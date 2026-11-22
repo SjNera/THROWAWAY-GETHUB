@@ -83,7 +83,7 @@ export function buildAskPrompt(g: Graph, question: string, ctx: AskContext, sour
     "7. Source text from PDF tables may be jumbled into columns; read carefully and don't invent connections.",
     "8. [S0], if present, describes the person's current roadmap step. Use and cite it only when the answer is about that step itself.",
     "9. If a source gives a rule instead of an amount or time (e.g. 'based on the Schedule of Fees', 'computed by the portal'), say that rule and set status=\"partial\". Use \"partial\" whenever the sources give related facts but not the exact thing asked.",
-    "10. Never state consequences, refusals, exceptions or alternatives (e.g. 'cannot be processed', 'you will be rejected') unless a source says so. If the question asks what happens in a case the sources don't cover, set status=\"not_in_sources\".",
+    "10. Never state consequences, refusals, exceptions or alternatives (e.g. 'cannot be processed', 'you will be rejected') unless a source says so. If the question asks what happens in a case the sources don't cover, set status=\"not_in_sources\". Alternatives a source itself lists (e.g. 'one valid ID or document such as …') are fine to name.",
   ].join("\n");
   const where = [ctx.city ? `City: ${g.cities[ctx.city]?.name}` : "", ctx.intent ? `Service: ${intentLabel(g, ctx.intent)}` : ""].filter(Boolean).join(". ");
   const body = sources.map((s) => `[${s.id}] ${s.title}\n${s.text}`).join("\n\n");
