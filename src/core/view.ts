@@ -115,14 +115,13 @@ export function citation(g: Graph, index: number): Citation {
   };
 }
 
-/** Evidence for a ref. Variant refs in the graph omit the city prefix ("svc:s-pwd-id:…"), so try both forms. */
-function evidenceFor(g: Graph, ref: string, city: string): number[] {
-  const idx = evidenceByRef(g);
-  const direct = idx.get(ref);
-  if (direct) return direct;
-  const m = /^(\w+):(.+)$/.exec(ref);
-  return (m && idx.get(`${m[1]}:${city}.${m[2]}`)) || [];
+function evidenceFor(g: Graph, ref: string): number[] {
+  return evidenceByRef(g).get(ref) ?? [];
 }
+
+/** Filipino when asked for and available, else the English. */
+const pick = (lang: Lang, en: string | null | undefined, tl: string | null | undefined): string | null =>
+  (lang === "fil" && tl ? tl : en) ?? null;
 
 function evidenceWithPrefix(g: Graph, prefix: string): number[] {
   const out: number[] = [];
@@ -163,8 +162,8 @@ export function buildRoadmapView(g: Graph, intentId: string, answers: Answers, r
           bring: [],
           fee: null,
           time: null,
-          hint: s.hint,
-          note: office?.note ?? null,
+          hint: pick(lang, s.hint, r.hint_tl),
+          note: pick(lang, office?.note, office?.note_tl),
           howTo: [],
           after: [],
           citations: evidenceWithPrefix(g, `req:${s.id}`).map((i) => citation(g, i)),
@@ -173,7 +172,7 @@ export function buildRoadmapView(g: Graph, intentId: string, answers: Answers, r
       const variant = pickVariant(g.services[s.id]!, answers);
       const office = g.offices[variant.office]!;
       const ev = [
-        ...Object.values(variant.evidence ?? {}).flatMap((ref) => (typeof ref === "string" ? evidenceFor(g, ref, city) : [])),
+        ...Object.values(variant.evidence ?? {}).flatMap((ref) => (typeof ref === "string" ? evidenceFor(g, ref) : [])),
         ...evidenceWithPrefix(g, `office:${variant.office}`),
       ];
       const channel = s.channel === "online" || s.channel === "in_person" ? s.channel : null;
@@ -193,8 +192,8 @@ export function buildRoadmapView(g: Graph, intentId: string, answers: Answers, r
         fee: formatFee(s.fee, lang),
         time: s.time === NOT_LISTED ? t("not_listed", lang) : s.time,
         hint: null,
-        note: s.note,
-        howTo: variant.detail_steps ?? [],
+        note: pick(lang, s.note, variant.note_tl),
+        howTo: (variant.detail_steps ?? []).map((step, i) => pick(lang, step, variant.detail_steps_tl?.[i]) ?? step),
         after: s.needs.map((id) => numberOf.get(id)!).sort((x, y) => x - y),
         citations: [...new Set(ev)].sort((x, y) => x - y).map((i) => citation(g, i)),
       };

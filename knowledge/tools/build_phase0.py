@@ -40,6 +40,26 @@ for code, c in CITIES.items():
             if a not in t['aliases_tl']: t['aliases_tl'].append(a)
 cities = {code: dict(name=c['name'], fallback_office=c['fallback_office'], aliases=c.get('aliases', [])) for code, c in CITIES.items()}
 
+# Filipino for graph content (translations/tl.json). An entry is used only if its English still matches the
+# graph; otherwise it's stale and left out (the app shows English, and validate.py lists what's missing).
+from make_translations import english_strings
+TL_FILE = os.path.join(os.path.dirname(OUT), 'translations', 'tl.json')
+tl_entries = json.load(open(TL_FILE, encoding='utf-8'))['entries'] if os.path.exists(TL_FILE) else {}
+current_en = english_strings(dict(services=svcs, requirements=reqs, offices=offices))
+stale = [k for k, e in tl_entries.items() if k in current_en and e['en'] != current_en[k]]
+use = {k: e['tl'] for k, e in tl_entries.items() if current_en.get(k) == e['en'] and e.get('tl')}
+for k, s in svcs.items():
+    if f'service:{k}:exit_message' in use: s['exit_message_tl'] = use[f'service:{k}:exit_message']
+    for v in s['variants']:
+        base = f'service:{k}:{v["channel"]}'
+        if f'{base}:note' in use: v['note_tl'] = use[f'{base}:note']
+        if v['detail_steps']: v['detail_steps_tl'] = [use.get(f'{base}:step:{i + 1}') for i in range(len(v['detail_steps']))]
+for k, r in reqs.items():
+    if f'requirement:{k}:hint' in use: r['hint_tl'] = use[f'requirement:{k}:hint']
+for k, o in offices.items():
+    if f'office:{k}:note' in use: o['note_tl'] = use[f'office:{k}:note']
+print(f'translations: {len(use)}/{len(current_en)} used, {len(stale)} stale' + (f' ({", ".join(stale[:5])}…)' if stale else ''))
+
 L.finalize_status(EVID)
 L.finalize_sources()
 graph = dict(meta=dict(version='0.2-phase0-multicity', built=TODAY, cities=list(CITIES),

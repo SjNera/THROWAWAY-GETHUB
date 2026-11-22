@@ -23,6 +23,7 @@ export interface Office {
   url?: string | null;
   external?: boolean;
   note?: string | null;
+  note_tl?: string;
 }
 
 export interface Requirement {
@@ -35,6 +36,7 @@ export interface Requirement {
   /** Answer key whose value "yes" means the person already has it (skips the issuing service). */
   owned_key?: string;
   hint?: string | null;
+  hint_tl?: string;
   applicant?: string | null;
 }
 
@@ -51,8 +53,11 @@ export interface Variant {
   requires: RequireItem[];
   url: string | null;
   detail_steps: string[];
+  /** Filipino for each step (null where not translated yet). */
+  detail_steps_tl?: (string | null)[];
   evidence: Record<string, unknown>;
   note: string | null;
+  note_tl?: string;
 }
 
 export interface Service {
@@ -63,6 +68,7 @@ export interface Service {
   city: string;
   exit_if?: Record<string, string>;
   exit_message?: string;
+  exit_message_tl?: string;
   exit_office?: string;
 }
 

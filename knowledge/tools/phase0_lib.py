@@ -89,6 +89,9 @@ def namespace(city, OFFICES, REQ, SERVICES, QUESTIONS, EVID_slice):
         s.pop('extra_question_keys', None)
         for v in s['variants']:
             v['office'] = p(v['office'])
+            # evidence refs point at evidence records, whose ids are prefixed below: prefix these the same way
+            v['evidence'] = {f: (None if r is None else ':'.join([r.split(':')[0], p(r.split(':')[1]), *r.split(':')[2:]]))
+                             for f, r in v.get('evidence', {}).items()}
             for it in v['requires']:
                 it['when'] = cond(it['when']); it['skip_if'] = cond(it['skip_if'])
                 if 'req' in it: it['req'] = p(it['req'])

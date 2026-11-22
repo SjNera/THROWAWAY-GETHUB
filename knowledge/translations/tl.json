@@ -1,0 +1,495 @@
+{
+ "_about": "Filipino (Tagalog) for graph content. DRAFT pending review by a Filipino speaker. Each entry keeps the English it was translated from (\"en\"); if the English changes, the validator reports the entry as stale. Official office and document names stay in English on purpose.",
+ "entries": {
+  "office:mkn.barangay:note": {
+   "en": "Not covered by the Marikina charters read; confirm with your barangay.",
+   "tl": "Hindi sakop ng mga nabasang Marikina charter; kumpirmahin sa iyong barangay.",
+   "status": "draft"
+  },
+  "office:mkn.cpdo:note": {
+   "en": "Issues the Locational Clearance; not modelled in this graph.",
+   "tl": "Nag-iisyu ng Locational Clearance; hindi kasama sa graph na ito.",
+   "status": "draft"
+  },
+  "office:mkn.obo:note": {
+   "en": "Address and phone are not stated in the sources read; confirm with City Hall.",
+   "tl": "Hindi nakasaad sa mga nabasang source ang address at telepono; kumpirmahin sa City Hall.",
+   "status": "draft"
+  },
+  "office:mkn.pdao:note": {
+   "en": "Address and phone are not stated in the sources read; confirm with CSWDO / City Hall.",
+   "tl": "Hindi nakasaad sa mga nabasang source ang address at telepono; kumpirmahin sa CSWDO / City Hall.",
+   "status": "draft"
+  },
+  "office:qc.barangay:note": {
+   "en": "Not covered by QC charters; confirm requirements and fees with your barangay.",
+   "tl": "Hindi sakop ng mga QC charter; kumpirmahin sa iyong barangay ang mga requirement at bayad.",
+   "status": "draft"
+  },
+  "requirement:mkn.r-colb-form102:hint": {
+   "en": "From the hospital, lying-in clinic or other birthing facility.",
+   "tl": "Mula sa ospital, lying-in clinic o ibang birthing facility.",
+   "status": "draft"
+  },
+  "requirement:mkn.r-eboss:hint": {
+   "en": "Check your compliance status on the E-BOSS portal: https://bplo.marikina.gov.ph/client",
+   "tl": "Tingnan ang iyong compliance status sa E-BOSS portal: https://bplo.marikina.gov.ph/client",
+   "status": "draft"
+  },
+  "requirement:mkn.r-med-cert:hint": {
+   "en": "From a medical doctor, ophthalmologist, neurologist or orthopedic doctor.",
+   "tl": "Mula sa medical doctor, ophthalmologist, neurologist o orthopedic doctor.",
+   "status": "draft"
+  },
+  "requirement:mkn.r-osca-form:hint": {
+   "en": "Obtained from OSCA.",
+   "tl": "Makukuha sa OSCA.",
+   "status": "draft"
+  },
+  "requirement:mkn.r-public-liability:hint": {
+   "en": "From any accredited insurance company (City Ordinance No. 32, Series of 2013).",
+   "tl": "Mula sa kahit anong accredited na insurance company (City Ordinance No. 32, Series of 2013).",
+   "status": "draft"
+  },
+  "requirement:qc.r-cert-disability:hint": {
+   "en": "Must be signed by the specialist for your disability type, not a family doctor or general physician.",
+   "tl": "Dapat pirmado ng specialist para sa uri ng iyong disability, hindi ng family doctor o general physician.",
+   "status": "draft"
+  },
+  "requirement:qc.r-colb-4:hint": {
+   "en": "From the hospital, maternity/lying-in clinic or birthing facility.",
+   "tl": "Mula sa ospital, maternity/lying-in clinic o birthing facility.",
+   "status": "draft"
+  },
+  "service:mkn.s-birth-ctc:in_person:note": {
+   "en": "Records registered at the Marikina City Civil Registry only. The same fee is shown for birth, marriage and death copies. Walk-in only in the sources read.",
+   "tl": "Para lamang sa mga rekord na nakarehistro sa Marikina City Civil Registry. Pareho ang bayad para sa kopya ng birth, marriage at death. Walk-in lamang ayon sa mga nabasang source.",
+   "status": "draft"
+  },
+  "service:mkn.s-birth-ctc:in_person:step:1": {
+   "en": "Fill out the request form at LCRO Window 4 and submit it; the verifier checks availability in the database and issues the order of payment",
+   "tl": "Punan ang request form sa LCRO Window 4 at isumite; titingnan ng verifier kung nasa database ito at magbibigay ng order of payment",
+   "status": "draft"
+  },
+  "service:mkn.s-birth-ctc:in_person:step:2": {
+   "en": "Pay the CTC fee at the City Treasurer’s office and get the Official Receipt",
+   "tl": "Bayaran ang CTC fee sa City Treasurer’s office at kunin ang Official Receipt",
+   "status": "draft"
+  },
+  "service:mkn.s-birth-ctc:in_person:step:3": {
+   "en": "Bring the OR to LCRO Window 4 to receive the certified copy",
+   "tl": "Dalhin ang OR sa LCRO Window 4 para makuha ang certified copy",
+   "status": "draft"
+  },
+  "service:mkn.s-birth-registration:exit_message": {
+   "en": "Registration after 30 days follows the late-registration process. Contact the City Civil Registry Office (Window 5).",
+   "tl": "Ang pagpaparehistro lampas sa 30 araw ay dumadaan sa late-registration na proseso. Makipag-ugnayan sa City Civil Registry Office (Window 5).",
+   "status": "draft"
+  },
+  "service:mkn.s-birth-registration:in_person:note": {
+   "en": "For births in Marikina City. Walk-in only in the sources read.",
+   "tl": "Para sa mga ipinanganak sa Marikina City. Walk-in lamang ayon sa mga nabasang source.",
+   "status": "draft"
+  },
+  "service:mkn.s-birth-registration:in_person:step:1": {
+   "en": "Submit the Certificate of Live Birth and requirements at LCRO; staff check completeness and give an order of payment",
+   "tl": "Isumite ang Certificate of Live Birth at mga requirement sa LCRO; titingnan ng staff kung kumpleto at magbibigay ng order of payment",
+   "status": "draft"
+  },
+  "service:mkn.s-birth-registration:in_person:step:2": {
+   "en": "Pay the registration fee at the City Treasurer’s office",
+   "tl": "Bayaran ang registration fee sa City Treasurer’s office",
+   "status": "draft"
+  },
+  "service:mkn.s-birth-registration:in_person:step:3": {
+   "en": "Bring the Official Receipt to LCRO Window 5 and get a claim stub with the release date",
+   "tl": "Dalhin ang Official Receipt sa LCRO Window 5 at kumuha ng claim stub na may petsa ng release",
+   "status": "draft"
+  },
+  "service:mkn.s-building-permit:in_person:note": {
+   "en": "Classified Highly Technical in the 2024 charter. Walk-in only in the sources read.",
+   "tl": "Nakaklasipika bilang Highly Technical sa 2024 charter. Walk-in lamang ayon sa mga nabasang source.",
+   "status": "draft"
+  },
+  "service:mkn.s-building-permit:in_person:step:1": {
+   "en": "Submit complete requirements at the receiving section; the clerk checks the application",
+   "tl": "Isumite ang kumpletong requirement sa receiving section; susuriin ng clerk ang aplikasyon",
+   "status": "draft"
+  },
+  "service:mkn.s-building-permit:in_person:step:2": {
+   "en": "Two copies of the plan are endorsed to BFP",
+   "tl": "Dalawang kopya ng plano ang ie-endorse sa BFP",
+   "status": "draft"
+  },
+  "service:mkn.s-building-permit:in_person:step:3": {
+   "en": "Technical evaluators check the electrical, sanitary, structural and architectural plans and property documents",
+   "tl": "Susuriin ng mga technical evaluator ang electrical, sanitary, structural at architectural na plano at mga dokumento ng ari-arian",
+   "status": "draft"
+  },
+  "service:mkn.s-building-permit:in_person:step:4": {
+   "en": "The proposed construction is inspected",
+   "tl": "Iinspeksyunin ang balak na konstruksyon",
+   "status": "draft"
+  },
+  "service:mkn.s-building-permit:in_person:step:5": {
+   "en": "If compliant, the order of payment is prepared and approved; pay the permit fees at the cashier",
+   "tl": "Kung compliant, ihahanda at aaprubahan ang order of payment; bayaran ang permit fees sa cashier",
+   "status": "draft"
+  },
+  "service:mkn.s-building-permit:in_person:step:6": {
+   "en": "The Building Official approves and the releasing clerk releases the permit",
+   "tl": "Aaprubahan ng Building Official at ire-release ng releasing clerk ang permit",
+   "status": "draft"
+  },
+  "service:mkn.s-business-permit-renewal:in_person:note": {
+   "en": "The charter lists 15 minutes per stage (file, pay) with no single total.",
+   "tl": "Nakalista sa charter ang 15 minuto bawat yugto (pag-file, pagbayad) pero walang kabuuang oras.",
+   "status": "draft"
+  },
+  "service:mkn.s-business-permit-renewal:in_person:step:1": {
+   "en": "File the duly accomplished application form with complete requirements at BPLO (evaluation, assessment, billing and permit)",
+   "tl": "I-file ang napunang application form kasama ang kumpletong requirement sa BPLO (evaluation, assessment, billing at permit)",
+   "status": "draft"
+  },
+  "service:mkn.s-business-permit-renewal:in_person:step:2": {
+   "en": "Pay at the Treasury Office cashier",
+   "tl": "Magbayad sa cashier ng Treasury Office",
+   "status": "draft"
+  },
+  "service:mkn.s-business-permit-renewal:in_person:step:3": {
+   "en": "Payment due dates for the current year: Jan 20, Apr 20, Jul 20, Oct 20 (1st to 4th quarter)",
+   "tl": "Mga petsa ng bayad ngayong taon: Ene 20, Abr 20, Hul 20, Okt 20 (1st hanggang 4th quarter)",
+   "status": "draft"
+  },
+  "service:mkn.s-business-permit-renewal:online:note": {
+   "en": "Check your eBOSS compliance status first at https://bplo.marikina.gov.ph/client.",
+   "tl": "Tingnan muna ang iyong eBOSS compliance status sa https://bplo.marikina.gov.ph/client.",
+   "status": "draft"
+  },
+  "service:mkn.s-business-permit-renewal:online:step:1": {
+   "en": "Sign in at payment.marikina.gov.ph, select Business Permit & Licensing Office, enter your Business Account Number and click Renew",
+   "tl": "Mag-sign in sa payment.marikina.gov.ph, piliin ang Business Permit & Licensing Office, ilagay ang iyong Business Account Number at i-click ang Renew",
+   "status": "draft"
+  },
+  "service:mkn.s-business-permit-renewal:online:step:2": {
+   "en": "Input the actual/annual declared gross sales and attach your financial statement and quarterly VAT, then Submit",
+   "tl": "Ilagay ang aktwal/taunang idineklarang gross sales at i-attach ang financial statement at quarterly VAT, saka i-Submit",
+   "status": "draft"
+  },
+  "service:mkn.s-business-permit-renewal:online:step:3": {
+   "en": "Select the business and quarter to pay, Compute Business Tax, Proceed to Checkout and pay (credit/debit card, GCash, Maya or Bayad App)",
+   "tl": "Piliin ang negosyo at quarter na babayaran, i-Compute ang Business Tax, Proceed to Checkout at magbayad (credit/debit card, GCash, Maya o Bayad App)",
+   "status": "draft"
+  },
+  "service:mkn.s-business-permit-renewal:online:step:4": {
+   "en": "An email confirmation is sent after a successful payment",
+   "tl": "May ipapadalang email confirmation pagkatapos ng matagumpay na bayad",
+   "status": "draft"
+  },
+  "service:mkn.s-portal-register:online:note": {
+   "en": "Fee and time are not stated in the sources read.",
+   "tl": "Hindi nakasaad sa mga nabasang source ang bayad at tagal.",
+   "status": "draft"
+  },
+  "service:mkn.s-portal-register:online:step:1": {
+   "en": "Visit https://payment.marikina.gov.ph",
+   "tl": "Pumunta sa https://payment.marikina.gov.ph",
+   "status": "draft"
+  },
+  "service:mkn.s-portal-register:online:step:2": {
+   "en": "Click Sign Up and input account information (password needs an uppercase, lowercase, number and special character)",
+   "tl": "I-click ang Sign Up at ilagay ang impormasyon ng account (ang password ay dapat may malaking titik, maliit na titik, numero at special character)",
+   "status": "draft"
+  },
+  "service:mkn.s-portal-register:online:step:3": {
+   "en": "Verify your email using the message sent to you",
+   "tl": "I-verify ang iyong email gamit ang mensaheng ipinadala sa iyo",
+   "status": "draft"
+  },
+  "service:mkn.s-pwd-id:in_person:note": {
+   "en": "Walk-in only in the sources read. The 2022 omnibus charter gives a different total (11 minutes and 10 seconds); the 2024 charter is used.",
+   "tl": "Walk-in lamang ayon sa mga nabasang source. Iba ang kabuuang oras sa 2022 omnibus charter (11 minuto at 10 segundo); ang 2024 charter ang ginamit.",
+   "status": "draft"
+  },
+  "service:mkn.s-pwd-id:in_person:step:1": {
+   "en": "Fill in the PWD form and be interviewed by the PDAO focal person",
+   "tl": "Punan ang PWD form at magpa-interview sa PDAO focal person",
+   "status": "draft"
+  },
+  "service:mkn.s-pwd-id:in_person:step:2": {
+   "en": "Submit requirements, including pictures; staff review them and record them in the log book",
+   "tl": "Isumite ang mga requirement, kasama ang mga litrato; susuriin ito ng staff at itatala sa log book",
+   "status": "draft"
+  },
+  "service:mkn.s-pwd-id:in_person:step:3": {
+   "en": "PWD card is issued and your information is encoded in the database",
+   "tl": "Ibibigay ang PWD card at ie-encode ang iyong impormasyon sa database",
+   "status": "draft"
+  },
+  "service:mkn.s-pwd-id:in_person:step:4": {
+   "en": "Optional: request other assistance (burial, medical, assistive device, if available)",
+   "tl": "Opsyonal: humingi ng ibang tulong (burial, medical, assistive device, kung mayroon)",
+   "status": "draft"
+  },
+  "service:mkn.s-senior-id:in_person:note": {
+   "en": "For Marikina residents aged 60 or older. Walk-in only in the sources read.",
+   "tl": "Para sa mga residente ng Marikina na 60 taong gulang pataas. Walk-in lamang ayon sa mga nabasang source.",
+   "status": "draft"
+  },
+  "service:mkn.s-senior-id:in_person:step:1": {
+   "en": "Submit the accomplished form with complete requirements; OSCA staff check them, interview you and encode your data",
+   "tl": "Isumite ang napunang form kasama ang kumpletong requirement; susuriin ito ng OSCA staff, iinterbyuhin ka, at ie-encode ang iyong datos",
+   "status": "draft"
+  },
+  "service:mkn.s-senior-id:in_person:step:2": {
+   "en": "Claim the Senior Citizen’s ID and booklet",
+   "tl": "Kunin ang Senior Citizen’s ID at booklet",
+   "status": "draft"
+  },
+  "service:qc.s-birth-ctc:in_person:note": {
+   "en": "For persons born in Quezon City; counters 1 & 2.",
+   "tl": "Para sa mga ipinanganak sa Quezon City; counters 1 at 2.",
+   "status": "draft"
+  },
+  "service:qc.s-birth-ctc:in_person:step:1": {
+   "en": "Submit filled-out request form and ID; receive order of payment",
+   "tl": "Isumite ang napunang request form at ID; tanggapin ang order of payment",
+   "status": "draft"
+  },
+  "service:qc.s-birth-ctc:in_person:step:2": {
+   "en": "Pay at the City Treasurer’s cashier; receive claim stub",
+   "tl": "Magbayad sa cashier ng City Treasurer; tanggapin ang claim stub",
+   "status": "draft"
+  },
+  "service:qc.s-birth-ctc:in_person:step:3": {
+   "en": "Receive the certified copy (Counter 5)",
+   "tl": "Kunin ang certified copy (Counter 5)",
+   "status": "draft"
+  },
+  "service:qc.s-birth-ctc:online:step:1": {
+   "en": "Log in, click “Civil Registry Online Services”, then “Request for a Certificate”",
+   "tl": "Mag-log in, i-click ang “Civil Registry Online Services”, saka ang “Request for a Certificate”",
+   "status": "draft"
+  },
+  "service:qc.s-birth-ctc:online:step:2": {
+   "en": "Wait for the email saying the copy is ready for pick-up",
+   "tl": "Hintayin ang email na nagsasabing handa nang kunin ang kopya",
+   "status": "draft"
+  },
+  "service:qc.s-birth-ctc:online:step:3": {
+   "en": "Pick up at CCRD and pay at the City Treasurer’s Office",
+   "tl": "Kunin sa CCRD at magbayad sa City Treasurer’s Office",
+   "status": "draft"
+  },
+  "service:qc.s-birth-registration:exit_message": {
+   "en": "Registration after 30 days follows the delayed-registration process. Contact the City Civil Registry Department.",
+   "tl": "Ang pagpaparehistro lampas sa 30 araw ay dumadaan sa delayed-registration na proseso. Makipag-ugnayan sa City Civil Registry Department.",
+   "status": "draft"
+  },
+  "service:qc.s-birth-registration:in_person:step:1": {
+   "en": "Submit the Certificate of Live Birth and all requirements at Counter 18",
+   "tl": "Isumite ang Certificate of Live Birth at lahat ng requirement sa Counter 18",
+   "status": "draft"
+  },
+  "service:qc.s-birth-registration:in_person:step:2": {
+   "en": "Receive the personal copy of the registered certificate",
+   "tl": "Tanggapin ang personal na kopya ng narehistrong certificate",
+   "status": "draft"
+  },
+  "service:qc.s-birth-registration:online:step:1": {
+   "en": "Log in, “Civil Registry Online Services”, then “Birth Registration”",
+   "tl": "Mag-log in, piliin ang “Civil Registry Online Services”, saka ang “Birth Registration”",
+   "status": "draft"
+  },
+  "service:qc.s-birth-registration:online:step:2": {
+   "en": "Upload digital copies of the requirements",
+   "tl": "I-upload ang digital na kopya ng mga requirement",
+   "status": "draft"
+  },
+  "service:qc.s-birth-registration:online:step:3": {
+   "en": "After the email notice, submit the original documents at CCRD",
+   "tl": "Pagkatanggap ng email notice, isumite ang mga orihinal na dokumento sa CCRD",
+   "status": "draft"
+  },
+  "service:qc.s-building-permit:online:note": {
+   "en": "Payment window differs between sources: charter says Treasurer windows 13 or 14; the QCitizen guide says Counter 12. Confirm with DBO.",
+   "tl": "Magkaiba ang payment window sa mga source: windows 13 o 14 ng Treasurer ayon sa charter; Counter 12 ayon sa QCitizen guide. Kumpirmahin sa DBO.",
+   "status": "draft"
+  },
+  "service:qc.s-building-permit:online:step:1": {
+   "en": "Log in to QC E-Services → Building Permit One-Stop Shop; generate application forms and checklist",
+   "tl": "Mag-log in sa QC E-Services → Building Permit One-Stop Shop; gumawa ng application forms at checklist",
+   "status": "draft"
+  },
+  "service:qc.s-building-permit:online:step:2": {
+   "en": "Add or select building professionals; print checklist and forms",
+   "tl": "Magdagdag o pumili ng mga building professional; i-print ang checklist at forms",
+   "status": "draft"
+  },
+  "service:qc.s-building-permit:online:step:3": {
+   "en": "Electronically submit for pre-evaluation and schedule an appointment",
+   "tl": "I-submit online para sa pre-evaluation at magpa-schedule ng appointment",
+   "status": "draft"
+  },
+  "service:qc.s-building-permit:online:step:4": {
+   "en": "Drop off documents at the DBO kiosk on your appointment date",
+   "tl": "Ihatid ang mga dokumento sa DBO kiosk sa araw ng iyong appointment",
+   "status": "draft"
+  },
+  "service:qc.s-building-permit:online:step:5": {
+   "en": "Claim the Order of Payment (bring valid ID) and pay at the City Treasurer’s cashier",
+   "tl": "Kunin ang Order of Payment (magdala ng valid ID) at magbayad sa cashier ng City Treasurer",
+   "status": "draft"
+  },
+  "service:qc.s-building-permit:online:step:6": {
+   "en": "Return the OR; permit released",
+   "tl": "Ibalik ang OR; ire-release ang permit",
+   "status": "draft"
+  },
+  "service:qc.s-business-permit-renewal:online:note": {
+   "en": "Charter lists 30 minutes per evaluation stage but no single total; the system can auto-renew if compliant.",
+   "tl": "Nakalista sa charter ang 30 minuto bawat yugto ng evaluation pero walang kabuuang oras; maaaring mag-auto-renew ang sistema kung compliant ka.",
+   "status": "draft"
+  },
+  "service:qc.s-business-permit-renewal:online:step:1": {
+   "en": "Pay business tax",
+   "tl": "Bayaran ang business tax",
+   "status": "draft"
+  },
+  "service:qc.s-business-permit-renewal:online:step:2": {
+   "en": "File renewal via QC E-Services portal or kiosks: Business One-Stop Shop → Apply for Mayor’s Permit (Business) → Renewal",
+   "tl": "Mag-file ng renewal sa QC E-Services portal o kiosk: Business One-Stop Shop → Apply for Mayor’s Permit (Business) → Renewal",
+   "status": "draft"
+  },
+  "service:qc.s-business-permit-renewal:online:step:3": {
+   "en": "Input Mayor’s Permit number and current-year business tax OR; submit requirements",
+   "tl": "Ilagay ang Mayor’s Permit number at ang OR ng business tax ngayong taon; isumite ang mga requirement",
+   "status": "draft"
+  },
+  "service:qc.s-business-permit-renewal:online:step:4": {
+   "en": "Claim the renewed permit or have it delivered",
+   "tl": "Kunin ang na-renew na permit o ipa-deliver ito",
+   "status": "draft"
+  },
+  "service:qc.s-business-tax-payment:in_person:note": {
+   "en": "Online payment is also offered via QC E-Services (per the BPLD charter); details not captured here.",
+   "tl": "May online payment din sa QC E-Services (ayon sa BPLD charter); hindi nakuha rito ang mga detalye.",
+   "status": "draft"
+  },
+  "service:qc.s-business-tax-payment:in_person:step:1": {
+   "en": "Present the approved Computerized Business Tax Bill at the payment counter",
+   "tl": "Ipakita ang aprubadong Computerized Business Tax Bill sa payment counter",
+   "status": "draft"
+  },
+  "service:qc.s-business-tax-payment:in_person:step:2": {
+   "en": "Pay; receive the computerized business tax official receipt",
+   "tl": "Magbayad; tanggapin ang computerized business tax official receipt",
+   "status": "draft"
+  },
+  "service:qc.s-eservices-register:online:note": {
+   "en": "Fee and time not stated in the sources read.",
+   "tl": "Hindi nakasaad sa mga nabasang source ang bayad at tagal.",
+   "status": "draft"
+  },
+  "service:qc.s-eservices-register:online:step:1": {
+   "en": "Register at QC E-Services using a personal email (1 email per registrant)",
+   "tl": "Magparehistro sa QC E-Services gamit ang personal na email (isang email bawat nagpaparehistro)",
+   "status": "draft"
+  },
+  "service:qc.s-eservices-register:online:step:2": {
+   "en": "Confirm and validate the E-Services account",
+   "tl": "Kumpirmahin at i-validate ang E-Services account",
+   "status": "draft"
+  },
+  "service:qc.s-pwd-id:in_person:step:1": {
+   "en": "Bring copies of requirements to PDAO for evaluation",
+   "tl": "Dalhin ang mga kopya ng requirement sa PDAO para ma-evaluate",
+   "status": "draft"
+  },
+  "service:qc.s-pwd-id:in_person:step:2": {
+   "en": "Staff encode your information; it is approved and verified",
+   "tl": "Ie-encode ng staff ang iyong impormasyon; ito ay aaprubahan at ive-verify",
+   "status": "draft"
+  },
+  "service:qc.s-pwd-id:in_person:step:3": {
+   "en": "Printed ID is given to you",
+   "tl": "Ibibigay sa iyo ang naka-print na ID",
+   "status": "draft"
+  },
+  "service:qc.s-pwd-id:in_person:step:4": {
+   "en": "Applicants with missing requirements are assisted and advised",
+   "tl": "Ang mga aplikanteng kulang ang requirement ay tutulungan at papayuhan",
+   "status": "draft"
+  },
+  "service:qc.s-pwd-id:online:note": {
+   "en": "Non-apparent disability validation takes 2–3 days. Renewal of a white PWD ID is processed as a new application.",
+   "tl": "Ang validation para sa non-apparent disability ay inaabot ng 2–3 araw. Ang pag-renew ng puting PWD ID ay pinoproseso bilang bagong aplikasyon.",
+   "status": "draft"
+  },
+  "service:qc.s-pwd-id:online:step:1": {
+   "en": "Log in and choose the QCitizen ID eApplication icon",
+   "tl": "Mag-log in at piliin ang QCitizen ID eApplication icon",
+   "status": "draft"
+  },
+  "service:qc.s-pwd-id:online:step:2": {
+   "en": "Complete personal information and tick “Yes” for the Persons With Disability sector",
+   "tl": "Kumpletuhin ang personal na impormasyon at i-tick ang “Yes” para sa Persons With Disability sector",
+   "status": "draft"
+  },
+  "service:qc.s-pwd-id:online:step:3": {
+   "en": "Upload requirements; a virtual ID shows on submission, then agree and submit",
+   "tl": "I-upload ang mga requirement; may lalabas na virtual ID pagka-submit, saka pumayag at i-submit",
+   "status": "draft"
+  },
+  "service:qc.s-pwd-id:online:step:4": {
+   "en": "Monitor application status in your E-Services account",
+   "tl": "Bantayan ang status ng aplikasyon sa iyong E-Services account",
+   "status": "draft"
+  },
+  "service:qc.s-senior-id:in_person:note": {
+   "en": "Fee and processing time are not stated in the guide.",
+   "tl": "Hindi nakasaad sa guide ang bayad at tagal ng pagproseso.",
+   "status": "draft"
+  },
+  "service:qc.s-senior-id:in_person:step:1": {
+   "en": "Download or obtain the Senior Citizen QC ID Application Form from OSCA",
+   "tl": "I-download o kunin sa OSCA ang Senior Citizen QC ID Application Form",
+   "status": "draft"
+  },
+  "service:qc.s-senior-id:in_person:step:2": {
+   "en": "Submit the accomplished form and all documents for OSCA verification",
+   "tl": "Isumite ang napunang form at lahat ng dokumento para sa verification ng OSCA",
+   "status": "draft"
+  },
+  "service:qc.s-senior-id:in_person:step:3": {
+   "en": "ID is sent to your home or can be picked up at OSCA",
+   "tl": "Ipapadala ang ID sa iyong bahay o puwedeng kunin sa OSCA",
+   "status": "draft"
+  },
+  "service:qc.s-senior-id:online:note": {
+   "en": "Fee and processing time are not stated in the guide.",
+   "tl": "Hindi nakasaad sa guide ang bayad at tagal ng pagproseso.",
+   "status": "draft"
+  },
+  "service:qc.s-senior-id:online:step:1": {
+   "en": "Create a profile and account with QC E-Services",
+   "tl": "Gumawa ng profile at account sa QC E-Services",
+   "status": "draft"
+  },
+  "service:qc.s-senior-id:online:step:2": {
+   "en": "Select QC ID e-Application (or Request for Sectoral Status Change if you already hold a resident QC ID)",
+   "tl": "Piliin ang QC ID e-Application (o Request for Sectoral Status Change kung may resident QC ID ka na)",
+   "status": "draft"
+  },
+  "service:qc.s-senior-id:online:step:3": {
+   "en": "Wait for the approval email",
+   "tl": "Hintayin ang approval email",
+   "status": "draft"
+  },
+  "service:qc.s-senior-id:online:step:4": {
+   "en": "Wait for the physical ID to be delivered",
+   "tl": "Hintaying maihatid ang pisikal na ID",
+   "status": "draft"
+  }
+ }
+}

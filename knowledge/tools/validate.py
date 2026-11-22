@@ -173,6 +173,24 @@ test('X5 Intent exists but not in this city -> not covered, City Hall named', 's
 # Filipino text: every question needs text_tl (the app falls back to English otherwise)
 for k, q in g['questions'].items():
     if not q.get('text_tl'): W(f'question {k} has no Filipino text (text_tl)')
+# Filipino for graph content (notes, how-to steps, tips, process messages): missing or stale translations
+for k, s_ in g['services'].items():
+    if s_.get('exit_message') and not s_.get('exit_message_tl'): W(f'{k}: exit_message has no Filipino (translations/tl.json)')
+    for v in s_['variants']:
+        if v.get('note') and not v.get('note_tl'): W(f'{k} ({v["channel"]}): note has no Filipino (translations/tl.json)')
+        tl_steps = v.get('detail_steps_tl') or []
+        for i, _ in enumerate(v['detail_steps']):
+            if i >= len(tl_steps) or not tl_steps[i]: W(f'{k} ({v["channel"]}): step {i + 1} has no Filipino (translations/tl.json)')
+for k, r in g['requirements'].items():
+    if r.get('hint') and not r.get('hint_tl'): W(f'{k}: hint has no Filipino (translations/tl.json)')
+for k, o in g['offices'].items():
+    if o.get('note') and not o.get('note_tl'): W(f'{k}: note has no Filipino (translations/tl.json)')
+# Every variant evidence ref must point at an existing evidence record
+_refs = {e['ref'] for e in g['evidence']}
+for k, s_ in g['services'].items():
+    for v in s_['variants']:
+        for f, r in (v.get('evidence') or {}).items():
+            if r and r not in _refs: E(f'{k} ({v["channel"]}): evidence.{f} = {r} matches no evidence record')
 lines.append('== ROADMAP TESTS ==')
 for n, ok, why, rm in T: lines.append(('PASS ' if ok else 'FAIL ') + n + ('' if ok else '  -> ' + why))
 for n, ok, why, rm in T:

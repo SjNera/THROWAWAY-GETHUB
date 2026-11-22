@@ -139,13 +139,16 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
         : city && !g.intents[s.intent]!.service_by_city[city]
           ? "not_in_city"
           : "outside_process";
-      // Engine messages are English; translate the fixed ones. Process-specific messages come from the graph (step 10).
+      // Engine messages are English: translate the fixed ones; process messages have Filipino in the graph.
+      const goalSvc = city ? g.services[g.intents[s.intent]?.service_by_city[city] ?? ""] : undefined;
       const message =
         reason === "unknown_service"
           ? t("not_covered_service", lang())
           : reason === "not_in_city"
             ? t("not_covered_in_city", lang(), { city: g.cities[city!]!.name })
-            : rm.message;
+            : lang() === "fil" && goalSvc?.exit_message_tl
+              ? goalSvc.exit_message_tl
+              : rm.message;
       out.push({ type: "not_covered", reason, message, office: rm.office });
       return offer("restart");
     }

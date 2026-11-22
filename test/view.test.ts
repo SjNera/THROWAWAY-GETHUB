@@ -89,3 +89,38 @@ describe("helpers", () => {
     expect(mapUrl(null)).toBeNull();
   });
 });
+
+describe("Filipino graph content (translations/tl.json → graph *_tl fields)", () => {
+  const all = cases as unknown as { name: string; intent: string; answers: Answers; patch: unknown }[];
+
+  it("every step card in Filipino uses the Filipino how-to steps, notes and tips", () => {
+    for (const c of all.filter((x) => !x.patch)) {
+      const rm = roadmap(g, c.intent, c.answers);
+      if (rm.status !== "ok") continue;
+      const en = buildRoadmapView(g, c.intent, c.answers, rm, "en")!.groups.flatMap((x) => x.steps);
+      const fil = buildRoadmapView(g, c.intent, c.answers, rm, "fil")!.groups.flatMap((x) => x.steps);
+      fil.forEach((s, i) => {
+        const e = en[i]!;
+        expect(s.howTo).toHaveLength(e.howTo.length);
+        s.howTo.forEach((h, k) => expect(h, `${c.name} step ${s.number} how-to ${k + 1}`).not.toBe(e.howTo[k]));
+        if (e.note) expect(s.note, `${c.name} step ${s.number} note`).not.toBe(e.note);
+        if (e.hint) expect(s.hint, `${c.name} step ${s.number} tip`).not.toBe(e.hint);
+        // Names, fees and links are shared, never translated
+        expect(s.title).toBe(e.title);
+        expect(s.where).toEqual(e.where);
+      });
+    }
+  });
+
+  it("English mode is unchanged", () => {
+    const c = caseNamed("T1");
+    const goal = steps(view(c.intent, c.answers)).at(-1)!;
+    expect(goal.howTo[0]).toBe("Log in and choose the QCitizen ID eApplication icon");
+  });
+
+  it("evidence links resolve directly (city prefix fixed at the source)", () => {
+    const refs = new Set(g.evidence.map((e) => e.ref));
+    for (const s of Object.values(g.services))
+      for (const v of s.variants) for (const r of Object.values(v.evidence)) if (typeof r === "string") expect(refs.has(r), r).toBe(true);
+  });
+});

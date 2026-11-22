@@ -372,3 +372,19 @@ describe("ways out (no dead ends)", () => {
     expect(state.intent).toBe("pwd-id-application");
   });
 });
+
+describe("Filipino process message", () => {
+  it("birth registration after 30 days → Filipino message from the graph", async () => {
+    const { events } = await run(
+      [
+        { type: "choose_intent", intent: "birth-registration" },
+        { type: "text", text: "marikina" },
+        { type: "text", text: "hindi" },
+      ],
+      undefined,
+      initialState("fil"),
+    );
+    expect(find(events, "not_covered")!.message).toBe(g.services["mkn.s-birth-registration"]!.exit_message_tl);
+    expect(find(events, "not_covered")!.message).toMatch(/^Ang pagpaparehistro lampas sa 30 araw/);
+  });
+});
