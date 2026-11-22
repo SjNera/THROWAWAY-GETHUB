@@ -11,6 +11,8 @@ import { makeRenderer } from "./render";
 const HELP = `
  Commands (anytime):
    /next  /roadmap  /step <n>  /done <n>  /undo <n>  /restart  /lang en|fil  /help  /quit
+ Whenever no question is open:
+   s = start over   q = quit   (or type "start over" / "magsimula ulit")
  Shortcuts once your roadmap is showing (and no question is open):
    n = next step   r = roadmap   <number> = open that step   d = mark this step done
  Anything else you type is sent to the guide.`;
@@ -57,7 +59,13 @@ function toInput(line: string): Input | "help" | "quit" {
       if (arg === "en" || arg === "fil") return { type: "set_lang", lang: arg };
       break;
   }
-  // Shortcuts only when the roadmap is showing and no question is waiting (so "n" can still mean "no").
+  // s / q whenever no question is waiting (so a typed answer is never taken as a command).
+  if (state.pending === null) {
+    const k = text.toLowerCase();
+    if (k === "s") return { type: "restart" };
+    if (k === "q") return "quit";
+  }
+  // Step shortcuts only when the roadmap is showing and no question is waiting (so "n" can still mean "no").
   if (state.current !== null && state.pending === null) {
     const k = text.toLowerCase();
     if (k === "n" || k === "next") return { type: "next_step" };
@@ -76,7 +84,9 @@ function print(events: Event[], input: Input) {
     if (e.type === "roadmap" && !SHOW_FULL_ROADMAP.has(input.type)) console.log(`${progress(e.roadmap, e.current, e.done)}\n`);
     else console.log(`${render(e, { done: state.done })}\n`);
   }
-  if (state.current !== null && state.pending === null && events.some((e) => e.type === "step" || e.type === "roadmap")) {
+  // Step hints while the journey is in progress; once it ends, the actions event shows the way out.
+  const hasActions = events.some((e) => e.type === "actions");
+  if (!hasActions && state.current !== null && state.pending === null && events.some((e) => e.type === "step" || e.type === "roadmap")) {
     console.log(message("[n] next step   [r] roadmap   [<number>] open a step   [d] mark done   or ask a question") + "\n");
   }
 }

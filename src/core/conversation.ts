@@ -5,7 +5,7 @@
 //   deps.ask         — free-form questions, answered from the charters with citations
 import { findCityInText, matchCity, normalize } from "./city";
 import { roadmap } from "./engine";
-import { initialState, type Choice, type Event, type Input, type NotCoveredReason, type State, type TurnResult } from "./events";
+import { initialState, type Action, type Choice, type Event, type Input, type NotCoveredReason, type State, type TurnResult } from "./events";
 import { graph as defaultGraph, type Graph } from "./graph";
 import { t, type Lang } from "./i18n";
 import { matchIntent } from "./intent";
@@ -33,6 +33,16 @@ const SYNONYMS: Record<string, string[]> = {
   online: ["online", "on line", "internet", "website", "web"],
   in_person: ["in person", "walk in", "walkin", "personal", "face to face", "f2f", "personally"],
 };
+
+/** Typed phrases that mean "start over", in English and Filipino (matched on the whole message). */
+const RESTART_PHRASES = new Set([
+  "start over", "restart", "start again", "reset", "new", "begin again", "start from the beginning",
+  "ulit", "ulitin", "magsimula ulit", "simula ulit", "umpisa ulit", "mag umpisa ulit", "bago", "balik sa simula",
+]);
+
+export function isRestartText(text: string): boolean {
+  return RESTART_PHRASES.has(normalize(text));
+}
 
 /** Turn typed text into one of a question's option values, or null. */
 export function parseChoice(text: string, q: QuestionView): string | null {
@@ -70,6 +80,20 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
   };
   const roadmapEvent = (v: RoadmapView): Event => ({ type: "roadmap", roadmap: v, current: s.current, done: [...s.done].sort((a, b) => a - b) });
 
+  const action = (id: Action["id"]): Action =>
+    id === "restart"
+      ? { id, label: t("action_restart", lang()), input: { type: "restart" } }
+      : { id, label: t("action_show_roadmap", lang()), input: { type: "show_roadmap" } };
+  const offer = (...ids: Action["id"][]) => out.push({ type: "actions", items: ids.map(action) });
+
+  /** The journey has ended: every step done, or the result was "not covered". */
+  const ended = (): boolean => {
+    if (!s.intent || s.pending) return false;
+    if (nextQuestionKey(g, s.intent, s.answers) !== null) return false;
+    const v = view();
+    return v === null || s.done.length >= v.totalSteps;
+  };
+
   /** Move the journey forward: next question, or the roadmap, or "not covered". */
   const advance = () => {
     if (!s.intent) return showChoices();
@@ -88,7 +112,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
           ? "not_in_city"
           : "outside_process";
       out.push({ type: "not_covered", reason, message: rm.message, office: rm.office });
-      return say(t("start_over_hint", lang()));
+      return offer("restart");
     }
     const v = buildRoadmapView(g, s.intent, s.answers, rm, lang())!;
     s.current = 1;
@@ -108,10 +132,12 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     if (m.kind === "coming_soon") {
       out.push({ type: "not_covered", reason: "city_coming_soon", message: t("city_soon", lang(), { city: m.name }), office: null });
       say(t("city_try_another", lang()));
+      showQuestion("city");
+      offer("restart");
     } else {
       say(t("city_unknown", lang()));
+      showQuestion("city");
     }
-    showQuestion("city");
     return false;
   };
 
@@ -133,6 +159,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       say(t("city_try_another", lang()));
     }
     advance();
+    if (m?.kind === "coming_soon") offer("restart");
   };
 
   const answer = (key: string, value: string) => {
@@ -186,6 +213,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     if (v) {
       out.push(roadmapEvent(v));
       if (s.current) out.push(stepEvent(v, s.current));
+      if (ended()) offer("restart");
       return;
     }
     advance();
@@ -222,7 +250,12 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
         rerender();
         break;
       }
-      if (s.pending === "city") {
+      // "start over" works anywhere except while an option question is open (so answers are never mistaken for it).
+      if (isRestartText(text) && (s.pending === null || s.pending === "city")) {
+        Object.assign(s, initialState(lang()));
+        say(t("greeting", lang()));
+        showChoices();
+      } else if (s.pending === "city") {
         answer("city", text);
       } else if (s.pending) {
         const v = parseChoice(text, questionView(g, s.pending, lang()));
@@ -237,6 +270,9 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
           say(t("service_unknown", lang()));
           out.push({ type: "choices", items: choices() });
         }
+      } else if (ended() && matchIntent(g, text)) {
+        // Journey finished: a new service name starts a new journey.
+        startJourney(matchIntent(g, text)!, text);
       } else {
         await ask(text);
       }
@@ -245,8 +281,10 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
 
     case "show_roadmap": {
       const v = view();
-      if (v) out.push(roadmapEvent(v));
-      else say(t("no_roadmap_yet", lang()));
+      if (v) {
+        out.push(roadmapEvent(v));
+        if (ended()) offer("restart");
+      } else say(t("no_roadmap_yet", lang()));
       break;
     }
 
@@ -275,6 +313,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       out.push(roadmapEvent(v));
       if (next === undefined) {
         say(t("all_done", lang()));
+        offer("restart", "show_roadmap");
       } else {
         say(t(next === total ? "last_step" : "next_step", lang()));
         out.push(stepEvent(v, next));
@@ -290,6 +329,10 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       }
       s.done = input.done ? [...new Set([...s.done, input.number])] : s.done.filter((n) => n !== input.number);
       out.push(roadmapEvent(v));
+      if (ended()) {
+        say(t("all_done", lang()));
+        offer("restart", "show_roadmap");
+      }
       break;
     }
   }

@@ -48,7 +48,8 @@ const TEXT = {
   no_such_step: { en: "There's no step {n}.", fil: "Walang hakbang {n}." },
   no_roadmap_yet: { en: "There's no roadmap yet. Pick a service first.", fil: "Wala pang roadmap. Pumili muna ng serbisyo." },
   ask_unavailable: { en: "I can't answer free-form questions yet. Use the steps, or start over.", fil: "Hindi pa ako makasagot ng ibang tanong. Gamitin ang mga hakbang, o magsimula ulit." },
-  start_over_hint: { en: "You can start over anytime.", fil: "Puwede kang magsimula ulit anumang oras." },
+  action_restart: { en: "Start over", fil: "Magsimula ulit" },
+  action_show_roadmap: { en: "View roadmap", fil: "Tingnan ang roadmap" },
 } as const;
 
 export type TextKey = keyof typeof TEXT;

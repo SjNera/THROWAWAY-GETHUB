@@ -43,7 +43,7 @@ describe("terminal renderer", () => {
   it("renders every event type; boxes are exactly 80 columns wide", async () => {
     const events = await allEvents();
     const seen = new Set(events.map((e) => e.type));
-    expect([...seen].sort()).toEqual(["answer", "choices", "message", "not_covered", "question", "roadmap", "step"]);
+    expect([...seen].sort()).toEqual(["actions", "answer", "choices", "message", "not_covered", "question", "roadmap", "step"]);
     for (const e of events) {
       const text = render(e);
       expect(text.length).toBeGreaterThan(0);

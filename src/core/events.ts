@@ -46,6 +46,14 @@ export interface Choice {
 
 export type NotCoveredReason = "city_coming_soon" | "not_in_city" | "outside_process" | "unknown_service";
 
+/** Something the person can do now. Screens show it as a button (web) or a shortcut (terminal). */
+export interface Action {
+  id: "restart" | "show_roadmap";
+  label: string;
+  /** The input to send when the person picks this action. */
+  input: Input;
+}
+
 export type Event =
   | { type: "message"; text: string }
   | { type: "choices"; items: Choice[] }
@@ -53,7 +61,9 @@ export type Event =
   | { type: "roadmap"; roadmap: RoadmapView; current: number | null; done: number[] }
   | { type: "step"; step: StepCard; total: number; isLast: boolean; done: boolean }
   | { type: "not_covered"; reason: NotCoveredReason; message: string; office: string | null }
-  | { type: "answer"; text: string; citations: Citation[] };
+  | { type: "answer"; text: string; citations: Citation[] }
+  /** What the person can do next, e.g. "Start over" once a journey has ended. */
+  | { type: "actions"; items: Action[] };
 
 export interface TurnResult {
   state: State;

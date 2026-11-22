@@ -243,3 +243,82 @@ describe("contract", () => {
     expect(InputSchema.safeParse({ type: "text", text: "hi" }).success).toBe(true);
   });
 });
+
+describe("ways out (no dead ends)", () => {
+  const actionIds = (ev: Event[]) => find(ev, "actions")?.items.map((a) => a.id) ?? [];
+
+  async function allStepsDone() {
+    const { state: s0 } = await run([{ type: "choose_intent", intent: "pwd-id-application" }, { type: "text", text: "marikina" }]);
+    let { state, events } = await answerAll(s0);
+    for (let i = 0; i < 20 && find(events, "step"); i++) ({ state, events } = await turn(state, { type: "next_step" }));
+    return { state, events };
+  }
+  async function notCovered() {
+    return run([{ type: "choose_intent", intent: "birth-registration" }, { type: "text", text: "qc" }, { type: "text", text: "no" }]);
+  }
+
+  it("after the last step: 'Start over' and 'View roadmap' are offered", async () => {
+    const { events } = await allStepsDone();
+    expect(messages(events)).toContain("That's every step. Confirm with the office before you go.");
+    expect(actionIds(events)).toEqual(["restart", "show_roadmap"]);
+    expect(find(events, "actions")!.items[0]!.input).toEqual({ type: "restart" });
+  });
+
+  it("after 'not covered': 'Start over' is offered", async () => {
+    const { events } = await notCovered();
+    expect(find(events, "not_covered")).toBeTruthy();
+    expect(actionIds(events)).toEqual(["restart"]);
+  });
+
+  it("after 'coming soon': 'Start over' is offered next to the city question", async () => {
+    const { events } = await run([{ type: "choose_intent", intent: "pwd-id-application" }, { type: "text", text: "pasig" }]);
+    expect(types(events)).toEqual(["not_covered", "message", "question", "actions"]);
+    expect(actionIds(events)).toEqual(["restart"]);
+  });
+
+  it("marking the last step done by hand also offers the way out", async () => {
+    const { state: s0 } = await run([{ type: "choose_intent", intent: "building-permit" }, { type: "text", text: "marikina" }]);
+    let state = s0;
+    let events: Event[] = [];
+    const total = (await turn(state, { type: "show_roadmap" })).events.find((e) => e.type === "roadmap") as Extract<Event, { type: "roadmap" }>;
+    for (let n = 1; n <= total.roadmap.totalSteps; n++) ({ state, events } = await turn(state, { type: "mark_done", number: n, done: true }));
+    expect(actionIds(events)).toEqual(["restart", "show_roadmap"]);
+  });
+
+  it.each(["start over", "Start Over!", "restart", "magsimula ulit", "ulit"])("typing %j after the journey ends starts over", async (text) => {
+    const { state: done } = await allStepsDone();
+    const { state, events } = await turn(done, { type: "text", text });
+    expect(state).toEqual(initialState());
+    expect(find(events, "choices")).toBeTruthy();
+  });
+
+  it("typing 'start over' after 'not covered' or at the city question starts over", async () => {
+    for (const { state: s } of [await notCovered(), await run([{ type: "choose_intent", intent: "pwd-id-application" }])]) {
+      const { state } = await turn(s, { type: "text", text: "start over" });
+      expect(state).toEqual(initialState());
+    }
+  });
+
+  it("'start over' is not intercepted while an option question is open", async () => {
+    const { state: s } = await run([{ type: "choose_intent", intent: "pwd-id-application" }, { type: "text", text: "qc" }]);
+    expect(s.pending).toBe("channel");
+    const { state } = await turn(s, { type: "text", text: "start over" });
+    expect(state.intent).toBe("pwd-id-application");
+    expect(state.pending).toBe("channel");
+  });
+
+  it("after the journey ends, typing a service name starts a new journey", async () => {
+    for (const { state: s } of [await allStepsDone(), await notCovered()]) {
+      const { state, events } = await turn(s, { type: "text", text: "senior ID in Marikina" });
+      expect(state).toMatchObject({ intent: "senior-citizen-id", answers: { city: "mkn" } });
+      expect(messages(events)[0]).toBe("Got it — Senior citizen ID.");
+    }
+  });
+
+  it("during a journey, a service name is still treated as a question (not a restart)", async () => {
+    const { state: s0 } = await run([{ type: "choose_intent", intent: "pwd-id-application" }, { type: "text", text: "qc" }]);
+    const { state: atRoadmap } = await answerAll(s0);
+    const { state } = await turn(atRoadmap, { type: "text", text: "senior ID" });
+    expect(state.intent).toBe("pwd-id-application");
+  });
+});

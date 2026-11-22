@@ -1,6 +1,6 @@
 // Renders brain events as terminal text. One function per event type, mirroring the Figma components.
 import { styleText } from "node:util";
-import type { Event } from "../src/core/events";
+import type { Action, Event } from "../src/core/events";
 import type { QuestionView } from "../src/core/questions";
 import type { Citation, RoadmapView, StepCard } from "../src/core/view";
 
@@ -134,6 +134,11 @@ export function makeRenderer(opts: RenderOptions) {
     return [box(`Step ${s.number} of ${total} · ${s.title}`, isDone ? c("green", "done") : "", body), ...links.map((l) => c("cyan", l))].join("\n");
   };
 
+  /** Terminal shortcut for each action (the web UI shows buttons instead). */
+  const ACTION_KEYS: Record<Action["id"], string> = { restart: "s", show_roadmap: "r" };
+  const actions = (items: Action[]) =>
+    message([...items.map((a) => `${c("bold", `[${ACTION_KEYS[a.id]}]`)} ${a.label}`), `${c("bold", "[q]")} Quit`].join("   "));
+
   /** Render one event. `ctx.done` lets step cards tick off items from finished steps. */
   const render = (e: Event, ctx: { done: number[] } = { done: [] }): string => {
     switch (e.type) {
@@ -151,6 +156,8 @@ export function makeRenderer(opts: RenderOptions) {
         return [message(c("yellow", e.message)), e.office ? message(c("dim", `Ask: ${e.office}`)) : ""].filter(Boolean).join("\n");
       case "answer":
         return [message(e.text), ...cite(e.citations).map((l) => ` ${l}`)].join("\n");
+      case "actions":
+        return actions(e.items);
     }
   };
 
