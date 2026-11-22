@@ -65,6 +65,21 @@ const TEXT = {
     fil: "Hindi ako makasagot ng tanong ngayon. Gumagana pa rin ang mga hakbang.",
   },
 
+  // Explaining a question ("not sure") and going back
+  explain_intro: { en: "Here's what each answer changes:", fil: "Ito ang nagbabago sa bawat sagot:" },
+  explain_adds_step: { en: "Adds a step: {title}", fil: "May dagdag na hakbang: {title}" },
+  explain_bring: { en: "You'll need: {item}", fil: "Kakailanganin mo: {item}" },
+  explain_bring_for: { en: "For {title}, you'll need: {item}", fil: "Para sa {title}, kakailanganin mo: {item}" },
+  explain_where:{ en: "{title}: {how}", fil: "{title}: {how}" },
+  explain_fee: { en: "{title} fee: {fee}", fil: "Bayad sa {title}: {fee}" },
+  explain_time: { en: "{title} takes: {time}", fil: "Tagal ng {title}: {time}" },
+  explain_ends: { en: "The guide stops here: {message}", fil: "Dito natatapos ang gabay: {message}" },
+  explain_continues: { en: "We continue with your steps.", fil: "Tuloy tayo sa iyong mga hakbang." },
+  explain_same: { en: "Your steps stay the same.", fil: "Pareho lang ang iyong mga hakbang." },
+  explain_unavailable: { en: "Just pick the answer that fits you.", fil: "Piliin lang ang sagot na akma sa iyo." },
+  went_back: { en: "Okay, let's go back.", fil: "Sige, balikan natin." },
+  nothing_to_undo: { en: "There's nothing to go back to.", fil: "Wala nang mababalikan." },
+
   // Fixed values the engine produces in English (kept English there for parity with engine.py)
   not_listed: { en: "Not listed — confirm with the office", fil: "Hindi nakalista — kumpirmahin sa opisina" },
   not_covered_service: { en: "This service isn't covered yet.", fil: "Hindi pa sakop ang serbisyong ito." },
@@ -104,14 +119,22 @@ const TEXT = {
   },
   cli_help: {
     en: `Commands (anytime):
-  /next  /roadmap  /step <n>  /done <n>  /undo <n>  /restart  /lang en|fil  /help  /quit
+  /next  /roadmap  /step <n>  /done <n>  /undo <n>  /back  /restart  /lang en|fil  /help  /quit
+Anytime:
+  b = go back one answer (or type "back")
+While a question is open:
+  ? = what each answer changes (or type "not sure")
 Whenever no question is open:
   s = start over   q = quit   (or type "start over")
 Once your roadmap is showing (and no question is open):
   n = next step   r = roadmap   <number> = open that step   d = mark this step done
 Anything else you type is sent to the guide.`,
     fil: `Mga utos (kahit kailan):
-  /next  /roadmap  /step <n>  /done <n>  /undo <n>  /restart  /lang en|fil  /help  /quit
+  /next  /roadmap  /step <n>  /done <n>  /undo <n>  /back  /restart  /lang en|fil  /help  /quit
+Kahit kailan:
+  b = bumalik ng isang sagot (o i-type ang "bumalik")
+Habang may bukas na tanong:
+  ? = ano ang nagbabago sa bawat sagot (o i-type ang "hindi ko alam")
 Kapag walang bukas na tanong:
   s = magsimula ulit   q = lumabas   (o i-type ang "magsimula ulit")
 Kapag nakikita na ang roadmap (at walang bukas na tanong):

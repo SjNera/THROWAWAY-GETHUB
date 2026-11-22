@@ -1,6 +1,7 @@
 // Renders brain events as terminal text. One function per event type, mirroring the Figma components.
 import { styleText } from "node:util";
 import type { Action, Event } from "../src/core/events";
+import type { ExplainOption } from "../src/core/explain";
 import { t, type Lang, type TextKey } from "../src/core/i18n";
 import type { QuestionView } from "../src/core/questions";
 import type { Citation, RoadmapView, StepCard } from "../src/core/view";
@@ -147,6 +148,17 @@ export function makeRenderer(opts: RenderOptions) {
     return [box(title, isDone ? c("green", tr("done_badge")) : "", body), ...links.map((l) => c("cyan", l))].join("\n");
   };
 
+  /** "Not sure?" card: each option, numbered like the question, with what it changes. */
+  const explain = (title: string, options: ExplainOption[]): string => {
+    const lines = [c("dim", title)];
+    options.forEach((o, i) => {
+      const head = `${c("bold", `${i + 1})`)} ${c("bold", o.label)}`;
+      lines.push(...wrapKeepIndent(`   ${head}`, W - 2));
+      for (const e of o.effects) lines.push(...wrapKeepIndent(`      • ${e}`, W - 2));
+    });
+    return lines.map((l) => ` ${l}`).join("\n");
+  };
+
   /** Terminal shortcut for each action (the web UI shows buttons instead). */
   const ACTION_KEYS: Record<Action["id"], string> = { restart: "s", show_roadmap: "r" };
   const actions = (items: Action[]) =>
@@ -171,6 +183,8 @@ export function makeRenderer(opts: RenderOptions) {
         return [message(e.text), ...cite(e.citations).map((l) => ` ${l}`)].join("\n");
       case "actions":
         return actions(e.items);
+      case "explain":
+        return explain(e.title, e.options);
     }
   };
 

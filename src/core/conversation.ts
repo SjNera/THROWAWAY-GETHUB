@@ -5,6 +5,7 @@
 //   deps.ask         — free-form questions, answered from the charters with citations
 import { findCityInText, matchCity, normalize } from "./city";
 import { roadmap } from "./engine";
+import { explainQuestion } from "./explain";
 import { initialState, type Action, type Choice, type Event, type Input, type NotCoveredReason, type State, type TurnResult } from "./events";
 import { graph as defaultGraph, type Graph } from "./graph";
 import { optionLabel, t, type Lang } from "./i18n";
@@ -47,6 +48,18 @@ export function isRestartText(text: string): boolean {
   return RESTART_PHRASES.has(normalize(text));
 }
 
+/** "Go back one answer", in English and Filipino (whole message). */
+const BACK_PHRASES = new Set(["back", "go back", "undo", "previous", "go back one", "bumalik", "balik", "atras", "teka balik", "bumalik tayo"]);
+export const isBackText = (text: string) => BACK_PHRASES.has(normalize(text));
+
+/** "I'm not sure", in English and Filipino (whole message): explain the open question instead of guessing. */
+const UNSURE_PHRASES = new Set([
+  "maybe", "not sure", "im not sure", "i m not sure", "unsure", "idk", "i dont know", "i don t know", "dont know", "don t know",
+  "no idea", "not sure po", "what does that mean", "explain", "help",
+  "siguro", "baka", "ewan", "ewan ko", "hindi ko alam", "di ko alam", "hindi ako sigurado", "di ako sigurado", "ano ibig sabihin", "ano ang ibig sabihin",
+]);
+export const isUnsureText = (text: string) => UNSURE_PHRASES.has(normalize(text));
+
 /** Turn typed text into one of a question's option values, or null. */
 export function parseChoice(text: string, q: QuestionView): string | null {
   const n = normalize(text);
@@ -79,6 +92,10 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
   const out: Event[] = [];
   const lang = () => s.lang;
   const say = (text: string) => out.push({ type: "message", text });
+  const setAnswer = (key: string, value: string) => {
+    s.answers[key] = value;
+    s.order = [...s.order.filter((k) => k !== key), key];
+  };
 
   const choices = (): Choice[] => Object.keys(g.intents).map((intent) => ({ intent, label: intentLabel(g, intent, lang()) }));
   const showChoices = () => {
@@ -163,7 +180,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
   const takeCity = (text: string): boolean => {
     const m = matchCity(text, g);
     if (m.kind === "covered") {
-      s.answers.city = m.city;
+      setAnswer("city", m.city);
       say(t("got_city", lang(), { city: m.name }));
       return true;
     }
@@ -190,7 +207,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     // "PWD ID in Marikina" — the city is already in the sentence.
     const m = text ? findCityInText(text, g) : null;
     if (m?.kind === "covered") {
-      s.answers.city = m.city;
+      setAnswer("city", m.city);
       say(t("got_city", lang(), { city: m.name }));
     } else if (m?.kind === "coming_soon") {
       out.push({ type: "not_covered", reason: "city_coming_soon", message: t("city_soon", lang(), { city: m.name }), office: null });
@@ -233,9 +250,37 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       say(t("pick_option", lang()));
       return showQuestion(key);
     }
-    s.answers[key] = v;
+    setAnswer(key, v);
     s.pending = null;
     advance();
+  };
+
+  /** Undo the last answer and ask that question again; with no answers left, go back to picking a service. */
+  const back = () => {
+    const given = Object.keys(s.answers);
+    // Older states have no `order`: their answers (in the order given) come first.
+    const keys = [...given.filter((k) => !s.order.includes(k)), ...s.order.filter((k) => k in s.answers)];
+    const last = keys.at(-1);
+    if (!s.intent || !last) {
+      if (!s.intent && !s.suggest) say(t("nothing_to_undo", lang()));
+      else say(t("went_back", lang()));
+      Object.assign(s, initialState(lang()));
+      return showChoices();
+    }
+    delete s.answers[last];
+    s.order = keys.slice(0, -1);
+    Object.assign(s, { pending: null, current: null, done: [], suggest: null });
+    say(t("went_back", lang()));
+    advance();
+  };
+
+  /** "Not sure?": what each option of the open question changes, then the question again. */
+  const explain = () => {
+    if (!s.pending) return rerender();
+    const e = s.intent && s.pending !== "city" && s.pending !== CONFIRM_INTENT ? explainQuestion(g, s.intent, s.answers, s.pending, lang()) : null;
+    if (e) out.push({ type: "explain", ...e });
+    else say(t("explain_unavailable", lang()));
+    showQuestion(s.pending);
   };
 
   const ask = async (text: string) => {
@@ -302,6 +347,14 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       answer(input.key, input.value);
       break;
 
+    case "back":
+      back();
+      break;
+
+    case "explain":
+      explain();
+      break;
+
     case "text": {
       const text = input.text.trim();
       if (!text) {
@@ -313,6 +366,8 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
         Object.assign(s, initialState(lang()));
         say(t("greeting", lang()));
         showChoices();
+      } else if (isBackText(text)) {
+        back();
       } else if (s.pending === "city") {
         answer("city", text);
       } else if (s.pending === CONFIRM_INTENT) {
@@ -326,6 +381,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       } else if (s.pending) {
         const v = parseChoice(text, questionFor(s.pending));
         if (v) answer(s.pending, v);
+        else if (isUnsureText(text)) explain();
         else await ask(text); // not an option: treat it as a question, then re-ask
       } else if (!s.intent) {
         await serviceFromText(text);

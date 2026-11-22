@@ -27,6 +27,7 @@ async function allEvents(l: Lang): Promise<Event[]> {
       }
       while (state.pending) {
         const q = questionView(g, state.pending, l);
+        out.push(...(await turn(state, { type: "explain" })).events); // "not sure?" card for every question
         const r = await turn(state, { type: "answer", key: q.key, value: q.options.at(-1)!.value });
         state = r.state;
         out.push(...r.events);
@@ -46,10 +47,11 @@ describe("terminal renderer", () => {
     lang = "en";
     const events = await allEvents("en");
     const seen = new Set(events.map((e) => e.type));
-    expect([...seen].sort()).toEqual(["actions", "answer", "choices", "message", "not_covered", "question", "roadmap", "step"]);
+    expect([...seen].sort()).toEqual(["actions", "answer", "choices", "explain", "message", "not_covered", "question", "roadmap", "step"]);
     for (const e of events) {
       const text = render(e);
       expect(text.length).toBeGreaterThan(0);
+      if (e.type === "explain") for (const line of text.split("\n")) expect(line.length, line).toBeLessThanOrEqual(80);
       if (e.type === "roadmap" || e.type === "step") {
         for (const line of text.split("\n")) {
           if (/^ (Link|Map|Mapa): /.test(line)) continue; // links sit below the box, unbroken
@@ -68,6 +70,7 @@ describe("Filipino mode", () => {
     /Not listed — confirm/, /\(to be reviewed\)/, /Ask: /, /\bQuit\b/, /Start over/, /View roadmap/,
     /Got it/, /Which city/, /will be covered soon/, /didn't catch/, /Here's your/, /Last step/, /That's every step/,
     /Confirm with the office/, /Any order/, /\bLast\b/, /\bThen\b/, /^ *\d\) (Yes|No)\b/m,
+    /what each answer changes/, /Adds a step/, /You'll need/, /stay the same/, /guide stops here/, /We continue/, /go back/,
   ];
 
   it("every question in every journey uses the graph's Filipino text", async () => {

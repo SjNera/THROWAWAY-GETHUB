@@ -1,6 +1,7 @@
 // The contract between the brain and any screen (terminal, web).
 // State and Input are validated with Zod (they arrive over the API); events are produced by us.
 import { z } from "zod";
+import type { ExplainOption } from "./explain";
 import type { QuestionView } from "./questions";
 import type { Citation, RoadmapView, StepCard } from "./view";
 
@@ -20,6 +21,8 @@ export const StateSchema = z.object({
   done: z.array(z.number().int().positive()).max(100),
   /** A service the AI guessed from free text, waiting for the person to confirm (with their original words). */
   suggest: z.object({ intent: z.string().max(100), text: z.string().max(1000) }).nullable().default(null),
+  /** Answer keys in the order they were given, so "back" knows which to undo. */
+  order: z.array(z.string().max(100)).max(50).default([]),
 });
 export type State = z.infer<typeof StateSchema>;
 
@@ -38,6 +41,10 @@ export const InputSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("mark_done"), number: z.number().int().positive(), done: z.boolean() }),
   z.object({ type: z.literal("set_lang"), lang: LangSchema }),
   z.object({ type: z.literal("restart") }),
+  /** Undo the last answer and ask that question again. */
+  z.object({ type: z.literal("back") }),
+  /** "Not sure?": what each option of the open question changes. */
+  z.object({ type: z.literal("explain") }),
 ]);
 export type Input = z.infer<typeof InputSchema>;
 
@@ -64,6 +71,8 @@ export type Event =
   | { type: "step"; step: StepCard; total: number; isLast: boolean; done: boolean }
   | { type: "not_covered"; reason: NotCoveredReason; message: string; office: string | null }
   | { type: "answer"; text: string; citations: Citation[] }
+  /** What each option of the open question changes (shown when the person isn't sure). */
+  | { type: "explain"; key: string; title: string; options: ExplainOption[] }
   /** What the person can do next, e.g. "Start over" once a journey has ended. */
   | { type: "actions"; items: Action[] };
 
@@ -73,5 +82,5 @@ export interface TurnResult {
 }
 
 export function initialState(lang: z.infer<typeof LangSchema> = "en"): State {
-  return { v: 1, lang, intent: null, answers: {}, pending: null, current: null, done: [], suggest: null };
+  return { v: 1, lang, intent: null, answers: {}, pending: null, current: null, done: [], suggest: null, order: [] };
 }

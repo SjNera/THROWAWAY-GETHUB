@@ -69,6 +69,8 @@ function toInput(line: string): Input | "help" | "quit" {
       return { type: "show_roadmap" };
     case "/restart":
       return { type: "restart" };
+    case "/back":
+      return { type: "back" };
     case "/step":
       if (n > 0) return { type: "open_step", number: n };
       break;
@@ -82,6 +84,9 @@ function toInput(line: string): Input | "help" | "quit" {
       if (arg === "en" || arg === "fil") return { type: "set_lang", lang: arg };
       break;
   }
+  // b = back one answer, anytime; ? = "what does each answer change?" while an option question is open.
+  if (text.toLowerCase() === "b") return { type: "back" };
+  if (text === "?" && state.pending !== null) return { type: "explain" };
   // s / q whenever no question is waiting (so a typed answer is never taken as a command).
   if (state.pending === null) {
     const k = text.toLowerCase();

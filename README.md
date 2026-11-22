@@ -22,7 +22,7 @@ npm run dev                   # terminal 1: API on http://localhost:8787
 npm run chat -- --api         # terminal 2: the same chat, through the API
 ```
 
-In the chat: type a service or pick a number, then answer the questions. Once the roadmap shows: `n` next step, `r` roadmap, a number opens that step, `d` marks it done, `s` starts over, `q` quits, anything else is a question for the guide. `/help` lists everything.
+In the chat: type a service or pick a number, then answer the questions. Not sure how to answer? Type `?` or "not sure" to see what each answer changes. `b` (or "back") undoes the last answer. Once the roadmap shows: `n` next step, `r` roadmap, a number opens that step, `d` marks it done, `s` starts over, `q` quits, anything else is a question for the guide. `/help` lists everything.
 
 ## Check it
 
@@ -61,7 +61,7 @@ Never edit `knowledge/phase0/graph.json` by hand.
 
 | Endpoint | Input → output |
 |---|---|
-| `POST /api/turn` | `{ state?, input }` → `{ state, events }`: the main chat endpoint |
+| `POST /api/turn` | `{ state?, input }` → `{ state, events }`: the main chat endpoint. Inputs include `back` (undo the last answer) and `explain` ("Not sure?": an `explain` event with what each option changes) |
 | `POST /api/intent` | `{ text }` → `{ intent, by }` |
 | `POST /api/roadmap` | `{ intent, answers, lang? }` → next question, roadmap, or "not covered" |
 | `POST /api/ask` | `{ question, state }` → `{ text, citations }` |

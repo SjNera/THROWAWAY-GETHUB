@@ -388,3 +388,111 @@ describe("Filipino process message", () => {
     expect(find(events, "not_covered")!.message).toMatch(/^Ang pagpaparehistro lampas sa 30 araw/);
   });
 });
+
+describe("not sure → explain (no AI)", () => {
+  const atMedCert = () =>
+    run([
+      { type: "choose_intent", intent: "pwd-id-application" },
+      { type: "text", text: "Marikina" },
+      { type: "answer", key: "mkn.has_gov_id", value: "yes" },
+    ]);
+
+  it.each(["maybe", "not sure", "I'm not sure", "hindi ko alam", "ewan"])("'%s' explains the open question, then asks it again", async (text) => {
+    const { state } = await atMedCert();
+    expect(state.pending).toBe("mkn.has_med_cert");
+    const asked: string[] = [];
+    const r = await turn(state, { type: "text", text }, { ask: async (q) => (asked.push(q), { text: "", citations: [] }) });
+    expect(types(r.events)).toEqual(["explain", "question"]);
+    expect(asked).toEqual([]); // never sent to the AI
+    const e = find(r.events, "explain")!;
+    expect(e.key).toBe("mkn.has_med_cert");
+    expect(e.options.find((o) => o.value === "no")!.effects.join(" ")).toMatch(/Medical certificate/);
+    expect(r.state.pending).toBe("mkn.has_med_cert");
+    expect(r.state.answers).toEqual(state.answers);
+  });
+
+  it("the explain input does the same (a 'Not sure?' button)", async () => {
+    const { state } = await atMedCert();
+    const r = await turn(state, { type: "explain" });
+    expect(types(r.events)).toEqual(["explain", "question"]);
+  });
+
+  it("at the city question: no explanation, just the question again", async () => {
+    const { state } = await run([{ type: "choose_intent", intent: "pwd-id-application" }]);
+    const r = await turn(state, { type: "explain" });
+    expect(types(r.events)).toEqual(["message", "question"]);
+  });
+
+  it("other text still goes to the AI helper", async () => {
+    const { state } = await atMedCert();
+    const asked: string[] = [];
+    await turn(state, { type: "text", text: "who signs it?" }, { ask: async (q) => (asked.push(q), { text: "x", citations: [] }) });
+    expect(asked).toEqual(["who signs it?"]);
+  });
+});
+
+describe("back", () => {
+  it("undoes the last answer and asks that question again", async () => {
+    const { state } = await run([
+      { type: "choose_intent", intent: "pwd-id-application" },
+      { type: "text", text: "Quezon City" },
+      { type: "answer", key: "channel", value: "in_person" },
+    ]);
+    expect(state.order).toEqual(["city", "channel"]);
+    const r = await turn(state, { type: "back" });
+    expect(r.state.answers).toEqual({ city: "qc" });
+    expect(r.state.pending).toBe("channel");
+    expect(types(r.events)).toEqual(["message", "question"]);
+  });
+
+  it("from the roadmap: back to the last question, progress cleared", async () => {
+    let { state } = await run([{ type: "choose_intent", intent: "building-permit" }, { type: "text", text: "Marikina" }]);
+    expect(state.current).toBe(1); // Marikina building permit has no questions after the city
+    ({ state } = await run([{ type: "next_step" }], undefined, state));
+    const r = await turn(state, { type: "back" });
+    expect(r.state).toMatchObject({ pending: "city", current: null, done: [], answers: {} });
+  });
+
+  it("walks all the way back to picking a service, then says there's nothing left", async () => {
+    let { state } = await run([{ type: "choose_intent", intent: "pwd-id-application" }, { type: "text", text: "qc" }]);
+    ({ state } = await run([{ type: "back" }], undefined, state)); // city undone
+    expect(state.pending).toBe("city");
+    let r = await turn(state, { type: "back" }); // service undone
+    expect(r.state.intent).toBeNull();
+    expect(types(r.events)).toContain("choices");
+    r = await turn(r.state, { type: "back" });
+    expect(messages(r.events)[0]).toBe("There's nothing to go back to.");
+  });
+
+  it.each(["back", "go back", "undo", "bumalik", "balik"])("typing '%s' goes back, even while an option question is open", async (text) => {
+    const { state } = await run([
+      { type: "choose_intent", intent: "pwd-id-application" },
+      { type: "text", text: "qc" },
+      { type: "answer", key: "channel", value: "online" },
+    ]);
+    const r = await turn(state, { type: "text", text });
+    expect(r.state.answers).toEqual({ city: "qc" });
+    expect(r.state.pending).toBe("channel");
+  });
+
+  it("an older state without `order` still goes back (answers in the order given)", async () => {
+    const { state } = await run([
+      { type: "choose_intent", intent: "pwd-id-application" },
+      { type: "text", text: "qc" },
+      { type: "answer", key: "channel", value: "online" },
+    ]);
+    const old = StateSchema.parse({ ...state, order: undefined });
+    expect(old.order).toEqual([]);
+    const r = await turn(old, { type: "back" });
+    expect(r.state.answers).toEqual({ city: "qc" });
+  });
+
+  it("while an AI guess waits for yes/no: back to the service list", async () => {
+    const deps: TurnDeps = { guessIntent: async () => "senior-citizen-id" };
+    const { state } = await run([{ type: "text", text: "my lola needs an ID for discounts" }], deps);
+    expect(state.pending).toBe("confirm_intent");
+    const r = await turn(state, { type: "back" });
+    expect(r.state).toMatchObject({ pending: null, suggest: null, intent: null });
+    expect(types(r.events)).toContain("choices");
+  });
+});
