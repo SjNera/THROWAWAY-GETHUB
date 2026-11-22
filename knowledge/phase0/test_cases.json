@@ -1,0 +1,1509 @@
+[
+ {
+  "name": "T1 PWD ID online, non-apparent, nothing owned",
+  "intent": "pwd-id-application",
+  "answers": {
+   "city": "qc",
+   "channel": "online",
+   "qc.disability_type": "non_apparent",
+   "qc.has_med_cert": "no",
+   "qc.has_gov_id": "no",
+   "qc.has_eservices_account": "no"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "qc.s-pwd-id",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "qc.r-barangay-cert",
+       "type": "prepare",
+       "name": "Barangay certificate / clearance",
+       "office": "Barangay hall (resident’s own barangay)",
+       "hint": null
+      },
+      {
+       "id": "qc.r-cert-disability",
+       "type": "prepare",
+       "name": "Certificate of Disability (from a specialist doctor)",
+       "office": "Issuing agency or professional (outside QC charters)",
+       "hint": "Must be signed by the specialist for your disability type, not a family doctor or general physician."
+      },
+      {
+       "id": "qc.r-id-photo-2x2",
+       "type": "prepare",
+       "name": "2x2 ID photo (and signature)",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "qc.s-eservices-register",
+       "type": "service",
+       "name": "QC E-Services account registration",
+       "channel": "online",
+       "office": "QC E-Services portal",
+       "address": null,
+       "fee": "not_listed",
+       "time": "Not listed — confirm with the office",
+       "needs": [],
+       "url": "https://qceservices.quezoncity.gov.ph/",
+       "note": "Fee and time not stated in the sources read."
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "qc.s-pwd-id",
+       "type": "service",
+       "name": "PWD ID application (QCitizen PWD ID)",
+       "channel": "online",
+       "office": "QC E-Services portal",
+       "address": null,
+       "fee": "none",
+       "time": "3 days",
+       "needs": [
+        "qc.r-barangay-cert",
+        "qc.r-cert-disability",
+        "qc.r-id-photo-2x2",
+        "qc.s-eservices-register"
+       ],
+       "url": "https://qceservices.quezoncity.gov.ph/",
+       "note": "Non-apparent disability validation takes 2–3 days. Renewal of a white PWD ID is processed as a new application."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "T2 PWD ID walk-in, apparent, has gov ID",
+  "intent": "pwd-id-application",
+  "answers": {
+   "city": "qc",
+   "channel": "in_person",
+   "qc.disability_type": "apparent",
+   "qc.has_gov_id": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "qc.s-pwd-id",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "qc.r-id-photo-2x2",
+       "type": "prepare",
+       "name": "2x2 ID photo (and signature)",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "qc.r-whole-body-photo",
+       "type": "prepare",
+       "name": "Whole-body photo showing the disability",
+       "office": null,
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "qc.s-pwd-id",
+       "type": "service",
+       "name": "PWD ID application (QCitizen PWD ID)",
+       "channel": "in_person",
+       "office": "Persons with Disability Affairs Office (PDAO)",
+       "address": "Ground Floor, Community Center Building, Gate 3, Kalayaan Ave., QC Hall Compound",
+       "fee": "none",
+       "time": "40 minutes",
+       "needs": [
+        "qc.r-id-photo-2x2",
+        "qc.r-whole-body-photo"
+       ],
+       "url": null,
+       "note": null
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "T3 Senior ID online, no QC ID, no valid ID, no birth cert (cross-journey)",
+  "intent": "senior-citizen-id",
+  "answers": {
+   "city": "qc",
+   "channel": "online",
+   "qc.has_qcitizen_id": "no",
+   "qc.has_birth_certificate": "no",
+   "qc.has_eservices_account": "no",
+   "qc.married_woman_diff_surname": "no"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "qc.s-senior-id",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "qc.r-barangay-residency",
+       "type": "prepare",
+       "name": "Barangay Certificate of Residency",
+       "office": "Barangay hall (resident’s own barangay)",
+       "hint": null
+      },
+      {
+       "id": "qc.r-id-photo-2x2",
+       "type": "prepare",
+       "name": "2x2 ID photo (and signature)",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "qc.s-eservices-register",
+       "type": "service",
+       "name": "QC E-Services account registration",
+       "channel": "online",
+       "office": "QC E-Services portal",
+       "address": null,
+       "fee": "not_listed",
+       "time": "Not listed — confirm with the office",
+       "needs": [],
+       "url": "https://qceservices.quezoncity.gov.ph/",
+       "note": "Fee and time not stated in the sources read."
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "qc.s-birth-ctc",
+       "type": "service",
+       "name": "Certified True Copy of Birth Certificate (QC-registered)",
+       "channel": "online",
+       "office": "QC E-Services portal",
+       "address": null,
+       "fee": "PHP 65.00 per copy",
+       "time": "1–3 days plus 5 minutes at pick-up",
+       "needs": [
+        "qc.s-eservices-register"
+       ],
+       "url": "https://qceservices.quezoncity.gov.ph/",
+       "note": null
+      }
+     ]
+    },
+    {
+     "group": 3,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "qc.s-senior-id",
+       "type": "service",
+       "name": "Senior Citizen QC ID (OSCA)",
+       "channel": "online",
+       "office": "QC E-Services portal",
+       "address": null,
+       "fee": "not_listed",
+       "time": "Not listed — confirm with the office",
+       "needs": [
+        "qc.r-barangay-residency",
+        "qc.r-id-photo-2x2",
+        "qc.s-birth-ctc",
+        "qc.s-eservices-register"
+       ],
+       "url": "https://qceservices.quezoncity.gov.ph/",
+       "note": "Fee and processing time are not stated in the guide."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "T4 Business renewal, tax unpaid -> tax payment before renewal",
+  "intent": "business-permit-renewal",
+  "answers": {
+   "city": "qc",
+   "qc.has_business_tax_or": "no",
+   "is_representative": "no"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "qc.s-business-permit-renewal",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "qc.r-owner-valid-id",
+       "type": "prepare",
+       "name": "Valid ID of business owner",
+       "office": "Issuing agency or professional (outside QC charters)",
+       "hint": null
+      },
+      {
+       "id": "qc.r-prev-mayors-permit",
+       "type": "prepare",
+       "name": "Previous Mayor’s Permit",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "qc.r-tax-bill",
+       "type": "prepare",
+       "name": "Computerized Business Tax Bill",
+       "office": "City Treasurer’s Office (CTO)",
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "qc.s-business-tax-payment",
+       "type": "service",
+       "name": "Pay business tax (City Treasurer’s Office)",
+       "channel": "in_person",
+       "office": "City Treasurer’s Office (CTO)",
+       "address": "Annex Building, Mayaman St. Brgy. Central, QC Hall Compound, Diliman, Quezon City",
+       "fee": "As stated in the Business Tax Bill",
+       "time": "10 minutes",
+       "needs": [
+        "qc.r-tax-bill"
+       ],
+       "url": null,
+       "note": "Online payment is also offered via QC E-Services (per the BPLD charter); details not captured here."
+      }
+     ]
+    },
+    {
+     "group": 3,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "qc.s-business-permit-renewal",
+       "type": "service",
+       "name": "Business permit renewal",
+       "channel": "online",
+       "office": "QC E-Services portal",
+       "address": null,
+       "fee": "none",
+       "time": "Not listed — confirm with the office",
+       "needs": [
+        "qc.r-owner-valid-id",
+        "qc.r-prev-mayors-permit",
+        "qc.s-business-tax-payment"
+       ],
+       "url": "https://qceservices.quezoncity.gov.ph/",
+       "note": "Charter lists 30 minutes per evaluation stage but no single total; the system can auto-renew if compliant."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "T5 Business renewal, tax paid -> no tax step",
+  "intent": "business-permit-renewal",
+  "answers": {
+   "city": "qc",
+   "qc.has_business_tax_or": "yes",
+   "is_representative": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "qc.s-business-permit-renewal",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "qc.r-authorization",
+       "type": "prepare",
+       "name": "Authorization form + valid ID of representative",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "qc.r-owner-valid-id",
+       "type": "prepare",
+       "name": "Valid ID of business owner",
+       "office": "Issuing agency or professional (outside QC charters)",
+       "hint": null
+      },
+      {
+       "id": "qc.r-prev-mayors-permit",
+       "type": "prepare",
+       "name": "Previous Mayor’s Permit",
+       "office": null,
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "qc.s-business-permit-renewal",
+       "type": "service",
+       "name": "Business permit renewal",
+       "channel": "online",
+       "office": "QC E-Services portal",
+       "address": null,
+       "fee": "none",
+       "time": "Not listed — confirm with the office",
+       "needs": [
+        "qc.r-authorization",
+        "qc.r-owner-valid-id",
+        "qc.r-prev-mayors-permit"
+       ],
+       "url": "https://qceservices.quezoncity.gov.ph/",
+       "note": "Charter lists 30 minutes per evaluation stage but no single total; the system can auto-renew if compliant."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "T6 Building permit, not owner, complex -> 7 working days",
+  "intent": "building-permit",
+  "answers": {
+   "city": "qc",
+   "qc.is_owner": "no",
+   "qc.is_renovation_pre2022": "no",
+   "permit_class": "complex",
+   "qc.has_eservices_account": "no"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "qc.s-building-permit",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "qc.r-affidavits",
+       "type": "prepare",
+       "name": "Notarized affidavits (forms printable from your QC E-Services account)",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "qc.r-building-plans",
+       "type": "prepare",
+       "name": "Building plans with wet signature and seal of the design professional",
+       "office": "Issuing agency or professional (outside QC charters)",
+       "hint": null
+      },
+      {
+       "id": "qc.r-design-professional",
+       "type": "prepare",
+       "name": "Registered private design/building professional (with QC E-Services account)",
+       "office": "Issuing agency or professional (outside QC charters)",
+       "hint": null
+      },
+      {
+       "id": "qc.r-legal-right",
+       "type": "prepare",
+       "name": "Legal document showing right to build (e.g., Deed of Absolute Sale) when applicant is not the registered owner",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "qc.s-eservices-register",
+       "type": "service",
+       "name": "QC E-Services account registration",
+       "channel": "online",
+       "office": "QC E-Services portal",
+       "address": null,
+       "fee": "not_listed",
+       "time": "Not listed — confirm with the office",
+       "needs": [],
+       "url": "https://qceservices.quezoncity.gov.ph/",
+       "note": "Fee and time not stated in the sources read."
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "qc.s-building-permit",
+       "type": "service",
+       "name": "Building / construction permit (new construction)",
+       "channel": "online",
+       "office": "Department of the Building Official (DBO)",
+       "address": "Ground to 3rd Floors, Civic Center D (BRO Bldg.), Mayaman Street, Quezon City Hall Compound",
+       "fee": "Refer to the Schedule of Fees (computed by DBO)",
+       "time": "7 working days",
+       "needs": [
+        "qc.r-affidavits",
+        "qc.r-building-plans",
+        "qc.r-design-professional",
+        "qc.r-legal-right",
+        "qc.s-eservices-register"
+       ],
+       "url": "https://qceservices.quezoncity.gov.ph/",
+       "note": "Payment window differs between sources: charter says Treasurer windows 13 or 14; the QCitizen guide says Counter 12. Confirm with DBO."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "T7 Birth certificate copy, walk-in, representative",
+  "intent": "birth-certificate-copy",
+  "answers": {
+   "city": "qc",
+   "channel": "in_person",
+   "is_representative": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "qc.s-birth-ctc",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "qc.r-authorization-ctc",
+       "type": "prepare",
+       "name": "Authorization letter/SPA + photocopies of owner’s and representative’s IDs",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "qc.r-id-ctc",
+       "type": "prepare",
+       "name": "Government-issued / valid ID",
+       "office": "Issuing agency or professional (outside QC charters)",
+       "hint": null
+      },
+      {
+       "id": "qc.r-request-form-birth",
+       "type": "prepare",
+       "name": "Request form for birth certificate (Information Desk)",
+       "office": null,
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "qc.s-birth-ctc",
+       "type": "service",
+       "name": "Certified True Copy of Birth Certificate (QC-registered)",
+       "channel": "in_person",
+       "office": "City Civil Registry Department (CCRD)",
+       "address": "Quezon City Hall Compound (1st Floor, Door 2, Civic Center)",
+       "fee": "PHP 65.00 per copy",
+       "time": "15 minutes if on database (1945–2015); 3 days if manual search",
+       "needs": [
+        "qc.r-authorization-ctc",
+        "qc.r-id-ctc",
+        "qc.r-request-form-birth"
+       ],
+       "url": null,
+       "note": "For persons born in Quezon City; counters 1 & 2."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "T8 Birth registration late -> not covered with office",
+  "intent": "birth-registration",
+  "answers": {
+   "city": "qc",
+   "within_30_days": "no"
+  },
+  "patch": null,
+  "expected": {
+   "status": "not_covered",
+   "message": "Registration after 30 days follows the delayed-registration process. Contact the City Civil Registry Department.",
+   "office": "City Civil Registry Department (CCRD)"
+  }
+ },
+ {
+  "name": "T9 Unknown intent -> not covered",
+  "intent": "unknown-thing",
+  "answers": {
+   "city": "qc"
+  },
+  "patch": null,
+  "expected": {
+   "status": "not_covered",
+   "message": "Not covered",
+   "office": null
+  }
+ },
+ {
+  "name": "M1 PWD ID, nothing owned",
+  "intent": "pwd-id-application",
+  "answers": {
+   "city": "mkn",
+   "mkn.has_gov_id": "no",
+   "mkn.has_med_cert": "no"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-pwd-id",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-gov-id",
+       "type": "prepare",
+       "name": "Government-issued valid ID",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      },
+      {
+       "id": "mkn.r-med-cert",
+       "type": "prepare",
+       "name": "Medical certificate or Certificate of Non-Apparent Disability from the doctor",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": "From a medical doctor, ophthalmologist, neurologist or orthopedic doctor."
+      },
+      {
+       "id": "mkn.r-photo-1x1",
+       "type": "prepare",
+       "name": "1x1 ID picture",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "mkn.r-whole-body-photo",
+       "type": "prepare",
+       "name": "Whole-body picture",
+       "office": null,
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-pwd-id",
+       "type": "service",
+       "name": "PWD ID (PDAO)",
+       "channel": "in_person",
+       "office": "Persons with Disability Affairs Office (PDAO), under CSWDO",
+       "address": null,
+       "fee": "none",
+       "time": "16 minutes",
+       "needs": [
+        "mkn.r-gov-id",
+        "mkn.r-med-cert",
+        "mkn.r-photo-1x1",
+        "mkn.r-whole-body-photo"
+       ],
+       "url": null,
+       "note": "Walk-in only in the sources read. The 2022 omnibus charter gives a different total (11 minutes and 10 seconds); the 2024 charter is used."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M2 PWD ID, has gov ID and medical certificate",
+  "intent": "pwd-id-application",
+  "answers": {
+   "city": "mkn",
+   "mkn.has_gov_id": "yes",
+   "mkn.has_med_cert": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-pwd-id",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-photo-1x1",
+       "type": "prepare",
+       "name": "1x1 ID picture",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "mkn.r-whole-body-photo",
+       "type": "prepare",
+       "name": "Whole-body picture",
+       "office": null,
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-pwd-id",
+       "type": "service",
+       "name": "PWD ID (PDAO)",
+       "channel": "in_person",
+       "office": "Persons with Disability Affairs Office (PDAO), under CSWDO",
+       "address": null,
+       "fee": "none",
+       "time": "16 minutes",
+       "needs": [
+        "mkn.r-photo-1x1",
+        "mkn.r-whole-body-photo"
+       ],
+       "url": null,
+       "note": "Walk-in only in the sources read. The 2022 omnibus charter gives a different total (11 minutes and 10 seconds); the 2024 charter is used."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M3 Senior ID, representative, no valid ID",
+  "intent": "senior-citizen-id",
+  "answers": {
+   "city": "mkn",
+   "is_representative": "yes",
+   "mkn.has_valid_id": "no"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-senior-id",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-authorization-senior",
+       "type": "prepare",
+       "name": "Authorization letter signed by the senior citizen + valid ID of the senior citizen and of the representative",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "mkn.r-osca-form",
+       "type": "prepare",
+       "name": "Fully accomplished OSCA application form",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": "Obtained from OSCA."
+      },
+      {
+       "id": "mkn.r-photo-1x1-senior",
+       "type": "prepare",
+       "name": "3 pcs. latest 1x1 ID picture",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "mkn.r-valid-id-senior",
+       "type": "prepare",
+       "name": "One valid ID or document (e.g., PhilSys National ID, UMID, voter’s ID, PRC ID, driver’s license, passport, birth certificate, barangay clearance)",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-senior-id",
+       "type": "service",
+       "name": "Senior Citizen’s ID with booklet (OSCA)",
+       "channel": "in_person",
+       "office": "Office for Senior Citizens Affairs (OSCA)",
+       "address": "Marikina City Hall, Shoe Avenue, Sta. Elena, Marikina City 1800 (floor/room inside the compound is not stated in the sources; confirm with the office)",
+       "fee": "none",
+       "time": "6 minutes",
+       "needs": [
+        "mkn.r-authorization-senior",
+        "mkn.r-osca-form",
+        "mkn.r-photo-1x1-senior",
+        "mkn.r-valid-id-senior"
+       ],
+       "url": null,
+       "note": "For Marikina residents aged 60 or older. Walk-in only in the sources read."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M4 Senior ID, self, has valid ID -> no representative papers, no ID step",
+  "intent": "senior-citizen-id",
+  "answers": {
+   "city": "mkn",
+   "is_representative": "no",
+   "mkn.has_valid_id": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-senior-id",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-osca-form",
+       "type": "prepare",
+       "name": "Fully accomplished OSCA application form",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": "Obtained from OSCA."
+      },
+      {
+       "id": "mkn.r-photo-1x1-senior",
+       "type": "prepare",
+       "name": "3 pcs. latest 1x1 ID picture",
+       "office": null,
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-senior-id",
+       "type": "service",
+       "name": "Senior Citizen’s ID with booklet (OSCA)",
+       "channel": "in_person",
+       "office": "Office for Senior Citizens Affairs (OSCA)",
+       "address": "Marikina City Hall, Shoe Avenue, Sta. Elena, Marikina City 1800 (floor/room inside the compound is not stated in the sources; confirm with the office)",
+       "fee": "none",
+       "time": "6 minutes",
+       "needs": [
+        "mkn.r-osca-form",
+        "mkn.r-photo-1x1-senior"
+       ],
+       "url": null,
+       "note": "For Marikina residents aged 60 or older. Walk-in only in the sources read."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M5 Birth certificate copy, representative",
+  "intent": "birth-certificate-copy",
+  "answers": {
+   "city": "mkn",
+   "is_representative": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-birth-ctc",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-authorization-ctc",
+       "type": "prepare",
+       "name": "Authorization letter / Special Power of Attorney from the document owner",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "mkn.r-id-ctc",
+       "type": "prepare",
+       "name": "Government-issued / valid ID of requester",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      },
+      {
+       "id": "mkn.r-request-form-birth",
+       "type": "prepare",
+       "name": "Request form for birth certificate (LCRO Window 4)",
+       "office": null,
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-birth-ctc",
+       "type": "service",
+       "name": "Certified True Copy of Birth Certificate (Marikina-registered)",
+       "channel": "in_person",
+       "office": "City Civil Registry Office (LCRO)",
+       "address": "Marikina City Hall, Shoe Avenue, Sta. Elena, Marikina City 1800 (floor/room inside the compound is not stated in the sources; confirm with the office)",
+       "fee": "PHP 150.00 per copy",
+       "time": "6 minutes",
+       "needs": [
+        "mkn.r-authorization-ctc",
+        "mkn.r-id-ctc",
+        "mkn.r-request-form-birth"
+       ],
+       "url": null,
+       "note": "Records registered at the Marikina City Civil Registry only. The same fee is shown for birth, marriage and death copies. Walk-in only in the sources read."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M6 Birth registration, parents not married",
+  "intent": "birth-registration",
+  "answers": {
+   "city": "mkn",
+   "within_30_days": "yes",
+   "parents_married": "no"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-birth-registration",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-aop",
+       "type": "prepare",
+       "name": "Affidavit of Admission of Paternity (back of Form 102, signed by the parents and notarized)",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      },
+      {
+       "id": "mkn.r-aus",
+       "type": "prepare",
+       "name": "Affidavit to Use the Surname of the Father (4 copies, signed by the mother and notarized)",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      },
+      {
+       "id": "mkn.r-colb-form102",
+       "type": "prepare",
+       "name": "Properly accomplished Municipal Form 102 (Certificate of Live Birth), 1 set",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": "From the hospital, lying-in clinic or other birthing facility."
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-birth-registration",
+       "type": "service",
+       "name": "Registration of Certificate of Live Birth (on-time, within 30 days)",
+       "channel": "in_person",
+       "office": "City Civil Registry Office (LCRO)",
+       "address": "Marikina City Hall, Shoe Avenue, Sta. Elena, Marikina City 1800 (floor/room inside the compound is not stated in the sources; confirm with the office)",
+       "fee": "PHP 100.00 (on-time registration fee)",
+       "time": "9 minutes",
+       "needs": [
+        "mkn.r-aop",
+        "mkn.r-aus",
+        "mkn.r-colb-form102"
+       ],
+       "url": null,
+       "note": "For births in Marikina City. Walk-in only in the sources read."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M7 Birth registration, parents married",
+  "intent": "birth-registration",
+  "answers": {
+   "city": "mkn",
+   "within_30_days": "yes",
+   "parents_married": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-birth-registration",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-colb-form102",
+       "type": "prepare",
+       "name": "Properly accomplished Municipal Form 102 (Certificate of Live Birth), 1 set",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": "From the hospital, lying-in clinic or other birthing facility."
+      },
+      {
+       "id": "mkn.r-parents-marriage-cert",
+       "type": "prepare",
+       "name": "Certified true copy or PSA/NSO copy of the parents’ marriage certificate",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-birth-registration",
+       "type": "service",
+       "name": "Registration of Certificate of Live Birth (on-time, within 30 days)",
+       "channel": "in_person",
+       "office": "City Civil Registry Office (LCRO)",
+       "address": "Marikina City Hall, Shoe Avenue, Sta. Elena, Marikina City 1800 (floor/room inside the compound is not stated in the sources; confirm with the office)",
+       "fee": "PHP 100.00 (on-time registration fee)",
+       "time": "9 minutes",
+       "needs": [
+        "mkn.r-colb-form102",
+        "mkn.r-parents-marriage-cert"
+       ],
+       "url": null,
+       "note": "For births in Marikina City. Walk-in only in the sources read."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M8 Birth registration after 30 days -> not covered with CCRO",
+  "intent": "birth-registration",
+  "answers": {
+   "city": "mkn",
+   "within_30_days": "no"
+  },
+  "patch": null,
+  "expected": {
+   "status": "not_covered",
+   "message": "Registration after 30 days follows the late-registration process. Contact the City Civil Registry Office (Window 5).",
+   "office": "City Civil Registry Office (LCRO)"
+  }
+ },
+ {
+  "name": "M9 Business renewal online, no portal account -> sign-up first",
+  "intent": "business-permit-renewal",
+  "answers": {
+   "city": "mkn",
+   "channel": "online",
+   "mkn.has_portal_account": "no"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-business-permit-renewal",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-business-account-no",
+       "type": "prepare",
+       "name": "Business Account Number (from your existing Marikina business permit)",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "mkn.r-financial-statement",
+       "type": "prepare",
+       "name": "Financial Statement / Quarterly VAT Returns / Monthly Percentage Tax (photocopies)",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      },
+      {
+       "id": "mkn.s-portal-register",
+       "type": "service",
+       "name": "Marikina Online Services account registration",
+       "channel": "online",
+       "office": "Marikina Online Services portal",
+       "address": null,
+       "fee": "not_listed",
+       "time": "Not listed — confirm with the office",
+       "needs": [],
+       "url": "https://payment.marikina.gov.ph/Marikina/OnlineServices/",
+       "note": "Fee and time are not stated in the sources read."
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-business-permit-renewal",
+       "type": "service",
+       "name": "Business permit renewal (BPLO)",
+       "channel": "online",
+       "office": "Marikina Online Services portal",
+       "address": null,
+       "fee": "Per the Revenue Code of Marikina City (computed by the portal)",
+       "time": "15 minutes (register and pay online)",
+       "needs": [
+        "mkn.r-business-account-no",
+        "mkn.r-financial-statement",
+        "mkn.s-portal-register"
+       ],
+       "url": "https://payment.marikina.gov.ph/Marikina/OnlineServices/",
+       "note": "Check your eBOSS compliance status first at https://bplo.marikina.gov.ph/client."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M10 Business renewal online, has portal account -> no sign-up step",
+  "intent": "business-permit-renewal",
+  "answers": {
+   "city": "mkn",
+   "channel": "online",
+   "mkn.has_portal_account": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-business-permit-renewal",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-business-account-no",
+       "type": "prepare",
+       "name": "Business Account Number (from your existing Marikina business permit)",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "mkn.r-financial-statement",
+       "type": "prepare",
+       "name": "Financial Statement / Quarterly VAT Returns / Monthly Percentage Tax (photocopies)",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-business-permit-renewal",
+       "type": "service",
+       "name": "Business permit renewal (BPLO)",
+       "channel": "online",
+       "office": "Marikina Online Services portal",
+       "address": null,
+       "fee": "Per the Revenue Code of Marikina City (computed by the portal)",
+       "time": "15 minutes (register and pay online)",
+       "needs": [
+        "mkn.r-business-account-no",
+        "mkn.r-financial-statement"
+       ],
+       "url": "https://payment.marikina.gov.ph/Marikina/OnlineServices/",
+       "note": "Check your eBOSS compliance status first at https://bplo.marikina.gov.ph/client."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M11 Business renewal walk-in, representative",
+  "intent": "business-permit-renewal",
+  "answers": {
+   "city": "mkn",
+   "channel": "in_person",
+   "is_representative": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-business-permit-renewal",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-authorization-biz",
+       "type": "prepare",
+       "name": "If through a representative: Authorization Letter/SPA (sole proprietorship) or Secretary’s Certificate (corporation, partnership, cooperative), plus valid IDs",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "mkn.r-eboss",
+       "type": "prepare",
+       "name": "eBOSS compliance (Engineering, BFP, CHO, CEMO)",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": "Check your compliance status on the E-BOSS portal: https://bplo.marikina.gov.ph/client"
+      },
+      {
+       "id": "mkn.r-financial-statement",
+       "type": "prepare",
+       "name": "Financial Statement / Quarterly VAT Returns / Monthly Percentage Tax (photocopies)",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      },
+      {
+       "id": "mkn.r-public-liability",
+       "type": "prepare",
+       "name": "Public liability insurance",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": "From any accredited insurance company (City Ordinance No. 32, Series of 2013)."
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-business-permit-renewal",
+       "type": "service",
+       "name": "Business permit renewal (BPLO)",
+       "channel": "in_person",
+       "office": "Business Permits and Licensing Office (BPLO)",
+       "address": "Ground Floor, Finance Bldg, Shoe Ave., Sta. Elena, Marikina City",
+       "fee": "Per the Revenue Code of Marikina City (assessed by BPLO)",
+       "time": "File 15 minutes, then pay 15 minutes",
+       "needs": [
+        "mkn.r-authorization-biz",
+        "mkn.r-eboss",
+        "mkn.r-financial-statement",
+        "mkn.r-public-liability"
+       ],
+       "url": null,
+       "note": "The charter lists 15 minutes per stage (file, pay) with no single total."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M12 Building permit",
+  "intent": "building-permit",
+  "answers": {
+   "city": "mkn"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-building-permit",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-bom-specs",
+       "type": "prepare",
+       "name": "Bill of materials and specifications",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "mkn.r-cshp",
+       "type": "prepare",
+       "name": "CSHP Certificate from DOLE",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      },
+      {
+       "id": "mkn.r-locational-clearance",
+       "type": "prepare",
+       "name": "Locational Clearance",
+       "office": "City Planning and Development Office (CPDO)",
+       "hint": null
+      },
+      {
+       "id": "mkn.r-other-clearances",
+       "type": "prepare",
+       "name": "Other government agency clearances, as required",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      },
+      {
+       "id": "mkn.r-property-docs",
+       "type": "prepare",
+       "name": "TCT, Tax Declaration, Tax Receipt",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      },
+      {
+       "id": "mkn.r-signed-plans",
+       "type": "prepare",
+       "name": "Signed and sealed construction plans (Architectural, Structural, Lot Plan, Electrical, Sanitary, Mechanical)",
+       "office": "Issuing agency or professional (outside the Marikina charters)",
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-building-permit",
+       "type": "service",
+       "name": "Building permit and other ancillary permits (OBO)",
+       "channel": "in_person",
+       "office": "Office of the Building Official (OBO)",
+       "address": null,
+       "fee": "Based on the Philippine Electrical Code, Mechanical Code and National Building Code",
+       "time": "1 day and 3 hours",
+       "needs": [
+        "mkn.r-bom-specs",
+        "mkn.r-cshp",
+        "mkn.r-locational-clearance",
+        "mkn.r-other-clearances",
+        "mkn.r-property-docs",
+        "mkn.r-signed-plans"
+       ],
+       "url": null,
+       "note": "Classified Highly Technical in the 2024 charter. Walk-in only in the sources read."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "M13 Unknown intent in Marikina -> not covered, City Hall named",
+  "intent": "unknown-thing",
+  "answers": {
+   "city": "mkn"
+  },
+  "patch": null,
+  "expected": {
+   "status": "not_covered",
+   "message": "Not covered",
+   "office": "Marikina City Hall"
+  }
+ },
+ {
+  "name": "X1 Same intent resolves to each city's own service (QC)",
+  "intent": "pwd-id-application",
+  "answers": {
+   "city": "qc",
+   "channel": "in_person",
+   "qc.disability_type": "apparent",
+   "qc.has_gov_id": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "qc.s-pwd-id",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "qc.r-id-photo-2x2",
+       "type": "prepare",
+       "name": "2x2 ID photo (and signature)",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "qc.r-whole-body-photo",
+       "type": "prepare",
+       "name": "Whole-body photo showing the disability",
+       "office": null,
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "qc.s-pwd-id",
+       "type": "service",
+       "name": "PWD ID application (QCitizen PWD ID)",
+       "channel": "in_person",
+       "office": "Persons with Disability Affairs Office (PDAO)",
+       "address": "Ground Floor, Community Center Building, Gate 3, Kalayaan Ave., QC Hall Compound",
+       "fee": "none",
+       "time": "40 minutes",
+       "needs": [
+        "qc.r-id-photo-2x2",
+        "qc.r-whole-body-photo"
+       ],
+       "url": null,
+       "note": null
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "X2 Same intent resolves to each city's own service (Marikina)",
+  "intent": "pwd-id-application",
+  "answers": {
+   "city": "mkn",
+   "mkn.has_gov_id": "yes",
+   "mkn.has_med_cert": "yes"
+  },
+  "patch": null,
+  "expected": {
+   "status": "ok",
+   "goal": "mkn.s-pwd-id",
+   "groups": [
+    {
+     "group": 1,
+     "any_order": true,
+     "steps": [
+      {
+       "id": "mkn.r-photo-1x1",
+       "type": "prepare",
+       "name": "1x1 ID picture",
+       "office": null,
+       "hint": null
+      },
+      {
+       "id": "mkn.r-whole-body-photo",
+       "type": "prepare",
+       "name": "Whole-body picture",
+       "office": null,
+       "hint": null
+      }
+     ]
+    },
+    {
+     "group": 2,
+     "any_order": false,
+     "steps": [
+      {
+       "id": "mkn.s-pwd-id",
+       "type": "service",
+       "name": "PWD ID (PDAO)",
+       "channel": "in_person",
+       "office": "Persons with Disability Affairs Office (PDAO), under CSWDO",
+       "address": null,
+       "fee": "none",
+       "time": "16 minutes",
+       "needs": [
+        "mkn.r-photo-1x1",
+        "mkn.r-whole-body-photo"
+       ],
+       "url": null,
+       "note": "Walk-in only in the sources read. The 2022 omnibus charter gives a different total (11 minutes and 10 seconds); the 2024 charter is used."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "name": "X3 Unknown city -> not covered",
+  "intent": "pwd-id-application",
+  "answers": {
+   "city": "cebu"
+  },
+  "patch": null,
+  "expected": {
+   "status": "not_covered",
+   "message": "City not covered",
+   "office": null
+  }
+ },
+ {
+  "name": "X4 No city answered -> not covered",
+  "intent": "pwd-id-application",
+  "answers": {},
+  "patch": null,
+  "expected": {
+   "status": "not_covered",
+   "message": "City not covered",
+   "office": null
+  }
+ },
+ {
+  "name": "X5 Intent exists but not in this city -> not covered, City Hall named",
+  "intent": "senior-citizen-id",
+  "answers": {
+   "city": "mkn",
+   "is_representative": "no"
+  },
+  "patch": {
+   "remove_service_by_city": [
+    "senior-citizen-id",
+    "mkn"
+   ]
+  },
+  "expected": {
+   "status": "not_covered",
+   "message": "Not covered in Marikina City",
+   "office": "Marikina City Hall"
+  }
+ }
+]

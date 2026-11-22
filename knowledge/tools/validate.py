@@ -87,10 +87,11 @@ def qa(city, **kw):
     d = {'city': city}
     for k, v in kw.items(): d[k if k in SHARED_Q else f'{city}.{k}'] = v
     return d
-T = []
-def test(name, intent, ans, check, graph=None):
+T = []; CASES = []
+def test(name, intent, ans, check, graph=None, patch=None):
     gg = graph or g
     rm = roadmap(gg, intent, ans)
+    CASES.append(dict(name=name, intent=intent, answers=ans, patch=patch, expected=rm))
     again = roadmap(gg, intent, dict(reversed(list(ans.items()))))
     ok = True; why = ''
     if json.dumps(rm, sort_keys=True) != json.dumps(again, sort_keys=True): ok = False; why = 'not deterministic'
@@ -166,7 +167,8 @@ test('X3 Unknown city -> not covered', 'pwd-id-application', {'city': 'cebu'}, l
 test('X4 No city answered -> not covered', 'pwd-id-application', {}, lambda r: r['status'] == 'not_covered')
 g2 = copy.deepcopy(g); del g2['intents']['senior-citizen-id']['service_by_city']['mkn']
 test('X5 Intent exists but not in this city -> not covered, City Hall named', 'senior-citizen-id', qa('mkn', is_representative='no'),
-     lambda r: r['status'] == 'not_covered' and 'Marikina' in r['message'] and r['office'] == 'Marikina City Hall' or r, graph=g2)
+     lambda r: r['status'] == 'not_covered' and 'Marikina' in r['message'] and r['office'] == 'Marikina City Hall' or r, graph=g2,
+     patch={'remove_service_by_city': ['senior-citizen-id', 'mkn']})
 
 lines.append('== ROADMAP TESTS ==')
 for n, ok, why, rm in T: lines.append(('PASS ' if ok else 'FAIL ') + n + ('' if ok else '  -> ' + why))
@@ -186,6 +188,8 @@ if os.path.exists(bpath):
 else: W('no QC baseline file found; regression check skipped')
 
 json.dump({n: rm for n, ok, why, rm in T}, open(os.path.join(ROOT, 'phase0', 'test_roadmaps.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+# Inputs + expected outputs for the TypeScript engine parity tests (test/engine.parity.test.ts)
+json.dump(CASES, open(os.path.join(ROOT, 'phase0', 'test_cases.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 per = {c: sum(1 for s in g['services'] if city_of(s) == c) for c in CITIES}
 lines.append(f'== SUMMARY == errors={len(errs)} warnings={len(warns)} evidence={len(g["evidence"])} services={len(g["services"])} {per} intents={len(g["intents"])} tests={len(T)} passed={sum(1 for t in T if t[1])}')
 for m in errs: lines.append('ERROR ' + m)

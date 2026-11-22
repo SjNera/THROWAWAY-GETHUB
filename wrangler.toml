@@ -1,0 +1,8 @@
+# Cloudflare Worker: serves the API (and, later, the web UI's static files).
+name = "gabai"
+main = "src/worker/index.ts"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Secrets are NOT set here. Locally they come from .dev.vars;
+# deployed, set them with: npx wrangler secret put GROQ_API_KEY
