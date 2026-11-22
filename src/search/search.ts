@@ -13,8 +13,8 @@ export interface Hit {
 }
 
 export interface SearchOptions {
-  /** Only passages from this city. */
-  city: string;
+  /** Only passages from this city (all cities when not given yet). */
+  city?: string;
   /** Boost passages about these services (the current journey). */
   services?: string[];
   limit?: number;
@@ -50,7 +50,7 @@ export function search(question: string, opts: SearchOptions): Hit[] {
     prefix: (term) => term.length >= 5,
     fuzzy: (term) => (term.length >= 6 ? 0.2 : false),
     combineWith: "OR",
-    filter: (r) => byId.get(String(r.id))?.city === opts.city,
+    filter: opts.city ? (r) => byId.get(String(r.id))?.city === opts.city : undefined,
     boostDocument: (id) => {
       const p = byId.get(String(id));
       if (!p) return 1;

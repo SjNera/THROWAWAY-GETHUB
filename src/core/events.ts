@@ -18,6 +18,8 @@ export const StateSchema = z.object({
   current: z.number().int().positive().nullable(),
   /** Step numbers the person marked done. */
   done: z.array(z.number().int().positive()).max(100),
+  /** A service the AI guessed from free text, waiting for the person to confirm (with their original words). */
+  suggest: z.object({ intent: z.string().max(100), text: z.string().max(1000) }).nullable().default(null),
 });
 export type State = z.infer<typeof StateSchema>;
 
@@ -71,5 +73,5 @@ export interface TurnResult {
 }
 
 export function initialState(lang: z.infer<typeof LangSchema> = "en"): State {
-  return { v: 1, lang, intent: null, answers: {}, pending: null, current: null, done: [] };
+  return { v: 1, lang, intent: null, answers: {}, pending: null, current: null, done: [], suggest: null };
 }

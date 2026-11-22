@@ -3,8 +3,16 @@
 import { normalize } from "./city";
 import type { Graph } from "./graph";
 
-/** Words that don't tell services apart. */
-const STOP = new Set(["id", "a", "an", "the", "of", "for", "to", "my", "i", "need", "want", "apply", "get", "ng", "sa", "ang", "po", "ko", "kailangan", "card", "how", "do", "paano"]);
+/** Words that don't tell services apart (English and Filipino function words, and generic service words). */
+const STOP = new Set(
+  (
+    "id a an the of for to my i me we our you your need want apply get getting how do does can could is are " +
+    "it this that with and or in on at by from please card permit " +
+    "ng sa ang po ko mo ka ako akin kami tayo siya niya nila kanila ni si sina mga na at ay ba para pang " +
+    "kailangan gusto paano pwede puwede ito iyan yan yun iyon kung din rin lang naman may mayroon meron " +
+    "kumuha kukuha makakuha bilang"
+  ).split(" "),
+);
 
 const words = (s: string) => normalize(s).split(" ").filter(Boolean);
 

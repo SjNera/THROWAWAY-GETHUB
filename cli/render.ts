@@ -65,7 +65,7 @@ export function makeRenderer(opts: RenderOptions) {
     cs.length
       ? [
           c("dim", `${tr("label_sources")}:`),
-          ...cs.map((x) => c("dim", `  [${x.id}] ${x.source}, ${tr("label_page", { n: String(x.page) })}${x.status === "needs_review" ? ` ${tr("to_review")}` : ""}`)),
+          ...cs.map((x, i) => c("dim", `  [${i + 1}] ${x.source}, ${tr("label_page", { n: String(x.page) })}${x.status === "needs_review" ? ` ${tr("to_review")}` : ""}`)),
         ]
       : [];
 

@@ -51,6 +51,19 @@ const TEXT = {
   action_restart: { en: "Start over", fil: "Magsimula ulit" },
   action_show_roadmap: { en: "View roadmap", fil: "Tingnan ang roadmap" },
   action_quit: { en: "Quit", fil: "Lumabas" },
+  suggest_intent: { en: "Sounds like {name}. Is that right?", fil: "Mukhang {name} ito. Tama ba?" },
+  ask_not_found: {
+    en: "I couldn't find that in the city's charters. Please ask {office}.",
+    fil: "Hindi ko ito nakita sa mga charter ng lungsod. Magtanong sa {office}.",
+  },
+  ask_not_found_generic: {
+    en: "I couldn't find that in the city's charters. Please confirm with the city office.",
+    fil: "Hindi ko ito nakita sa mga charter ng lungsod. Kumpirmahin sa opisina ng lungsod.",
+  },
+  ask_error: {
+    en: "I can't answer questions right now. The steps still work.",
+    fil: "Hindi ako makasagot ng tanong ngayon. Gumagana pa rin ang mga hakbang.",
+  },
 
   // Fixed values the engine produces in English (kept English there for parity with engine.py)
   not_listed: { en: "Not listed — confirm with the office", fil: "Hindi nakalista — kumpirmahin sa opisina" },

@@ -2,13 +2,17 @@
 // and prints the events. Usage:
 //   npm run chat              English
 //   npm run chat -- --fil     Filipino
+//   npm run chat -- --offline no AI helper, even if .dev.vars has a Groq key
 // Typed text goes to the brain as-is. Commands: /help (text lives in src/core/i18n.ts, cli_help).
 import { createInterface } from "node:readline/promises";
 import { turn, type TurnDeps } from "../src/core/conversation";
 import { initialState, type Event, type Input, type State } from "../src/core/events";
 import { t } from "../src/core/i18n";
+import { makeModels } from "../src/llm/client";
+import { makeTurnDeps } from "../src/llm/deps";
+import { groqGenerate } from "../src/llm/generate";
+import { loadDevVars } from "./env";
 import { makeRenderer } from "./render";
-
 
 const args = process.argv.slice(2);
 const interactive = Boolean(process.stdin.isTTY);
@@ -18,8 +22,16 @@ const { render, message, progress } = makeRenderer({
   lang: () => state.lang,
 });
 
-// Milestone 2 adds the AI helper here (guessIntent, ask).
-const deps: TurnDeps = {};
+// AI helper: on when .dev.vars has a Groq key (via AI Gateway if configured), unless --offline.
+const models = args.includes("--offline") ? null : makeModels(loadDevVars());
+const deps: TurnDeps = models
+  ? makeTurnDeps(groqGenerate(models), {
+      onError: (where, err) => {
+        if (process.env.DEBUG) console.error(`[ai:${where}]`, err);
+      },
+    })
+  : {};
+const aiStatus = models ? `AI: on (${models.route})` : "AI: off";
 
 let state: State = initialState(args.includes("--fil") ? "fil" : "en");
 
@@ -86,13 +98,16 @@ function print(events: Event[], input: Input) {
 }
 
 async function send(input: Input) {
+  // A typed line may go to the AI helper; show that something is happening.
+  if (interactive && models && input.type === "text") process.stdout.write(" …\r");
   const r = await turn(state, input, deps);
+  if (interactive && models && input.type === "text") process.stdout.write("  \r");
   state = r.state;
   print(r.events, input);
 }
 
 async function main() {
-  console.log(`\n${message(t("cli_banner", state.lang))}\n`);
+  console.log(`\n${message(`${t("cli_banner", state.lang)}   ${aiStatus}`)}\n`);
   await send({ type: "start" });
 
   const rl = createInterface({ input: process.stdin, output: process.stdout, terminal: interactive });

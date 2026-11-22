@@ -169,12 +169,62 @@ describe("service from typed text", () => {
     ["magparehistro bilang PWD", "pwd-id-application"],
   ])("%s → %s", (text, intent) => expect(matchIntent(g, text)).toBe(intent));
 
-  it.each(["permit", "birth", "hello"])("%s → unsure (null)", (text) => expect(matchIntent(g, text)).toBeNull());
+  it.each([
+    "permit",
+    "birth",
+    "hello",
+    // Filipino filler words must not decide the service ("para" is in a building-permit alias)
+    "kailangan ng lola ko ng ID para sa discount",
+    "para sa akin po ito",
+    "pwede bang kumuha ng ID",
+  ])("%s → unsure (null)", (text) => expect(matchIntent(g, text)).toBeNull());
 
-  it("unsure → asks the AI helper when available", async () => {
+  it.each([
+    ["permit para magpatayo ng bahay", "building-permit"],
+    ["ID ng senior para sa lola ko", "senior-citizen-id"],
+    ["kopya ng birth certificate ko po", "birth-certificate-copy"],
+  ])("Filipino: %s → %s", (text, intent) => expect(matchIntent(g, text)).toBe(intent));
+
+  describe("AI guess is confirmed before the journey starts", () => {
     const deps: TurnDeps = { guessIntent: async () => "senior-citizen-id" };
-    const { state } = await run([{ type: "text", text: "my lola needs an ID for discounts" }], deps);
-    expect(state.intent).toBe("senior-citizen-id");
+    const guess = () => run([{ type: "text", text: "my lola in marikina needs an ID for discounts" }], deps);
+
+    it("asks 'Sounds like … Is that right?' and doesn't start yet", async () => {
+      const { state, events } = await guess();
+      expect(state).toMatchObject({ intent: null, pending: "confirm_intent", suggest: { intent: "senior-citizen-id" } });
+      expect(find(events, "question")!.question).toMatchObject({ text: "Sounds like Senior citizen ID. Is that right?", input: "choice" });
+    });
+
+    it.each(["yes", "oo", "1"])("%j → starts the journey, keeping the city from the first message", async (yes) => {
+      const { state: s } = await guess();
+      const { state, events } = await turn(s, { type: "text", text: yes }, deps);
+      expect(state).toMatchObject({ intent: "senior-citizen-id", answers: { city: "mkn" }, suggest: null });
+      expect(messages(events)).toContain("Got it — Marikina City.");
+    });
+
+    it("'no' → back to the service list", async () => {
+      const { state: s } = await guess();
+      const { state, events } = await turn(s, { type: "answer", key: "confirm_intent", value: "no" }, deps);
+      expect(state).toMatchObject({ intent: null, pending: null, suggest: null });
+      expect(find(events, "choices")).toBeTruthy();
+    });
+
+    it("typing something else instead → treated as a new request", async () => {
+      const { state: s } = await guess();
+      const { state } = await turn(s, { type: "text", text: "building permit" }, deps);
+      expect(state).toMatchObject({ intent: "building-permit", suggest: null });
+    });
+
+    it("Filipino wording", async () => {
+      const { events } = await run([{ type: "text", text: "kailangan ng lola ko ng ID" }], deps, initialState("fil"));
+      expect(find(events, "question")!.question.text).toBe("Mukhang ID ng senior ito. Tama ba?");
+    });
+
+    it("a guess that isn't a real service is ignored", async () => {
+      const { state, events } = await run([{ type: "text", text: "something odd" }], { guessIntent: async () => "made-up" });
+      expect(state.pending).toBeNull();
+      expect(find(events, "choices")).toBeTruthy();
+    });
   });
 
   it("unsure and no AI → shows the choices", async () => {

@@ -12,9 +12,13 @@
     "dev": "wrangler dev",
     "kb:build": "cd knowledge && python -I tools/build_phase0.py && python -I tools/validate.py && python -I tools/build_reference.py && cd .. && npm run search:build",
     "search:build": "tsx scripts/build-search-index.ts",
-    "search": "tsx scripts/search.ts"
+    "search": "tsx scripts/search.ts",
+    "ai:ping": "tsx scripts/ping-ai.ts",
+    "eval": "tsx scripts/eval.ts"
   },
   "dependencies": {
+    "@ai-sdk/groq": "^4.0.86",
+    "ai": "^7.0.179",
     "minisearch": "^7.2.0",
     "zod": "^4.6.7"
   },

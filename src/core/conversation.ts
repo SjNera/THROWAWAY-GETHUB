@@ -7,7 +7,7 @@ import { findCityInText, matchCity, normalize } from "./city";
 import { roadmap } from "./engine";
 import { initialState, type Action, type Choice, type Event, type Input, type NotCoveredReason, type State, type TurnResult } from "./events";
 import { graph as defaultGraph, type Graph } from "./graph";
-import { t, type Lang } from "./i18n";
+import { optionLabel, t, type Lang } from "./i18n";
 import { matchIntent } from "./intent";
 import { nextQuestionKey, questionView, type QuestionView } from "./questions";
 import { buildRoadmapView, intentLabel, type Citation, type RoadmapView, type StepCard } from "./view";
@@ -33,6 +33,9 @@ const SYNONYMS: Record<string, string[]> = {
   online: ["online", "on line", "internet", "website", "web"],
   in_person: ["in person", "walk in", "walkin", "personal", "face to face", "f2f", "personally"],
 };
+
+/** Pending-question key while an AI service guess waits for a yes/no. */
+export const CONFIRM_INTENT = "confirm_intent";
 
 /** Typed phrases that mean "start over", in English and Filipino (matched on the whole message). */
 const RESTART_PHRASES = new Set([
@@ -67,7 +70,17 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     say(t("ask_service", lang()));
     out.push({ type: "choices", items: choices() });
   };
-  const showQuestion = (key: string) => out.push({ type: "question", question: questionView(g, key, lang()) });
+  /** The question for a pending key, including the AI-guess confirmation. */
+  const questionFor = (key: string): QuestionView =>
+    key === CONFIRM_INTENT
+      ? {
+          key,
+          text: t("suggest_intent", lang(), { name: intentLabel(g, s.suggest?.intent ?? "", lang()) }),
+          input: "choice",
+          options: ["yes", "no"].map((value) => ({ value, label: optionLabel(value, lang()) })),
+        }
+      : questionView(g, key, lang());
+  const showQuestion = (key: string) => out.push({ type: "question", question: questionFor(key) });
 
   /** The roadmap view, if the journey has reached it. */
   const view = (): RoadmapView | null => {
@@ -154,7 +167,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       out.push({ type: "choices", items: choices() });
       return;
     }
-    Object.assign(s, { intent, answers: {}, pending: null, current: null, done: [] });
+    Object.assign(s, { intent, answers: {}, pending: null, current: null, done: [], suggest: null });
     say(t("got_service", lang(), { name: intentLabel(g, intent, lang()) }));
     // "PWD ID in Marikina" — the city is already in the sentence.
     const m = text ? findCityInText(text, g) : null;
@@ -175,6 +188,20 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       if (s.pending) showQuestion(s.pending);
       return;
     }
+    if (key === CONFIRM_INTENT) {
+      const yes = parseChoice(value, questionFor(key));
+      if (!yes) {
+        say(t("pick_option", lang()));
+        return showQuestion(key);
+      }
+      const sug = s.suggest;
+      s.suggest = null;
+      s.pending = null;
+      if (yes === "yes" && sug) return startJourney(sug.intent, sug.text);
+      say(t("service_unknown", lang()));
+      out.push({ type: "choices", items: choices() });
+      return;
+    }
     if (key === "city") {
       if (takeCity(value)) {
         s.pending = null;
@@ -182,7 +209,7 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
       }
       return;
     }
-    const q = questionView(g, key, lang());
+    const q = questionFor(key);
     const v = q.options.some((o) => o.value === value) ? value : parseChoice(value, q);
     if (!v) {
       say(t("pick_option", lang()));
@@ -211,6 +238,21 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
     }
     // Then return to where the journey was.
     if (s.pending) showQuestion(s.pending);
+  };
+
+  /** Typed text before a journey: tile number, a service name, or (if unsure) the AI guess to confirm. */
+  const serviceFromText = async (text: string) => {
+    const keys = Object.keys(g.intents);
+    const sure = (/^\d+$/.test(text) ? keys[Number(text) - 1] : undefined) ?? matchIntent(g, text);
+    if (sure) return startJourney(sure, text);
+    const guess = deps.guessIntent ? await deps.guessIntent(text, { lang: lang(), choices: choices() }) : null;
+    if (guess && g.intents[guess]) {
+      s.suggest = { intent: guess, text: text.slice(0, 1000) };
+      s.pending = CONFIRM_INTENT;
+      return showQuestion(CONFIRM_INTENT);
+    }
+    say(t("service_unknown", lang()));
+    out.push({ type: "choices", items: choices() });
   };
 
   /** Show where the journey currently is (after a language switch or a re-start). */
@@ -258,25 +300,26 @@ export async function turn(state: State, input: Input, deps: TurnDeps = {}, g: G
         break;
       }
       // "start over" works anywhere except while an option question is open (so answers are never mistaken for it).
-      if (isRestartText(text) && (s.pending === null || s.pending === "city")) {
+      if (isRestartText(text) && (s.pending === null || s.pending === "city" || s.pending === CONFIRM_INTENT)) {
         Object.assign(s, initialState(lang()));
         say(t("greeting", lang()));
         showChoices();
       } else if (s.pending === "city") {
         answer("city", text);
+      } else if (s.pending === CONFIRM_INTENT) {
+        // yes / no to the guess; anything else is a new request
+        if (parseChoice(text, questionFor(CONFIRM_INTENT))) answer(CONFIRM_INTENT, text);
+        else {
+          s.pending = null;
+          s.suggest = null;
+          await serviceFromText(text);
+        }
       } else if (s.pending) {
-        const v = parseChoice(text, questionView(g, s.pending, lang()));
+        const v = parseChoice(text, questionFor(s.pending));
         if (v) answer(s.pending, v);
         else await ask(text); // not an option: treat it as a question, then re-ask
       } else if (!s.intent) {
-        const keys = Object.keys(g.intents);
-        const byNumber = /^\d+$/.test(text) ? keys[Number(text) - 1] : undefined;
-        const intent = byNumber ?? matchIntent(g, text) ?? (deps.guessIntent ? await deps.guessIntent(text, { lang: lang(), choices: choices() }) : null);
-        if (intent) startJourney(intent, text);
-        else {
-          say(t("service_unknown", lang()));
-          out.push({ type: "choices", items: choices() });
-        }
+        await serviceFromText(text);
       } else if (ended() && matchIntent(g, text)) {
         // Journey finished: a new service name starts a new journey.
         startJourney(matchIntent(g, text)!, text);
