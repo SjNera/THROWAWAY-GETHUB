@@ -197,16 +197,21 @@ THROWAWAY-GETHUB/
 
 ## 8. Build plan
 
-### Milestone 1: offline terminal chat (no AI, no keys, no cost)
+### Milestone 1: offline terminal chat (no AI, no keys, no cost) — ✅ done 2026-11-22
 
-| Step | Build | Done when |
-|---|---|---|
-| 1 | Project setup: package.json, TypeScript, Vitest, wrangler.toml, folder layout | `npm test` runs |
-| 2 | Port the engine to `engine.ts` | All 27 journeys in `test_roadmaps.json` match exactly |
-| 3 | City matching + question picker | Typed city: covered names, aliases and typos match; uncovered real cities give "&lt;City&gt; will be covered soon."; non-places are asked again. Each journey then asks only the questions that change its roadmap |
-| 4 | Step view | Step output has: name, channel, office, address, what to bring, fee, time, link |
-| 5 | Conversation brain `turn()` | Tests walk full journeys through events, start to finish |
-| 6 | Terminal chat `npm run chat` | A person can go service → questions → roadmap → each step |
+| Step | Build | Done when | Status |
+|---|---|---|---|
+| 1 | Project setup: package.json, TypeScript, Vitest, wrangler.toml, folder layout | `npm test` runs | ✅ |
+| 2 | Port the engine to `engine.ts` | All 27 journeys in `test_roadmaps.json` match exactly | ✅ 27/27, strict equality (`validate.py` now also writes `test_cases.json`) |
+| 3 | City matching + question picker | Typed city: covered names, aliases and typos match; uncovered real cities give "&lt;City&gt; will be covered soon."; non-places are asked again. Each journey then asks only the questions that change its roadmap | ✅ Property-tested on every service × city |
+| 4 | Step view | Step output has: name, channel, office, address, what to bring, fee, time, link | ✅ Plus how-to steps and page citations |
+| 5 | Conversation brain `turn()` | Tests walk full journeys through events, start to finish | ✅ |
+| 6 | Terminal chat `npm run chat` | A person can go service → questions → roadmap → each step | ✅ 153 tests pass in total |
+
+Notes from Milestone 1:
+- The graph already has Tagalog text for questions (`text_tl`) and service names (`aliases_tl`), so step 10 starts with those.
+- Each variant's evidence links in the graph lack the city prefix (`svc:s-pwd-id:…`); `view.ts` resolves both forms. Fix at the source when the Python data is next edited.
+- npm 12 blocks package install scripts by default; `workerd` and `esbuild` are approved in `package.json` (`allowScripts`).
 
 ### Milestone 2: AI and API
 
